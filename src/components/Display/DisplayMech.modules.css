@@ -1,0 +1,40 @@
+#display-mech {
+  margin-left: 30px;
+}
+
+#display-mech h2 {
+  color: #ffc404;
+}
+
+table {
+  padding: 3px;
+}
+
+td {
+  padding: 2px;
+}
+
+#armor-table tr td:first-child {
+  text-align: left;
+}
+
+#armor-table td {
+  text-align: center;
+}
+
+#armor-table th {
+  font-style: italic;
+}
+
+#equipment-table tr td:first-child {
+  text-align: left;
+}
+
+#equipment-table td {
+  text-align: center;
+}
+
+.substract-tons {
+  text-align: right;
+  margin-left: 20px;
+}

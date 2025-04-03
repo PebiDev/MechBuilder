@@ -1,0 +1,75 @@
+.createForm {
+  padding: 5px;
+}
+
+.mechForm {
+  padding: 5px 0px;
+}
+
+.createForm p {
+  display: flex;
+}
+
+.mechForm label {
+  padding: 1px;
+  margin: 5px;
+}
+
+.mechForm input {
+  padding: 3px;
+  margin-bottom: 12px;
+}
+
+#mechTonnage {
+  padding: 3px;
+}
+
+select {
+  padding: 3px;
+  text-align: center;
+}
+
+.remaining-tons {
+  color: yellow;
+  font-weight: bold;
+  font-size: large;
+  padding: 5px;
+  display: flex;
+}
+#tons-remaining {
+  color: orange;
+  margin: auto;
+  padding: 0px 5px;
+}
+
+.remaining-tons .overweight {
+  color: red;
+}
+
+.substract-tons {
+  text-align: right;
+  color: orange;
+  margin-left: auto;
+  padding-left: 10px;
+}
+
+div {
+  margin-top: 10px;
+}
+
+.slider {
+  appearance: none;
+  outline: none;
+  height: 15px;
+  background: #d3d3d3;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 17px; /* Set a specific slider handle width */
+  height: 19px; /* Slider handle height */
+  background: #ffc404; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+  border: 1px solid black;
+}
