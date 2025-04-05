@@ -35,7 +35,7 @@ const initialMechState = {
       loc5: "Sensors",
       loc6: "Life Support",
     },
-    ctorso: { freeSlots: 2 },
+    ctorso: { freeSlots: 2, loc1: "", loc2: "" },
     rtorso: { freeSlots: 12 },
     ltorso: { freeSlots: 12 },
     rarm: { freeSlots: 8 },
@@ -201,7 +201,6 @@ const mechSlice = createSlice({
     },
     internalHeatsinks(state) {
       let newMech = deepCopy(state);
-      console.log(`reactor: ${JSON.stringify(newMech.reactor)}`);
 
       const internalHeatsinks = Math.floor(newMech.reactor.reactorValue / 25);
       newMech.criticalSlots =

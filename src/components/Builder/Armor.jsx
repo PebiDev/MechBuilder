@@ -87,10 +87,11 @@ const Armor = () => {
               id="armor-select"
               name="armor-select"
               onChange={armorSelectHandler}
+              value={mech.armor.armorfactor}
             >
               {armorOptionsStandard.map((armorEntry, index) => {
                 return (
-                  <option key={armorEntry.tons}>
+                  <option key={armorEntry.tons} value={armorEntry.value}>
                     {armorEntry.value} (tons: {armorEntry.tons})
                   </option>
                 );

@@ -32,7 +32,30 @@ const InstallEquipment = () => {
       unInstalledEquipment.push(gearItem);
     }
   });
-  console.log(unInstalledEquipment);
+  //console.log(unInstalledEquipment);
+  let zonesWithFreeSlots = [];
+
+  let freeCritSlots = 0;
+  for (const [zones, hitLocation] of Object.entries(mech.zones)) {
+    let hitZone = { zone: zones, freeLocs: null };
+    for (const [key, value] of Object.entries(hitLocation)) {
+      if (key == "freeSlots") {
+        freeCritSlots += value;
+        console.log(JSON.stringify(value));
+      }
+      if (value == "") {
+        hitZone.freeLocs = key;
+        //zonesWithFreeSlots.push({ zones: key });
+        zonesWithFreeSlots.push(hitZone);
+      }
+      //console.log(`${JSON.stringify(key1)} ${JSON.stringify(val1)}`);
+    }
+
+    //console.log(`${JSON.stringify(key)} ${JSON.stringify(value)}`);
+    //console.log(`${JSON.stringify(key)}`);
+  }
+  console.log(freeCritSlots);
+  console.log(JSON.stringify(zonesWithFreeSlots));
 
   const handleLocation = () => {
     log.console("hi");
