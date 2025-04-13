@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
+import { uiActions } from "../../store/ui-slice";
 
 const InstallEquipment = () => {
   const dispatch = useDispatch();
@@ -32,33 +33,34 @@ const InstallEquipment = () => {
       unInstalledEquipment.push(gearItem);
     }
   });
-  //console.log(unInstalledEquipment);
+
   let zonesWithFreeSlots = [];
-
   let freeCritSlots = 0;
+
   for (const [zones, hitLocation] of Object.entries(mech.zones)) {
-    let hitZone = { zone: zones, freeLocs: null };
+    let hitZone = { zone: zones, freeLocs: [] };
     for (const [key, value] of Object.entries(hitLocation)) {
-      if (key == "freeSlots") {
+      if (key == "freeSlots" && value > 0) {
         freeCritSlots += value;
-        console.log(JSON.stringify(value));
+        //console.log(JSON.stringify(value));
+        zonesWithFreeSlots.push(zones);
       }
-      if (value == "") {
-        hitZone.freeLocs = key;
-        //zonesWithFreeSlots.push({ zones: key });
-        zonesWithFreeSlots.push(hitZone);
-      }
-      //console.log(`${JSON.stringify(key1)} ${JSON.stringify(val1)}`);
     }
-
-    //console.log(`${JSON.stringify(key)} ${JSON.stringify(value)}`);
-    //console.log(`${JSON.stringify(key)}`);
   }
-  console.log(freeCritSlots);
-  console.log(JSON.stringify(zonesWithFreeSlots));
 
-  const handleLocation = () => {
-    log.console("hi");
+  //console.log(JSON.stringify(zonesWithFreeSlots));
+
+  const handleZoneSelect = (event) => {
+    const equipId = event.target.id;
+    const equipToZone = event.target.value;
+    // console.log(equipToZone);
+
+    dispatch(
+      mechActions.InstallEquipment({
+        id: equipId,
+        zone: equipToZone,
+      })
+    );
   };
   return (
     <div id="install-equipment">
@@ -81,7 +83,22 @@ const InstallEquipment = () => {
                 return (
                   <tr key={equipment.id}>
                     <td>{equipment.name}</td>
-                    <td>{equipment.location}</td>
+                    <td>
+                      <select
+                        id={equipment.id}
+                        name={equipment.id}
+                        onChange={handleZoneSelect}
+                      >
+                        <option default>n/a</option>
+                        {zonesWithFreeSlots.map((zone) => {
+                          return (
+                            <option key={zone} value={zone}>
+                              {zone}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </td>
                     <td>{equipment.critical}</td>
                     <td>{equipment.tons}</td>
                   </tr>

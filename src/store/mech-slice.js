@@ -3,6 +3,7 @@ import internalStructure from "../data/internalStructure";
 import reactorValues from "../data/reactorValues";
 
 import testArmorDist from "../util/testArmorDist";
+import InstallEquipment from "../components/Builder/InstallEquipment";
 
 const initialMechState = {
   id: "",
@@ -371,19 +372,14 @@ const mechSlice = createSlice({
         newMech.armor.armorweight = 0;
       }
 
-      //console.log(`Add Armor: Input: ${action.payload}`);
-
       newMech.armor.armorfactor = Number(action.payload);
-      //console.log(JSON.stringify(newMech.armor.armorfactor));
 
       newMech.armor.armortype = "standard";
       newMech.armor.armorweight =
         Math.ceil(newMech.armor.armorfactor / 8) * 0.5;
 
       newMech = mechSlice.caseReducers.stripArmor(newMech);
-
       newMech.remainingTons = newMech.remainingTons - newMech.armor.armorweight;
-      //console.log(JSON.stringify(newMech));
 
       return newMech;
     },
@@ -461,6 +457,26 @@ const mechSlice = createSlice({
       };
 
       return newMech;
+    },
+    InstallEquipment(state, action) {
+      let newMech = deepCopy(state);
+      const equipId = action.payload.id;
+      const equipZone = action.payload.zone;
+
+      for (const [key, value] of Object.entries(newMech.equipment)) {
+        //console.log(`key: ${key} value: ${value}`);
+        value.map((equip, index) => {
+          if (equipId === equip.id) {
+            newMech.equipment[key][index].location = equipZone;
+
+            //console.log(newMech.equipment[key][index].location);
+          }
+        });
+        //console.log(`key: ${key} value: ${value}`);
+      }
+      return newMech;
+
+      //console.log(JSON.stringify(action.payload));
     },
     resetMechToInitialState(state) {
       let newMech = deepCopy(initialMechState);
