@@ -13,8 +13,6 @@ const DistributeArmor = ({ maxArmor }) => {
     dispatch(mechActions.testArmorDistribution(mech));
   };
 
-  console.log(maxArmor);
-
   const handleMaxArmor = () => {
     dispatch(
       mechActions.maxArmor({ tons: maxArmor.tons, value: maxArmor.value })

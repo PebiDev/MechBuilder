@@ -424,15 +424,12 @@ const mechSlice = createSlice({
     },
     maxArmor(state, action) {
       let newMech = deepCopy(state);
-      console.log(`MaxArmor: Input: ${action.payload}`);
       const maxArmor = action.payload.tons;
       if (newMech.armor.armorweight > 0) {
         newMech.remainingTons =
           newMech.remainingTons + newMech.armor.armorweight;
         newMech.armor.armorweight = 0;
       }
-
-      console.log(`max Armor: ${JSON.stringify(maxArmor)}`);
 
       newMech.armor.armorweight = maxArmor;
       newMech.remainingTons = newMech.remainingTons - newMech.armor.armorweight;
@@ -458,25 +455,45 @@ const mechSlice = createSlice({
 
       return newMech;
     },
+
     InstallEquipment(state, action) {
       let newMech = deepCopy(state);
       const equipId = action.payload.id;
       const equipZone = action.payload.zone;
 
-      for (const [key, value] of Object.entries(newMech.equipment)) {
-        //console.log(`key: ${key} value: ${value}`);
-        value.map((equip, index) => {
-          if (equipId === equip.id) {
-            newMech.equipment[key][index].location = equipZone;
+      const addEquipmentToZone = (item) => {
+        const slots = item.critical;
+        //console.log(JSON.stringify(newMech.zones[equipZone]));
+        const zoneValues = Object.values(newMech.zones[equipZone]);
+        const index = zoneValues.findIndex((loc) => {
+          return loc === "";
+        });
+        for (let i = 0; i < slots; i++) {
+          if (!zoneValues[index + i] === "") {
+            console.log("Component doesn't fit");
+            return;
+          }
+        }
+        for (let i = 0; i < slots; i++) {
+          let locNumber = Number(index + i);
+          let location = `loc` + locNumber;
+          newMech.zones[equipZone][location] = item.name;
+          newMech.zones[equipZone].freeSlots -= 1;
+        }
+      };
 
-            //console.log(newMech.equipment[key][index].location);
+      // change location for the equipment
+      for (const [equipmentType, equipments] of Object.entries(
+        newMech.equipment
+      )) {
+        equipments.map((equip, index) => {
+          if (equipId === equip.id) {
+            addEquipmentToZone(newMech.equipment[equipmentType][index]);
+            newMech.equipment[equipmentType][index].location = equipZone;
           }
         });
-        //console.log(`key: ${key} value: ${value}`);
       }
       return newMech;
-
-      //console.log(JSON.stringify(action.payload));
     },
     resetMechToInitialState(state) {
       let newMech = deepCopy(initialMechState);
