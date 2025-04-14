@@ -7,6 +7,7 @@ const InstallEquipment = () => {
   const mech = useSelector((state) => state.mech);
 
   const unInstalledEquipment = [];
+  const unInstalledWeapons = [];
 
   mech.equipment.heatsinks.map((heatsink) => {
     if (heatsink.location == "n/a") {
@@ -21,6 +22,7 @@ const InstallEquipment = () => {
   mech.equipment.weapons.map((weapon) => {
     if (weapon.location == "n/a") {
       unInstalledEquipment.push(weapon);
+      unInstalledWeapons.push(weapon);
     }
   });
   mech.equipment.ammo.map((ammoItem) => {
@@ -34,26 +36,25 @@ const InstallEquipment = () => {
     }
   });
 
-  let zonesWithFreeSlots = [];
-  let freeCritSlots = 0;
+  // let freeCritSlots = 0;
 
-  for (const [zones, hitLocation] of Object.entries(mech.zones)) {
-    let hitZone = { zone: zones, freeLocs: [] };
-    for (const [key, value] of Object.entries(hitLocation)) {
-      if (key == "freeSlots" && value > 0) {
-        freeCritSlots += value;
-        //console.log(JSON.stringify(value));
-        zonesWithFreeSlots.push(zones);
+  const getZonesWithFreeSlots = (criticalSlots) => {
+    const zonesWithFreeSlots = [];
+    for (const [zones, hitLocation] of Object.entries(mech.zones)) {
+      //let hitZone = { zone: zones, freeLocs: [] };
+      for (const [key, value] of Object.entries(hitLocation)) {
+        if (key == "freeSlots" && value >= criticalSlots) {
+          //freeCritSlots += value;
+          zonesWithFreeSlots.push(zones);
+        }
       }
     }
-  }
-
-  //console.log(JSON.stringify(zonesWithFreeSlots));
+    return zonesWithFreeSlots;
+  };
 
   const handleZoneSelect = (event) => {
     const equipId = event.target.id;
     const equipToZone = event.target.value;
-    // console.log(equipToZone);
 
     dispatch(
       mechActions.InstallEquipment({
@@ -62,11 +63,33 @@ const InstallEquipment = () => {
       })
     );
   };
+
+  const handleRemoveWeapon = (weapon) => {
+    dispatch(mechActions.removeWeapon(weapon));
+  };
+
   return (
     <div id="install-equipment">
       <div id="critical-slots">
         remaining Critical Slots: {mech.criticalSlots}
       </div>
+
+      {unInstalledEquipment.length > 0 && (
+        <div>
+          Installing Weapons:
+          {unInstalledWeapons.map((unInstalledWeapon) => {
+            return (
+              <p key={unInstalledWeapon.id}>
+                {unInstalledWeapon.name}
+                <span className="substract-tons">
+                  -{unInstalledWeapon.tons} tons
+                </span>
+              </p>
+            );
+          })}
+        </div>
+      )}
+
       {unInstalledEquipment.length > 0 && (
         <div id="uninstalled-equipment">
           <table id="equipment-table">
@@ -76,6 +99,7 @@ const InstallEquipment = () => {
                 <th>Location</th>
                 <th>Critical</th>
                 <th>Tonnage</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -90,17 +114,28 @@ const InstallEquipment = () => {
                         onChange={handleZoneSelect}
                       >
                         <option default>n/a</option>
-                        {zonesWithFreeSlots.map((zone) => {
-                          return (
-                            <option key={zone} value={zone}>
-                              {zone}
-                            </option>
-                          );
-                        })}
+                        {getZonesWithFreeSlots(equipment.critical).map(
+                          (zone) => {
+                            return (
+                              <option key={zone} value={zone}>
+                                {zone}
+                              </option>
+                            );
+                          }
+                        )}
                       </select>
                     </td>
                     <td>{equipment.critical}</td>
                     <td>{equipment.tons}</td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          handleRemoveWeapon(equipment);
+                        }}
+                      >
+                        X
+                      </button>
+                    </td>
                   </tr>
                 );
               })}

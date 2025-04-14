@@ -1,0 +1,27 @@
+import styles from "./ShopEquipment.module.css";
+import { mechActions } from "../../store/mech-slice";
+import { useSelector, useDispatch } from "react-redux";
+
+const ShopItem = ({ item }) => {
+  const dispatch = useDispatch();
+  const mech = useSelector((state) => state.mech);
+
+  const handleAddItem = () => {
+    const itemToAdd = { ...item };
+    dispatch(mechActions.addWeapon(itemToAdd));
+    console.log(`Adding Item ${JSON.stringify(itemToAdd)}`);
+  };
+
+  return (
+    <tr key={item.name} className={styles.tableRow}>
+      <td className={styles.tableEntry}>{item.name}</td>
+      <td className={styles.tableEntry}>{item.tons}</td>
+      <td className={styles.tableEntry}>{item.critical}</td>
+      <td className={styles.tableEntry}>
+        <button onClick={handleAddItem}>Add</button>
+      </td>
+    </tr>
+  );
+};
+
+export default ShopItem;

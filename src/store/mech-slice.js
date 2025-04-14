@@ -1,9 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import internalStructure from "../data/internalStructure";
 import reactorValues from "../data/reactorValues";
-
-import testArmorDist from "../util/testArmorDist";
-import InstallEquipment from "../components/Builder/InstallEquipment";
+import assignEquipmentId from "../util/assignEquipmentId";
 
 const initialMechState = {
   id: "",
@@ -401,7 +399,7 @@ const mechSlice = createSlice({
       console.log(`armorpoints: ${armorPoints}`);
 
       // const distArmor = distributePoints(parseInt(armorPoints), maxAmorZones);
-      const distArmor = testArmorDist(parseInt(armorPoints), maxArmor);
+
       console.log(`distributed armor: ${JSON.stringify(distArmor)}`);
       newMech.armor.armorvalue = distArmor;
       return newMech;
@@ -493,6 +491,34 @@ const mechSlice = createSlice({
           }
         });
       }
+      return newMech;
+    },
+    addWeapon(state, action) {
+      let newMech = deepCopy(state);
+      let weapon = null;
+      weapon = { ...action.payload };
+      console.log(`list: ${newMech.equipment.weapons} weapon: ${weapon.name}`);
+
+      weapon.id = assignEquipmentId(newMech.equipment.weapons, weapon.name);
+
+      weapon.location = "n/a";
+      newMech.equipment.weapons.push(weapon);
+      newMech.remainingTons -= weapon.tons;
+      newMech.criticalSlots -= weapon.critical;
+      return newMech;
+    },
+    removeWeapon(state, action) {
+      let newMech = deepCopy(state);
+
+      const weapon = action.payload;
+
+      const weapons = newMech.equipment.weapons.filter(
+        (item) => item.id !== weapon.id
+      );
+
+      newMech.remainingTons += weapon.tons;
+      newMech.equipment.weapons = weapons;
+
       return newMech;
     },
     resetMechToInitialState(state) {

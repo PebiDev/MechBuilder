@@ -12,6 +12,7 @@ import Armor from "./Armor";
 import InstallEquipment from "./InstallEquipment";
 
 import "./CreateMechForm.modules.css";
+import ShopEquipment from "./ShopEquipment";
 
 const CreateMechForm = () => {
   const dispatch = useDispatch();
@@ -20,9 +21,6 @@ const CreateMechForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
   };
-
-  //TESTING
-  //console.log(mech);
 
   return (
     <div className="createForm">
@@ -38,6 +36,7 @@ const CreateMechForm = () => {
             <HeatSinks />
             <Armor />
             <InstallEquipment />
+            <ShopEquipment />
           </div>
         )}
       </form>
