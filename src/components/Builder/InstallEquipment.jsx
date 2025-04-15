@@ -36,15 +36,11 @@ const InstallEquipment = () => {
     }
   });
 
-  // let freeCritSlots = 0;
-
   const getZonesWithFreeSlots = (criticalSlots) => {
     const zonesWithFreeSlots = [];
     for (const [zones, hitLocation] of Object.entries(mech.zones)) {
-      //let hitZone = { zone: zones, freeLocs: [] };
       for (const [key, value] of Object.entries(hitLocation)) {
         if (key == "freeSlots" && value >= criticalSlots) {
-          //freeCritSlots += value;
           zonesWithFreeSlots.push(zones);
         }
       }
@@ -128,13 +124,15 @@ const InstallEquipment = () => {
                     <td>{equipment.critical}</td>
                     <td>{equipment.tons}</td>
                     <td>
-                      <button
-                        onClick={() => {
-                          handleRemoveWeapon(equipment);
-                        }}
-                      >
-                        X
-                      </button>
+                      {!["Jump Jet", "Heatsink"].includes(equipment.name) && (
+                        <button
+                          onClick={() => {
+                            handleRemoveWeapon(equipment);
+                          }}
+                        >
+                          X
+                        </button>
+                      )}
                     </td>
                   </tr>
                 );

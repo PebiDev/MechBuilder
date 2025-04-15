@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import internalStructure from "../data/internalStructure";
 import reactorValues from "../data/reactorValues";
-import assignEquipmentId from "../util/assignEquipmentId";
+import { v4 as uuidv4 } from "uuid";
 
 const initialMechState = {
   id: "",
@@ -249,7 +249,7 @@ const mechSlice = createSlice({
           ...newMech.equipment.jumpjets,
           {
             name: "Jump Jet",
-            id: "jj0" + i,
+            id: uuidv4(),
             location: "n/a",
             critical: 1,
             tons: jumpJetWeight,
@@ -297,7 +297,7 @@ const mechSlice = createSlice({
         for (let i = 0; i < newMech.heatsinks.number - internalHeatsinks; i++) {
           newMech.equipment.heatsinks.push({
             name: "Heatsink",
-            id: "hs0" + i,
+            id: uuidv4(),
             location: "n/a",
             critical: 1,
             tons: 1,
@@ -461,7 +461,7 @@ const mechSlice = createSlice({
 
       const addEquipmentToZone = (item) => {
         const slots = item.critical;
-        //console.log(JSON.stringify(newMech.zones[equipZone]));
+
         const zoneValues = Object.values(newMech.zones[equipZone]);
         const index = zoneValues.findIndex((loc) => {
           return loc === "";
@@ -493,13 +493,20 @@ const mechSlice = createSlice({
       }
       return newMech;
     },
+    unInstallEquipment(state, action) {
+      // WIP
+      let newMech = deepCopy(state);
+      unInstallWeaponId = action.payload;
+
+      return newMech;
+    },
     addWeapon(state, action) {
       let newMech = deepCopy(state);
       let weapon = null;
       weapon = { ...action.payload };
       console.log(`list: ${newMech.equipment.weapons} weapon: ${weapon.name}`);
 
-      weapon.id = assignEquipmentId(newMech.equipment.weapons, weapon.name);
+      weapon.id = uuidv4();
 
       weapon.location = "n/a";
       newMech.equipment.weapons.push(weapon);
