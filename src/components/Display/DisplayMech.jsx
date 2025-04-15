@@ -1,6 +1,7 @@
 import DisplayArmor from "./DisplayArmor";
 import DisplayEquipment from "./DisplayEquipment";
 import DisplayMovement from "./DisplayMovement";
+import DisplayCritical from "./DisplayCritical";
 import "./DisplayMech.modules.css";
 
 export default function DisplayMech({ mech }) {
@@ -28,6 +29,7 @@ export default function DisplayMech({ mech }) {
         <p>Heatsinks: {mech.heatsinks.number}</p>
         <DisplayArmor armor={mech.armor} />
         <DisplayEquipment equipment={mech.equipment} />
+        <DisplayCritical zones={mech.zones} />
       </div>
     </div>
   );

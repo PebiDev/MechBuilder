@@ -496,7 +496,19 @@ const mechSlice = createSlice({
     unInstallEquipment(state, action) {
       // WIP
       let newMech = deepCopy(state);
-      unInstallWeaponId = action.payload;
+      const unInstallEquipmentId = action.payload.id;
+      let unInstallZone = action.payload.zone;
+      let unInstallEquipment = {};
+
+      //find weapon
+      for (const [equipmentType, equipments] of Object.entries(
+        newMech.equipment
+      )) {
+        unInstallEquipment = equipments.find(
+          (item) => item.id === unInstallEquipmentId
+        );
+      }
+      console.log(JSON.stringify(unInstallEquipment));
 
       return newMech;
     },
@@ -525,6 +537,7 @@ const mechSlice = createSlice({
 
       newMech.remainingTons += weapon.tons;
       newMech.equipment.weapons = weapons;
+      newMech.criticalSlots += weapon.critical;
 
       return newMech;
     },
