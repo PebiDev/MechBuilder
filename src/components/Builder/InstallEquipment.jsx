@@ -70,24 +70,11 @@ const InstallEquipment = () => {
   const handleUnInstallSelect = (event) => {
     event.preventDefault();
 
-    let selectedWeapon = {};
-    if (event.target.value) {
-      selectedWeapon = JSON.parse(event.target.value);
-    } else {
-      return;
-    }
+    const weaponId = event.target.value;
 
-    let weaponId = selectedWeapon.id;
-    let weaponZone = selectedWeapon.zone;
+    console.log(JSON.stringify(weaponId));
 
-    const weaponToUninstall = {
-      id: weaponId,
-      zone: weaponZone,
-    };
-
-    console.log(JSON.stringify(weaponToUninstall));
-
-    dispatch(mechActions.unInstallEquipment(weaponToUninstall));
+    dispatch(mechActions.unInstallEquipment(weaponId));
   };
 
   return (
@@ -105,11 +92,7 @@ const InstallEquipment = () => {
           >
             <option value="">choose a weapon</option>
             {installedWeapons.map((weapon) => (
-              <option
-                key={weapon.name + weapon.id}
-                value={JSON.stringify({ id: weapon.id, zone: weapon.location })}
-                //value={{ id: weapon.id, zone: weapon.location }}
-              >
+              <option key={weapon.name + weapon.id} value={weapon.id}>
                 {weapon.name} ({weapon.location})
               </option>
             ))}

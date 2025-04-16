@@ -253,6 +253,7 @@ const mechSlice = createSlice({
             location: "n/a",
             critical: 1,
             tons: jumpJetWeight,
+            slots: [],
           },
         ];
       }
@@ -268,6 +269,9 @@ const mechSlice = createSlice({
       newMech.equipment.jumpjets.map((jumpjet) => {
         newMech.remainingTons = newMech.remainingTons + jumpjet.tons;
         newMech.criticalSlots = newMech.criticalSlots + jumpjet.critical;
+        jumpjet.slots.map((slot) => {
+          newMech.zones[jumpjet.location][slot] = "";
+        });
       });
       newMech.equipment.jumpjets = [];
       return newMech;
@@ -291,6 +295,11 @@ const mechSlice = createSlice({
       newMech.criticalSlots =
         newMech.criticalSlots + newMech.equipment.heatsinks.length;
 
+      newMech.equipment.heatsinks.map((heatsink) => {
+        heatsink.slots.map((slot) => {
+          newMech.zones[heatsink.location][slot] = "";
+        });
+      });
       newMech.equipment.heatsinks = [];
 
       if (newMech.heatsinks.number > internalHeatsinks) {
@@ -301,6 +310,7 @@ const mechSlice = createSlice({
             location: "n/a",
             critical: 1,
             tons: 1,
+            slots: [],
           });
         }
       }
@@ -475,6 +485,7 @@ const mechSlice = createSlice({
         for (let i = 0; i < slots; i++) {
           let locNumber = Number(index + i);
           let location = `loc` + locNumber;
+          item.slots.push(location);
           newMech.zones[equipZone][location] = item.name;
           newMech.zones[equipZone].freeSlots -= 1;
         }
@@ -496,23 +507,29 @@ const mechSlice = createSlice({
     unInstallEquipment(state, action) {
       // WIP
       let newMech = deepCopy(state);
-      const unInstallEquipmentId = action.payload.id;
-      let unInstallZone = action.payload.zone;
+      const unInstallEquipmentId = action.payload;
+
       let unInstallEquipment = {};
+      console.log(unInstallEquipmentId);
 
       //find weapon
       for (const [equipmentType, equipments] of Object.entries(
         newMech.equipment
       )) {
-        console.log(equipments);
+        equipments.map((item) => {
+          if (item.id == unInstallEquipmentId) {
+            unInstallEquipment = item;
 
-        // unInstallEquipment = equipments.find(
-        //   (item) => item.id == unInstallEquipmentId
-        // );
+            newMech.equipment[equipmentType] = equipments.filter(
+              (item) => item.id !== unInstallEquipmentId
+            );
+            item.slots.map((slot) => {
+              newMech.zones[item.location][slot] = "";
+            });
+          }
+        });
       }
-      console.log(
-        JSON.stringify(`equipment to be uninstalled: ${unInstallEquipment}`)
-      );
+      console.log(JSON.stringify(unInstallEquipment));
 
       return newMech;
     },
@@ -524,6 +541,7 @@ const mechSlice = createSlice({
       weapon.id = uuidv4();
 
       weapon.location = "n/a";
+      weapon.slots = [];
       newMech.equipment.weapons.push(weapon);
       newMech.remainingTons -= weapon.tons;
       newMech.criticalSlots -= weapon.critical;
