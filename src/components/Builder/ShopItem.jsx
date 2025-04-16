@@ -9,7 +9,6 @@ const ShopItem = ({ item }) => {
   const handleAddItem = () => {
     const itemToAdd = { ...item };
     dispatch(mechActions.addWeapon(itemToAdd));
-    console.log(`Adding Item ${JSON.stringify(itemToAdd)}`);
   };
 
   return (

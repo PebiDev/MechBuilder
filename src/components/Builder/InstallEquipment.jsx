@@ -68,12 +68,8 @@ const InstallEquipment = () => {
   };
 
   const handleUnInstallSelect = (event) => {
-    event.preventDefault();
-
+    // event.preventDefault();
     const weaponId = event.target.value;
-
-    console.log(JSON.stringify(weaponId));
-
     dispatch(mechActions.unInstallEquipment(weaponId));
   };
 
