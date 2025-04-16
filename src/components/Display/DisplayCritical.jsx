@@ -2,7 +2,6 @@ import DisplayZone from "./DisplayZone";
 
 const DisplayCritical = ({ zones }) => {
   const zoneArray = Object.entries(zones);
-  console.log(zoneArray);
 
   return (
     // <div id="display-critical" className="display-critical">

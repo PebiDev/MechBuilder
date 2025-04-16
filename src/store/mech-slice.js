@@ -504,11 +504,15 @@ const mechSlice = createSlice({
       for (const [equipmentType, equipments] of Object.entries(
         newMech.equipment
       )) {
-        unInstallEquipment = equipments.find(
-          (item) => item.id === unInstallEquipmentId
-        );
+        console.log(equipments);
+
+        // unInstallEquipment = equipments.find(
+        //   (item) => item.id == unInstallEquipmentId
+        // );
       }
-      console.log(JSON.stringify(unInstallEquipment));
+      console.log(
+        JSON.stringify(`equipment to be uninstalled: ${unInstallEquipment}`)
+      );
 
       return newMech;
     },
@@ -516,7 +520,6 @@ const mechSlice = createSlice({
       let newMech = deepCopy(state);
       let weapon = null;
       weapon = { ...action.payload };
-      console.log(`list: ${newMech.equipment.weapons} weapon: ${weapon.name}`);
 
       weapon.id = uuidv4();
 

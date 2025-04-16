@@ -8,6 +8,7 @@ const InstallEquipment = () => {
 
   const unInstalledEquipment = [];
   const unInstalledWeapons = [];
+  const installedWeapons = [];
 
   mech.equipment.heatsinks.map((heatsink) => {
     if (heatsink.location == "n/a") {
@@ -23,6 +24,8 @@ const InstallEquipment = () => {
     if (weapon.location == "n/a") {
       unInstalledEquipment.push(weapon);
       unInstalledWeapons.push(weapon);
+    } else {
+      installedWeapons.push(weapon);
     }
   });
   mech.equipment.ammo.map((ammoItem) => {
@@ -64,11 +67,55 @@ const InstallEquipment = () => {
     dispatch(mechActions.removeWeapon(weapon));
   };
 
+  const handleUnInstallSelect = (event) => {
+    event.preventDefault();
+
+    let selectedWeapon = {};
+    if (event.target.value) {
+      selectedWeapon = JSON.parse(event.target.value);
+    } else {
+      return;
+    }
+
+    let weaponId = selectedWeapon.id;
+    let weaponZone = selectedWeapon.zone;
+
+    const weaponToUninstall = {
+      id: weaponId,
+      zone: weaponZone,
+    };
+
+    console.log(JSON.stringify(weaponToUninstall));
+
+    dispatch(mechActions.unInstallEquipment(weaponToUninstall));
+  };
+
   return (
     <div id="install-equipment">
       <div id="critical-slots">
         remaining Critical Slots: {mech.criticalSlots}
       </div>
+      {installedWeapons.length > 0 && (
+        <div>
+          <label htmlFor="uninstall-weapon">uninstall Weapon: </label>
+          <select
+            name="uninstall-weapon"
+            id="uninstall-weapon"
+            onChange={handleUnInstallSelect}
+          >
+            <option value="">choose a weapon</option>
+            {installedWeapons.map((weapon) => (
+              <option
+                key={weapon.name + weapon.id}
+                value={JSON.stringify({ id: weapon.id, zone: weapon.location })}
+                //value={{ id: weapon.id, zone: weapon.location }}
+              >
+                {weapon.name} ({weapon.location})
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
       {unInstalledEquipment.length > 0 && (
         <div>
