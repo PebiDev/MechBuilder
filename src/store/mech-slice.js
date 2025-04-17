@@ -271,6 +271,7 @@ const mechSlice = createSlice({
         newMech.criticalSlots = newMech.criticalSlots + jumpjet.critical;
         jumpjet.slots.map((slot) => {
           newMech.zones[jumpjet.location][slot] = "";
+          newMech.zones[jumpjet.location].freeSlots++;
         });
       });
       newMech.equipment.jumpjets = [];
@@ -578,6 +579,45 @@ const mechSlice = createSlice({
 
       newMech.remainingTons += equip.tons;
       newMech.criticalSlots += equip.critical;
+
+      return newMech;
+    },
+    addAmmo(state, action) {
+      let newMech = deepCopy(state);
+      const weapon = action.payload;
+
+      const newAmmo = {
+        id: uuidv4(),
+        name: "Ammo ( " + weapon.name + ") " + weapon.ammo,
+        ammoFor: weapon.name,
+        tons: 1,
+        critical: 1,
+        location: "n/a",
+        slots: [],
+      };
+
+      newMech.equipment.ammo.push(newAmmo);
+
+      newMech.remainingTons -= newAmmo.tons;
+      newMech.criticalSlots -= newAmmo.critical;
+
+      return newMech;
+    },
+    removeAmmo(state, action) {
+      let newMech = deepCopy(state);
+      const weapon = action.payload;
+
+      const ammoToBeRemoved = newMech.equipment.ammo.find(
+        (ammo) => ammo.ammoFor === weapon.name
+      );
+
+      newMech.remainingTons += ammoToBeRemoved.tons;
+      newMech.criticalSlots += ammoToBeRemoved.critical;
+      const newAmmo = newMech.equipment.ammo.filter(
+        (ammo) => ammo.id !== ammoToBeRemoved.id
+      );
+
+      newMech.equipment.ammo = newAmmo;
 
       return newMech;
     },

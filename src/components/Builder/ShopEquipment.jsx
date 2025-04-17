@@ -1,12 +1,14 @@
 import equipment_lvl1 from "../../data/equipment_lvl1";
 
 import ShopItem from "./ShopItem";
+import ShopAmmo from "./ShopAmmo";
 
 const EQUIPMENT = equipment_lvl1;
 
 const ShopEquipment = () => {
   return (
     <div id="shop-equipment">
+      <ShopAmmo />
       <h3>Choose Weapons</h3>
       <table id="shop-table">
         <thead>
