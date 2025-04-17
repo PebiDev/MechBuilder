@@ -69,6 +69,10 @@ const InstallEquipment = () => {
     dispatch(mechActions.removeWeapon(weapon));
   };
 
+  const handleRemoveEquipment = (equip) => {
+    dispatch(mechActions.removeEquipment(equip));
+  };
+
   const handleUnInstallSelect = (event) => {
     // event.preventDefault();
     const weaponId = event.target.value;
@@ -141,7 +145,7 @@ const InstallEquipment = () => {
                       {!["Jump Jet", "Heatsink"].includes(equipment.name) && (
                         <button
                           onClick={() => {
-                            handleRemoveWeapon(equipment);
+                            handleRemoveEquipment(equipment);
                           }}
                         >
                           X

@@ -545,28 +545,43 @@ const mechSlice = createSlice({
           location: "n/a",
           slots: [],
         };
-        newMech.equipment.ammo.push(newAmmo);
-        newMech.remainingTons -= newAmmo.tons;
-        newMech.criticalSlots -= newAmmo.critical;
+        const checkForExistingAmmo = newMech.equipment.ammo.findIndex(
+          (ammo) => ammo.name === newAmmo.name
+        );
+        if (checkForExistingAmmo === -1) {
+          newMech.equipment.ammo.push(newAmmo);
+          newMech.remainingTons -= newAmmo.tons;
+          newMech.criticalSlots -= newAmmo.critical;
+        }
       }
 
       return newMech;
     },
-    removeWeapon(state, action) {
+    removeEquipment(state, action) {
       let newMech = deepCopy(state);
-
-      const weapon = action.payload;
+      const equip = action.payload;
 
       const weapons = newMech.equipment.weapons.filter(
-        (item) => item.id !== weapon.id
+        (item) => item.id !== equip.id
       );
 
-      newMech.remainingTons += weapon.tons;
+      const ammo = newMech.equipment.ammo.filter(
+        (item) => item.id !== equip.id
+      );
+      const gear = newMech.equipment.gear.filter(
+        (item) => item.id !== equip.id
+      );
+
       newMech.equipment.weapons = weapons;
-      newMech.criticalSlots += weapon.critical;
+      newMech.equipment.ammo = ammo;
+      newMech.equipment.gear = gear;
+
+      newMech.remainingTons += equip.tons;
+      newMech.criticalSlots += equip.critical;
 
       return newMech;
     },
+
     resetMechToInitialState(state) {
       let newMech = deepCopy(initialMechState);
       return newMech;
