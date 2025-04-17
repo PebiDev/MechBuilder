@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 import { uiActions } from "../../store/ui-slice";
+import ShowEquipment from "./ShowEquipment";
 
 const InstallEquipment = () => {
   const dispatch = useDispatch();
@@ -79,6 +80,7 @@ const InstallEquipment = () => {
       <div id="critical-slots">
         remaining Critical Slots: {mech.criticalSlots}
       </div>
+      <ShowEquipment />
       {installedWeapons.length > 0 && (
         <div>
           <label htmlFor="uninstall-weapon">uninstall Weapon: </label>
@@ -94,22 +96,6 @@ const InstallEquipment = () => {
               </option>
             ))}
           </select>
-        </div>
-      )}
-
-      {unInstalledEquipment.length > 0 && (
-        <div>
-          <h3>Equipment:</h3>
-          {unInstalledWeapons.map((unInstalledWeapon) => {
-            return (
-              <p key={unInstalledWeapon.id}>
-                {unInstalledWeapon.name}
-                <span className="substract-tons">
-                  -{unInstalledWeapon.tons} tons
-                </span>
-              </p>
-            );
-          })}
         </div>
       )}
 
