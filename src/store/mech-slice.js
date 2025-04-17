@@ -535,6 +535,21 @@ const mechSlice = createSlice({
       newMech.equipment.weapons.push(weapon);
       newMech.remainingTons -= weapon.tons;
       newMech.criticalSlots -= weapon.critical;
+      if (weapon.ammo !== "-") {
+        const newAmmo = {
+          id: uuidv4(),
+          name: "Ammo ( " + weapon.name + ") " + weapon.ammo,
+          ammoFor: weapon.name,
+          tons: 1,
+          critical: 1,
+          location: "n/a",
+          slots: [],
+        };
+        newMech.equipment.ammo.push(newAmmo);
+        newMech.remainingTons -= newAmmo.tons;
+        newMech.criticalSlots -= newAmmo.critical;
+      }
+
       return newMech;
     },
     removeWeapon(state, action) {

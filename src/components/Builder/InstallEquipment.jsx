@@ -31,6 +31,8 @@ const InstallEquipment = () => {
   mech.equipment.ammo.map((ammoItem) => {
     if (ammoItem.location == "n/a") {
       unInstalledEquipment.push(ammoItem);
+    } else {
+      installedWeapons.push(ammoItem);
     }
   });
   mech.equipment.gear.map((gearItem) => {
@@ -54,7 +56,6 @@ const InstallEquipment = () => {
   const handleZoneSelect = (event) => {
     const equipId = event.target.id;
     const equipToZone = event.target.value;
-
     dispatch(
       mechActions.InstallEquipment({
         id: equipId,
@@ -98,7 +99,7 @@ const InstallEquipment = () => {
 
       {unInstalledEquipment.length > 0 && (
         <div>
-          Installing Weapons:
+          <h3>Equipment:</h3>
           {unInstalledWeapons.map((unInstalledWeapon) => {
             return (
               <p key={unInstalledWeapon.id}>
@@ -114,6 +115,7 @@ const InstallEquipment = () => {
 
       {unInstalledEquipment.length > 0 && (
         <div id="uninstalled-equipment">
+          <h3>Installing Equipment</h3>
           <table id="equipment-table">
             <thead>
               <tr>
