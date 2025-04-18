@@ -479,6 +479,7 @@ const mechSlice = createSlice({
         });
         for (let i = 0; i < slots; i++) {
           if (!zoneValues[index + i] === "") {
+            //implementation needed!
             console.log("Component doesn't fit");
             return;
           }
