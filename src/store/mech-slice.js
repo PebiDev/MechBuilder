@@ -622,6 +622,13 @@ const mechSlice = createSlice({
 
       return newMech;
     },
+    setAmmoToHalfTons(state, action) {
+      let newMech = deepCopy(state);
+      const weapon = action.payload;
+      console.log(weapon);
+
+      return newMech;
+    },
 
     resetMechToInitialState() {
       let newMech = deepCopy(initialMechState);

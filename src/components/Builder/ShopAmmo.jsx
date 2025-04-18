@@ -11,7 +11,9 @@ const ShopAmmo = () => {
   const handleRemoveAmmo = (weapon) => {
     dispatch(mechActions.removeAmmo(weapon));
   };
-  const toggleHalfTons = (weapon) => {};
+  const toggleHalfTons = (weapon) => {
+    dispatch(mechActions.setAmmoToHalfTons(weapon));
+  };
 
   const weaponsWithAmmo = [];
   let mechHasAmmoWeapons = false;
@@ -31,7 +33,6 @@ const ShopAmmo = () => {
     return acc;
   }, {});
   const groupedWeaponsArray = Object.values(groupedWeapons);
-  console.log(groupedWeaponsArray);
 
   return (
     <div>
@@ -53,10 +54,6 @@ const ShopAmmo = () => {
                 mech.equipment.ammo.map((ammo) => {
                   if (ammo.ammoFor === weapon.name) ammoTons++;
                 });
-
-                console.log("hi");
-
-                console.log(weapon.name);
                 return (
                   <tr key={`ammo${weapon.id}`}>
                     <td>
