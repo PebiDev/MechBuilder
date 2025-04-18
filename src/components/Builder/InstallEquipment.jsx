@@ -54,6 +54,11 @@ const InstallEquipment = () => {
     return zonesWithFreeSlots;
   };
 
+  const isJumpJetLegal = (zone) => {
+    const jumpJetIllegalZones = ["rarm", "larm", "head"];
+    return jumpJetIllegalZones.includes(zone);
+  };
+
   const handleZoneSelect = (event) => {
     const equipId = event.target.id;
     const equipToZone = event.target.value;
@@ -63,10 +68,6 @@ const InstallEquipment = () => {
         zone: equipToZone,
       })
     );
-  };
-
-  const handleRemoveWeapon = (weapon) => {
-    dispatch(mechActions.removeWeapon(weapon));
   };
 
   const handleRemoveEquipment = (equip) => {
@@ -130,11 +131,18 @@ const InstallEquipment = () => {
                         <option default>n/a</option>
                         {getZonesWithFreeSlots(equipment.critical).map(
                           (zone) => {
-                            return (
-                              <option key={zone} value={zone}>
-                                {zone}
-                              </option>
-                            );
+                            if (
+                              equipment.name === "Jump Jet" &&
+                              isJumpJetLegal(zone)
+                            ) {
+                              return;
+                            } else {
+                              return (
+                                <option key={zone} value={zone}>
+                                  {zone}
+                                </option>
+                              );
+                            }
                           }
                         )}
                       </select>

@@ -622,7 +622,7 @@ const mechSlice = createSlice({
       return newMech;
     },
 
-    resetMechToInitialState(state) {
+    resetMechToInitialState() {
       let newMech = deepCopy(initialMechState);
       return newMech;
     },
