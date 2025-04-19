@@ -142,17 +142,6 @@ const mechSlice = createSlice({
       newMech.id = "mech01";
       return newMech;
     },
-    reduceRemainingTons(state, action) {
-      let newMech = deepCopy(state);
-      newMech.remainingTons = newMech.remainingTons - action.payload;
-      return newMech;
-    },
-    increaseRemainingTons(state, action) {
-      let newMech = deepCopy(state);
-
-      newMech.remainingTons = newMech.remainingTons + action.payload;
-      return newMech;
-    },
     setMechTonnage(state, action) {
       let newMech = deepCopy(state);
       newMech = mechSlice.caseReducers.resetMechToInitialState();
@@ -619,13 +608,6 @@ const mechSlice = createSlice({
       );
 
       newMech.equipment.ammo = newAmmo;
-
-      return newMech;
-    },
-    setAmmoToHalfTons(state, action) {
-      let newMech = deepCopy(state);
-      const weapon = action.payload;
-      console.log(weapon);
 
       return newMech;
     },

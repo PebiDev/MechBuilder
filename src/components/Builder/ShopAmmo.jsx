@@ -70,11 +70,6 @@ const ShopAmmo = () => {
                       {ammoTons}
 
                       <button onClick={() => handleAddAmmo(weapon)}>+</button>
-                      {weapon.name === "MG" && (
-                        <button onClick={() => toggleHalfTons(weapon)}>
-                          0.5
-                        </button>
-                      )}
                     </td>
                   </tr>
                 );
