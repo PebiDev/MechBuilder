@@ -6,7 +6,9 @@ import { v4 as uuidv4 } from "uuid";
 const initialMechState = {
   id: "",
   name: "New Mech",
-  type: "",
+  chassisType: "",
+  technologyBase: "",
+  mechType: "",
   tonnage: 0,
   reactor: { reactorType: "standard", reactorValue: 0, reactorweight: 0 },
   movement: { walking: 0, running: 0, jumping: 0 },
@@ -140,6 +142,27 @@ const mechSlice = createSlice({
       let newMech = deepCopy(state);
       newMech.name = action.payload;
       newMech.id = "mech01";
+      return newMech;
+    },
+    setChassisType(state, action) {
+      let newMech = deepCopy(state);
+      //should be "BattleMech" or "QuadMech"
+      chassisType = action.payload;
+      newMech.chassisType = chassisType;
+      return newMech;
+    },
+    setMechType(state, action) {
+      let newMech = deepCopy(state);
+      //should be "Standard" or "OmniMech"
+      mechType = action.payload;
+      newMech.mechType = mechType;
+      return newMech;
+    },
+    setTechnologyBase(state, action) {
+      let newMech = deepCopy(state);
+      //should be "Inner Sphere" or "Clan"
+      techBase = action.payload;
+      newMech.technologyBase = techBase;
       return newMech;
     },
     setMechTonnage(state, action) {
