@@ -529,13 +529,18 @@ const mechSlice = createSlice({
       if (weapon.ammo !== "-") {
         const newAmmo = {
           id: uuidv4(),
-          name: "Ammo ( " + weapon.name + ") " + weapon.ammo,
+          name: "Ammo (" + weapon.name + ") " + weapon.ammo,
           ammoFor: weapon.name,
           tons: 1,
           critical: 1,
           location: "n/a",
           slots: [],
         };
+        if (newAmmo.ammoFor === "MG") {
+          newAmmo.tons = 0.5;
+          newAmmo.name = "Ammo (MG) 100";
+        }
+
         const checkForExistingAmmo = newMech.equipment.ammo.findIndex(
           (ammo) => ammo.name === newAmmo.name
         );
@@ -578,7 +583,7 @@ const mechSlice = createSlice({
 
       const newAmmo = {
         id: uuidv4(),
-        name: "Ammo ( " + weapon.name + ") " + weapon.ammo,
+        name: "Ammo (" + weapon.name + ") " + weapon.ammo,
         ammoFor: weapon.name,
         tons: 1,
         critical: 1,
@@ -586,6 +591,22 @@ const mechSlice = createSlice({
         slots: [],
       };
 
+      if (newAmmo.ammoFor === "MG") {
+        const existingMGAmmo = newMech.equipment.ammo.find(
+          ({ tons }) => tons === 0.5
+        );
+        if (existingMGAmmo) {
+          existingMGAmmo.tons = 1;
+          existingMGAmmo.name = "Ammo (MG) 200";
+          newMech.remainingTons -= 0.5;
+          newMech.criticalSlots -= newAmmo.critical;
+
+          return newMech;
+        } else {
+          newAmmo.tons = 0.5;
+          newAmmo.name = "Ammo (MG) 100";
+        }
+      }
       newMech.equipment.ammo.push(newAmmo);
 
       newMech.remainingTons -= newAmmo.tons;
@@ -601,8 +622,18 @@ const mechSlice = createSlice({
         (ammo) => ammo.ammoFor === weapon.name
       );
 
+      if (ammoToBeRemoved.ammoFor === "MG") {
+        if (ammoToBeRemoved.tons === 1) {
+          ammoToBeRemoved.name = "Ammo (MG) 100";
+          ammoToBeRemoved.tons = 0.5;
+          newMech.remainingTons += 0.5;
+          return newMech;
+        }
+      }
+
       newMech.remainingTons += ammoToBeRemoved.tons;
       newMech.criticalSlots += ammoToBeRemoved.critical;
+
       const newAmmo = newMech.equipment.ammo.filter(
         (ammo) => ammo.id !== ammoToBeRemoved.id
       );

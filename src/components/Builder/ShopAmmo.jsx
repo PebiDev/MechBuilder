@@ -52,8 +52,9 @@ const ShopAmmo = () => {
               {groupedWeaponsArray.map((weapon) => {
                 let ammoTons = 0;
                 mech.equipment.ammo.map((ammo) => {
-                  if (ammo.ammoFor === weapon.name) ammoTons++;
+                  if (ammo.ammoFor === weapon.name) ammoTons += ammo.tons;
                 });
+
                 return (
                   <tr key={`ammo${weapon.id}`}>
                     <td>
@@ -62,7 +63,7 @@ const ShopAmmo = () => {
                     <td>{weapon.ammo}</td>
                     <td> {Number(weapon.ammo) * Number(ammoTons)}</td>
                     <td>
-                      {ammoTons > 1 && (
+                      {ammoTons > 0.5 && (
                         <button onClick={() => handleRemoveAmmo(weapon)}>
                           -
                         </button>
