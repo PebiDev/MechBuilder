@@ -51,7 +51,7 @@ td {
   margin: 0 15px;
 }
 
-.larm {
+.larm .flleg {
   grid-column: 1;
   grid-row: 1;
 }
@@ -60,7 +60,7 @@ td {
   grid-row: 2;
 }
 
-.lleg {
+.lleg .rlleg {
   grid-column: 1;
   grid-row: 3;
 }
@@ -80,7 +80,7 @@ td {
   grid-row: 3;
 }
 
-.rarm {
+.rarm .frleg {
   grid-column: 3;
   grid-row: 1;
 }
@@ -88,7 +88,7 @@ td {
   grid-column: 3;
   grid-row: 2;
 }
-.rleg {
+.rleg .rrleg {
   grid-column: 3;
   grid-row: 3;
 }

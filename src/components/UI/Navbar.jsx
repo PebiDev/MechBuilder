@@ -15,6 +15,7 @@ const Navbar = () => {
   };
   const handleAdvancedOptions = () => {
     dispatch(uiActions.toggleAdvancedOptions());
+    dispatch(mechActions.resetMechToInitialState(mech));
   };
 
   return (

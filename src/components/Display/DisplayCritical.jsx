@@ -10,15 +10,38 @@ const DisplayCritical = ({ zones }) => {
     //   })}
     // </div>
     <div id="display-critical" className="display-critical">
-      <DisplayZone name="Left Arm" zone={zoneArray[5]} />
+      {zoneArray[5][0] === "flleg" ? (
+        <DisplayZone name="Forward Left Leg" zone={zoneArray[5]} />
+      ) : (
+        <DisplayZone name="Left Arm" zone={zoneArray[5]} />
+      )}
+
       <DisplayZone name="Left Torso" zone={zoneArray[3]} />
-      <DisplayZone name="Left Leg" zone={zoneArray[7]} />
+
+      {zoneArray[4][0] === "frleg" ? (
+        <DisplayZone name="Forward Right Leg" zone={zoneArray[4]} />
+      ) : (
+        <DisplayZone name="Right Arm" zone={zoneArray[4]} />
+      )}
       <DisplayZone name="Head" zone={zoneArray[0]} />
+
       <DisplayZone name="Center Torso" zone={zoneArray[1]} />
+
       <div className="empty"></div>
-      <DisplayZone name="Right Arm" zone={zoneArray[4]} />
+
+      {zoneArray[7][0] === "rlleg" ? (
+        <DisplayZone name="Rear Left Leg" zone={zoneArray[7]} />
+      ) : (
+        <DisplayZone name="Left Leg" zone={zoneArray[7]} />
+      )}
+
       <DisplayZone name="Right Torso" zone={zoneArray[2]} />
-      <DisplayZone name="Right Leg" zone={zoneArray[6]} />
+
+      {zoneArray[6][0] === "rrleg" ? (
+        <DisplayZone name="Rear Right Leg" zone={zoneArray[6]} />
+      ) : (
+        <DisplayZone name="Right Leg" zone={zoneArray[6]} />
+      )}
     </div>
   );
 };
