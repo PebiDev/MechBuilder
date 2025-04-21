@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
+import AdvancedMechData from "../Advanced-Builder/AdvancedMechData";
 
 const MechData = () => {
   const mechTonnage = [
@@ -8,6 +9,7 @@ const MechData = () => {
 
   const dispatch = useDispatch();
   const mech = useSelector((state) => state.mech);
+  const ui = useSelector((state) => state.ui);
   const tonnageFromRedux = useSelector((state) => state.mech.tonnage);
 
   const nameHandler = (event) => {
@@ -21,6 +23,8 @@ const MechData = () => {
     <div className="mechData">
       <label htmlFor="name">Name your Mech</label>
       <input type="text" id="name" name="name" onChange={nameHandler}></input>
+      <br />
+      {ui.advancedOptions && <AdvancedMechData />}
       <br />
       <label htmlFor="mechTonnage">Select Mech Tonnage</label>
       <select

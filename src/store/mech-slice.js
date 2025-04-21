@@ -7,7 +7,7 @@ const initialMechState = {
   id: "",
   name: "New Mech",
   chassisType: "",
-  technologyBase: "",
+  technologyBase: "Inner Sphere",
   mechType: "",
   tonnage: "",
   reactor: { reactorType: "standard", reactorValue: 0, reactorweight: 0 },
@@ -147,21 +147,24 @@ const mechSlice = createSlice({
     setChassisType(state, action) {
       let newMech = deepCopy(state);
       //should be "BattleMech" or "QuadMech"
-      chassisType = action.payload;
+      const chassisType = action.payload;
       newMech.chassisType = chassisType;
+      if (newMech.chassisType === "Quad") {
+      }
       return newMech;
     },
     setMechType(state, action) {
       let newMech = deepCopy(state);
       //should be "Standard" or "OmniMech"
-      mechType = action.payload;
+      const mechType = action.payload;
       newMech.mechType = mechType;
       return newMech;
     },
     setTechnologyBase(state, action) {
       let newMech = deepCopy(state);
+      newMech = mechSlice.caseReducers.resetMechToInitialState();
       //should be "Inner Sphere" or "Clan"
-      techBase = action.payload;
+      const techBase = action.payload;
       newMech.technologyBase = techBase;
       return newMech;
     },

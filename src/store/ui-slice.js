@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialUiState = { mechVisible: false, armorVisible: true };
+const initialUiState = {
+  mechVisible: false,
+  armorVisible: true,
+  advancedOptions: true,
+};
 
 const uiSlice = createSlice({
   name: "ui",
