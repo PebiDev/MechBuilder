@@ -9,7 +9,7 @@ const initialMechState = {
   chassisType: "",
   technologyBase: "",
   mechType: "",
-  tonnage: 0,
+  tonnage: "",
   reactor: { reactorType: "standard", reactorValue: 0, reactorweight: 0 },
   movement: { walking: 0, running: 0, jumping: 0 },
   cockpit: { type: "standard", weight: 0 },
@@ -168,6 +168,7 @@ const mechSlice = createSlice({
     setMechTonnage(state, action) {
       let newMech = deepCopy(state);
       newMech = mechSlice.caseReducers.resetMechToInitialState();
+      newMech.id = uuidv4();
       newMech.tonnage = action.payload;
       newMech.remainingTons = action.payload;
       newMech = mechSlice.caseReducers.addInternalStructure(newMech);

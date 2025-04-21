@@ -8,6 +8,7 @@ const MechData = () => {
 
   const dispatch = useDispatch();
   const mech = useSelector((state) => state.mech);
+  const tonnageFromRedux = useSelector((state) => state.mech.tonnage);
 
   const nameHandler = (event) => {
     dispatch(mechActions.setName(event.target.value));
@@ -23,11 +24,14 @@ const MechData = () => {
       <br />
       <label htmlFor="mechTonnage">Select Mech Tonnage</label>
       <select
-        value={mech.tonnage}
+        value={tonnageFromRedux}
         name="mechTonnage"
         id="mechTonnage"
         onChange={mechTonnageHandler}
       >
+        <option value="" disabled>
+          Select Tonnage
+        </option>
         {mechTonnage.map((tonnage) => {
           return (
             <option key={tonnage} value={tonnage}>

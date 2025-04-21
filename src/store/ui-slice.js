@@ -12,6 +12,9 @@ const uiSlice = createSlice({
     toggleArmorVisible(state) {
       state.armorVisible = !state.armorVisible;
     },
+    toggleAdvancedOptions(state) {
+      state.advancedOptions = !state.advancedOptions;
+    },
   },
 });
 
