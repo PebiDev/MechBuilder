@@ -1,15 +1,15 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 
 const AdvancedMechData = () => {
   const dispatch = useDispatch();
+  const mech = useSelector((state) => state.mech);
 
   const handleTechBaseRadio = (event) => {
     dispatch(mechActions.setTechnologyBase(event.target.value));
   };
 
   const handleChassisTypeRadio = (event) => {
-    console.log(event.target.value);
     dispatch(mechActions.setChassisType(event.target.value));
   };
 
@@ -22,8 +22,8 @@ const AdvancedMechData = () => {
           id="tech-base-is"
           name="tech-base"
           value="Inner Sphere"
-          onClick={handleTechBaseRadio}
-          defaultChecked
+          checked={mech.technologyBase === "Inner Sphere"}
+          onChange={handleTechBaseRadio}
         />
         <label htmlFor="tech-base-is">Inner Sphere</label>
         <input
@@ -31,7 +31,8 @@ const AdvancedMechData = () => {
           id="tech-base-clan"
           name="tech-base"
           value="Clan"
-          onClick={handleTechBaseRadio}
+          checked={mech.technologyBase === "Clan"}
+          onChange={handleTechBaseRadio}
         />
         <label htmlFor="tech-base-clan">Clan</label>
       </div>
@@ -42,8 +43,8 @@ const AdvancedMechData = () => {
           id="chassis-type-bipedal"
           name="chassis-type"
           value="Bipedal"
-          onClick={handleChassisTypeRadio}
-          defaultChecked
+          checked={mech.chassisType === "Bipedal"}
+          onChange={handleChassisTypeRadio}
         />
         <label htmlFor="chassis-type-bipedal">Bipedal</label>
         <input
@@ -51,7 +52,8 @@ const AdvancedMechData = () => {
           id="chassis-type-quad"
           name="chassis-type"
           value="Quad"
-          onClick={handleChassisTypeRadio}
+          checked={mech.chassisType === "Quad"}
+          onChange={handleChassisTypeRadio}
         />
         <label htmlFor="chassis-type-quad">Quad</label>
       </div>

@@ -49,28 +49,6 @@ const MechData = () => {
           );
         })}
       </select>
-      {ui.advancedOptions && (
-        <div id="internal-structure-radio">
-          <p>Choose Internal Structure :</p>
-          <input
-            type="radio"
-            id="internal-structure-standard"
-            name="internal-structure"
-            value="Standard"
-            onClick={internalStructureHandler}
-            defaultChecked
-          />
-          <label htmlFor="internal-structure-standard">Standard</label>
-          <input
-            type="radio"
-            id="internal-structure-endosteel"
-            name="internal-structure"
-            value="Endo Steel"
-            onClick={internalStructureHandler}
-          />
-          <label htmlFor="internal-structure-endosteel">Endo Steel</label>
-        </div>
-      )}
     </div>
   );
 };

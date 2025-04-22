@@ -203,13 +203,15 @@ const zonesQuad = {
 const initialMechState = {
   id: "",
   name: "New Mech",
-  chassisType: "",
+  chassisType: "Bipedal",
   technologyBase: "Inner Sphere",
   mechType: "",
   tonnage: "",
+  internalStructure: "Standard",
+  cockpit: { type: "Standard Cockpit", weight: 3 },
   reactor: { reactorType: "standard", reactorValue: 0, reactorweight: 0 },
   movement: { walking: 0, running: 0, jumping: 0 },
-  cockpit: { type: "standard", weight: 0 },
+
   gyro: { type: "standard", weight: 0 },
   heatsinks: { type: "standard", number: 10 },
   armor: {
@@ -270,7 +272,22 @@ const mechSlice = createSlice({
     },
     setMechTonnage(state, action) {
       let newMech = deepCopy(state);
-      newMech = mechSlice.caseReducers.resetMechToInitialState();
+      const technologyBase = state.technologyBase;
+      const chassisType = state.chassisType;
+      const name = state.name;
+      const criticalSlots = state.criticalSlots;
+      let zones = "";
+      chassisType === "Bipedal" ? (zones = zonesBiped) : (zones = zonesQuad);
+      newMech = {
+        ...initialMechState,
+        technologyBase,
+        chassisType,
+        criticalSlots,
+        zones,
+        name,
+      };
+
+      //newMech = mechSlice.caseReducers.resetMechToInitialState();
       newMech.id = uuidv4();
       newMech.tonnage = action.payload;
       newMech.remainingTons = action.payload;
@@ -282,10 +299,14 @@ const mechSlice = createSlice({
     addCockpit(state) {
       let newMech = deepCopy(state);
 
-      newMech.cockpit.type = "standard";
+      newMech.cockpit.type = "Standard Cockpit";
       newMech.cockpit.weight = 3;
 
       newMech.remainingTons = newMech.remainingTons - newMech.cockpit.weight;
+      return newMech;
+    },
+    setCockpit(state) {
+      let newMech = deepCopy(state);
       return newMech;
     },
     addGyro(state) {
@@ -305,8 +326,26 @@ const mechSlice = createSlice({
     setInternalStructure(state, action) {
       let newMech = deepCopy(state);
       const internalStructure = action.payload;
-      console.log(internalStructure);
 
+      if (newMech.internalStructure === "Endo Steel") {
+        //standard internal Structure is already substracted in setMechTonnage
+        newMech.remainingTons -= newMech.armor.internal.endosteel;
+
+        if (newMech.technologyBase === "Clan") newMech.criticalSlots += 7;
+        else {
+          newMech.criticalSlots += 14;
+        }
+      }
+
+      newMech.internalStructure = internalStructure;
+
+      if (newMech.internalStructure === "Endo Steel") {
+        newMech.remainingTons += newMech.armor.internal.endosteel;
+        if (newMech.technologyBase === "Clan") newMech.criticalSlots -= 7;
+        else {
+          newMech.criticalSlots -= 14;
+        }
+      }
       return newMech;
     },
     addInternalStructure(state) {
@@ -316,11 +355,11 @@ const mechSlice = createSlice({
         (e) => e.tonnage == newMech.tonnage
       );
 
-      if (!newMech.armor.internal.type) {
-        newMech.armor.internal.type = "standard";
+      if (newMech.internalStructure === "Endo Steel") {
+        newMech.remainingTons -= newMech.armor.internal.endosteel;
+      } else {
+        newMech.remainingTons -= newMech.armor.internal.standardton;
       }
-      newMech.remainingTons =
-        newMech.remainingTons - newMech.armor.internal.standardton;
 
       return newMech;
     },
