@@ -10,7 +10,7 @@ const InternalStructureAndCockpit = () => {
     dispatch(mechActions.setInternalStructure(event.target.value));
   };
   const cockpitHandler = (event) => {
-    console.log(event.target.value);
+    dispatch(mechActions.setCockpit(event.target.value));
   };
 
   return (
@@ -45,7 +45,7 @@ const InternalStructureAndCockpit = () => {
           </span>
         </p>
       )}
-      {ui.advancedOptions && mech.technologyBase === "Inner Spere" ? (
+      {ui.advancedOptions && mech.technologyBase === "Inner Sphere" ? (
         <p>
           <label htmlFor="cockpit-select">Cockpit: </label>
           <select
@@ -56,11 +56,12 @@ const InternalStructureAndCockpit = () => {
             <option>Standard Cockpit</option>
             <option>Small Cockpit</option>
           </select>
-          Cockpit: <span className="substract-tons">-3 tons</span>
+          <span className="substract-tons">-{mech.cockpit.weight} tons</span>
         </p>
       ) : (
         <p>
-          Cockpit: <span className="substract-tons">-3 tons</span>
+          {mech.cockpit.type}:
+          <span className="substract-tons">-{mech.cockpit.weight} tons</span>
         </p>
       )}
     </div>

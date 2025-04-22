@@ -305,8 +305,22 @@ const mechSlice = createSlice({
       newMech.remainingTons = newMech.remainingTons - newMech.cockpit.weight;
       return newMech;
     },
-    setCockpit(state) {
+    setCockpit(state, action) {
       let newMech = deepCopy(state);
+      const newCockpit = action.payload;
+      if (newCockpit === "Small Cockpit") {
+        newMech.cockpit.type = "Small Cockpit";
+        newMech.cockpit.weight = 2;
+        newMech.remainingTons += 3 - newMech.cockpit.weight;
+        newMech.zones.head.loc6 = "";
+      }
+      if (newCockpit === "Standard Cockpit") {
+        newMech.cockpit.type = "Standard Cockpit";
+        newMech.cockpit.weight = 3;
+        newMech.remainingTons -= 1; //hard coded difference!
+        newMech.zones.head.loc6 = "Life Support";
+      }
+
       return newMech;
     },
     addGyro(state) {
