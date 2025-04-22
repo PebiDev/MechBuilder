@@ -389,16 +389,11 @@ const mechSlice = createSlice({
       newMech.movement.walking = parseInt(action.payload);
       newMech.movement.running = Math.round(action.payload * 1.5);
       //adding reactortype
-      const reactorType = "standard";
+      const reactorType = "Standard";
       const reactorValue = action.payload * newMech.tonnage;
       const mechReactor = reactorValues.find(
         (e) => e.reactorValue == reactorValue
       );
-      // newMech.reactor = {
-      //   value: mechReactor.reactorValue,
-      //   type: reactorType,
-      //   reactorweight: mechReactor.standardTons,
-      // };
       newMech.reactor = { ...mechReactor, reactorType };
 
       //calculate tons
@@ -408,6 +403,50 @@ const mechSlice = createSlice({
       newMech = mechSlice.caseReducers.addGyro(newMech);
       //determine internal heatsinks
       newMech = mechSlice.caseReducers.internalHeatsinks(newMech);
+
+      return newMech;
+    },
+    setReactorType(state, action) {
+      let newMech = deepCopy(state);
+      const newReactorType = action.payload;
+      let oldReactorWeight = 0;
+      const reactor = newMech.reactor;
+
+      if (reactor.reactorType === "Standard") {
+        newMech.remainingTons += reactor.standardTons;
+      }
+      if (reactor.reactorType === "XL") {
+        newMech.remainingTons += reactor.xlTons;
+        newMech.criticalSlots += 4;
+        newMech.zones.rtorso.loc1 = "";
+        newMech.zones.rtorso.loc2 = "";
+        newMech.zones.ltorso.loc1 = "";
+        newMech.zones.ltorso.loc2 = "";
+        if (newMech.technologyBase === "Inner Sphere") {
+          newMech.criticalSlots += 2;
+          newMech.zones.rtorso.loc3 = "";
+          newMech.zones.ltorso.loc3 = "";
+        }
+      }
+      if (newReactorType === "Standard") {
+        newMech.remainingTons -= reactor.standardTons;
+      }
+      if (newReactorType === "XL") {
+        reactor.reactorType = "XL";
+        newMech.remainingTons -= reactor.xlTons;
+        newMech.criticalSlots -= 4;
+        newMech.zones.rtorso.loc1 = "XL Engine";
+        newMech.zones.rtorso.loc2 = "XL Engine";
+        newMech.zones.ltorso.loc1 = "XL Engine";
+        newMech.zones.ltorso.loc2 = "XL Engine";
+        if (newMech.technologyBase === "Inner Sphere") {
+          newMech.criticalSlots -= 2;
+          newMech.zones.rtorso.loc3 = "XL Engine";
+          newMech.zones.ltorso.loc3 = "XL Engine";
+        }
+      }
+
+      reactor.reactorType = newReactorType;
 
       return newMech;
     },
