@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from "uuid";
 
 const zonesBiped = {
   head: {
-    freeSlots: 1,
     loc1: "Life Support",
     loc2: "Sensors",
     loc3: "Cockpit",
@@ -14,7 +13,6 @@ const zonesBiped = {
     loc6: "Life Support",
   },
   ctorso: {
-    freeSlots: 2,
     loc1: "Fusion Engine",
     loc2: "Fusion Engine",
     loc3: "Fusion Engine",
@@ -29,7 +27,6 @@ const zonesBiped = {
     loc12: "",
   },
   rtorso: {
-    freeSlots: 12,
     loc1: "",
     loc2: "",
     loc3: "",
@@ -44,7 +41,6 @@ const zonesBiped = {
     loc12: "",
   },
   ltorso: {
-    freeSlots: 12,
     loc1: "",
     loc2: "",
     loc3: "",
@@ -59,7 +55,6 @@ const zonesBiped = {
     loc12: "",
   },
   rarm: {
-    freeSlots: 8,
     loc1: "Shoulder",
     loc2: "Upper Arm Actuator",
     loc3: "Lower Arm Actuator",
@@ -74,7 +69,6 @@ const zonesBiped = {
     loc12: "",
   },
   larm: {
-    freeSlots: 8,
     loc1: "Shoulder",
     loc2: "Upper Arm Actuator",
     loc3: "Lower Arm Actuator",
@@ -89,7 +83,6 @@ const zonesBiped = {
     loc12: "",
   },
   rleg: {
-    freeSlots: 2,
     loc1: "Hip",
     loc2: "Upper Leg Actuator",
     loc3: "Lower Leg Actuator",
@@ -98,7 +91,6 @@ const zonesBiped = {
     loc6: "",
   },
   lleg: {
-    freeSlots: 2,
     loc1: "Hip",
     loc2: "Upper Leg Actuator",
     loc3: "Lower Leg Actuator",
@@ -109,7 +101,6 @@ const zonesBiped = {
 };
 const zonesQuad = {
   head: {
-    freeSlots: 1,
     loc1: "Life Support",
     loc2: "Sensors",
     loc3: "Cockpit",
@@ -118,7 +109,6 @@ const zonesQuad = {
     loc6: "Life Support",
   },
   ctorso: {
-    freeSlots: 2,
     loc1: "Reactor",
     loc2: "Reactor",
     loc3: "Reactor",
@@ -133,7 +123,6 @@ const zonesQuad = {
     loc12: "",
   },
   rtorso: {
-    freeSlots: 12,
     loc1: "",
     loc2: "",
     loc3: "",
@@ -148,7 +137,6 @@ const zonesQuad = {
     loc12: "",
   },
   ltorso: {
-    freeSlots: 12,
     loc1: "",
     loc2: "",
     loc3: "",
@@ -163,7 +151,6 @@ const zonesQuad = {
     loc12: "",
   },
   frleg: {
-    freeSlots: 2,
     loc1: "Hip",
     loc2: "Upper Leg Actuator",
     loc3: "Lower Leg Actuator",
@@ -172,7 +159,6 @@ const zonesQuad = {
     loc6: "",
   },
   flleg: {
-    freeSlots: 2,
     loc1: "Hip",
     loc2: "Upper Leg Actuator",
     loc3: "Lower Leg Actuator",
@@ -181,7 +167,6 @@ const zonesQuad = {
     loc6: "",
   },
   rrleg: {
-    freeSlots: 2,
     loc1: "Hip",
     loc2: "Upper Leg Actuator",
     loc3: "Lower Leg Actuator",
@@ -190,7 +175,6 @@ const zonesQuad = {
     loc6: "",
   },
   rlleg: {
-    freeSlots: 2,
     loc1: "Hip",
     loc2: "Upper Leg Actuator",
     loc3: "Lower Leg Actuator",
@@ -534,7 +518,6 @@ const mechSlice = createSlice({
         newMech.criticalSlots = newMech.criticalSlots + jumpjet.critical;
         jumpjet.slots.map((slot) => {
           newMech.zones[jumpjet.location][slot] = "";
-          newMech.zones[jumpjet.location].freeSlots++;
         });
       });
       newMech.equipment.jumpjets = [];
@@ -768,11 +751,12 @@ const mechSlice = createSlice({
           }
         }
         for (let i = 0; i < slots; i++) {
-          let locNumber = Number(index + i);
+          let locNumber = Number(index + 1 + i);
           let location = `loc` + locNumber;
+          console.log(location);
+
           item.slots.push(location);
           newMech.zones[equipZone][location] = item.name;
-          newMech.zones[equipZone].freeSlots -= 1;
         }
       };
 
@@ -941,14 +925,12 @@ const mechSlice = createSlice({
 
       const ctorso = newMech.zones.ctorso;
 
-      for (const [slot, item] of Object.entries(ctorso)) {
-        if (item !== "") {
+      for (const [slot, entry] of Object.entries(ctorso)) {
+        if (entry !== "") {
           newMech.equipment.weapons.map((weapon) => {
             if (weapon.location === "ctorso") {
               weapon.slots.map((weaponSlot) => {
                 if (weaponSlot === slot) {
-                  console.log(ctorso[weaponSlot]);
-
                   ctorso[weaponSlot] = "";
                   weapon.location = "n/a";
                   weapon.slots = [];

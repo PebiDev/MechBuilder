@@ -1,5 +1,6 @@
 const DisplayZone = ({ name, zone }) => {
-  const zoneValues = Object.values(zone[1]).slice(1);
+  //const zoneValues = Object.values(zone[1]).slice(1);
+  const zoneValues = Object.values(zone[1]);
 
   return (
     <div id={name} className={`zone ${zone[0]}`}>
