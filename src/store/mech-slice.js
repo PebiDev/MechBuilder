@@ -408,11 +408,10 @@ const mechSlice = createSlice({
     },
     setReactorType(state, action) {
       let newMech = deepCopy(state);
+      newMech = mechSlice.caseReducers.unInstallAllFromCTorso(newMech);
       const newReactorType = action.payload;
       const reactor = newMech.reactor;
       const ctReactorLocs = ["loc1", "loc2", "loc3", "loc8", "loc9", "loc10"];
-
-      newMech = mechSlice.caseReducers.unInstallAllFromCTorso(newMech);
 
       if (reactor.reactorType === "Standard") {
         newMech.remainingTons += reactor.standardTons;
@@ -944,6 +943,19 @@ const mechSlice = createSlice({
 
       for (const [slot, item] of Object.entries(ctorso)) {
         if (item !== "") {
+          newMech.equipment.weapons.map((weapon) => {
+            if (weapon.location === "ctorso") {
+              weapon.slots.map((weaponSlot) => {
+                if (weaponSlot === slot) {
+                  console.log(ctorso[weaponSlot]);
+
+                  ctorso[weaponSlot] = "";
+                  weapon.location = "n/a";
+                  weapon.slots = [];
+                }
+              });
+            }
+          });
         }
       }
 

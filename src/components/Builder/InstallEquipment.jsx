@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 import { uiActions } from "../../store/ui-slice";
 import ShowEquipment from "./ShowEquipment";
+import getFreeSlots from "../../util/getFreeSlots";
 
 const InstallEquipment = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,9 @@ const InstallEquipment = () => {
       unInstalledEquipment.push(gearItem);
     }
   });
+
+  const freeSlots = getFreeSlots(mech.zones);
+  console.log(freeSlots);
 
   const getZonesWithFreeSlots = (criticalSlots) => {
     const zonesWithFreeSlots = [];
