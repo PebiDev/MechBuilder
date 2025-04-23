@@ -41,18 +41,27 @@ const MechReactor = () => {
       </select>
       {mech.movement.walking > 0 && (
         <>
-          {ui.advancedOptions ? (
-            <AdvancedMechReactor />
-          ) : (
-            <p>
-              Installing Reactor:
-              <br />
-              Fusion Engine {mech.reactor.reactorValue}{" "}
+          {ui.advancedOptions && <AdvancedMechReactor />}
+          <p>
+            Installing Reactor: {mech.reactor.reactorType}{" "}
+            {mech.reactor.reactorValue}
+            <br />
+            {/* Fusion Engine {mech.reactor.reactorValue}{" "}
               <span className="substract-tons">
                 -{mech.reactor.standardTons} tons
-              </span>
-            </p>
-          )}
+              </span> */}
+            <span className="substract-tons">
+              -
+              {mech.reactor.reactorType === "XL"
+                ? mech.reactor.xlTons
+                : mech.reactor.reactorType === "Light"
+                ? mech.reactor.light
+                : mech.reactor.reactorType === "Compact"
+                ? mech.reactor.compact
+                : mech.reactor.standardTons}{" "}
+              tons
+            </span>
+          </p>
         </>
       )}
     </div>

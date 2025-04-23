@@ -15,16 +15,16 @@ const zonesBiped = {
   },
   ctorso: {
     freeSlots: 2,
-    loc1: "Reactor",
-    loc2: "Reactor",
-    loc3: "Reactor",
+    loc1: "Fusion Engine",
+    loc2: "Fusion Engine",
+    loc3: "Fusion Engine",
     loc4: "Gyro",
     loc5: "Gyro",
     loc6: "Gyro",
     loc7: "Gyro",
-    loc8: "Reactor",
-    loc9: "Reactor",
-    loc10: "Reactor",
+    loc8: "Fusion Engine",
+    loc9: "Fusion Engine",
+    loc10: "Fusion Engine",
     loc11: "",
     loc12: "",
   },
@@ -411,6 +411,7 @@ const mechSlice = createSlice({
       const newReactorType = action.payload;
       let oldReactorWeight = 0;
       const reactor = newMech.reactor;
+      const ctReactorLocs = ["loc1", "loc2", "loc3", "loc8", "loc9", "loc10"];
 
       if (reactor.reactorType === "Standard") {
         newMech.remainingTons += reactor.standardTons;
@@ -428,13 +429,35 @@ const mechSlice = createSlice({
           newMech.zones.ltorso.loc3 = "";
         }
       }
+      if (reactor.reactorType === "Compact") {
+        newMech.remainingTons += reactor.compact;
+        newMech.criticalSlots -= 3;
+        newMech.zones.ctorso.loc8 = "Reactor";
+        newMech.zones.ctorso.loc9 = "Reactor";
+        newMech.zones.ctorso.loc10 = "Reactor";
+      }
+      if (reactor.reactorType === "Light") {
+        newMech.remainingTons += reactor.light;
+        newMech.criticalSlots += 4;
+        newMech.zones.rtorso.loc1 = "";
+        newMech.zones.rtorso.loc2 = "";
+        newMech.zones.ltorso.loc1 = "";
+        newMech.zones.ltorso.loc2 = "";
+      }
+
       if (newReactorType === "Standard") {
         newMech.remainingTons -= reactor.standardTons;
+        ctReactorLocs.map((loc) => {
+          newMech.zones.ctorso[loc] = "Fusion Engine";
+        });
       }
       if (newReactorType === "XL") {
         reactor.reactorType = "XL";
         newMech.remainingTons -= reactor.xlTons;
         newMech.criticalSlots -= 4;
+        ctReactorLocs.map((loc) => {
+          newMech.zones.ctorso[loc] = "XL Engine";
+        });
         newMech.zones.rtorso.loc1 = "XL Engine";
         newMech.zones.rtorso.loc2 = "XL Engine";
         newMech.zones.ltorso.loc1 = "XL Engine";
@@ -444,6 +467,29 @@ const mechSlice = createSlice({
           newMech.zones.rtorso.loc3 = "XL Engine";
           newMech.zones.ltorso.loc3 = "XL Engine";
         }
+      }
+      if (newReactorType === "Compact") {
+        reactor.reactorType = "Compact";
+        newMech.remainingTons -= reactor.compact;
+        newMech.criticalSlots += 3;
+        ctReactorLocs.map((loc) => {
+          newMech.zones.ctorso[loc] = "Compact Engine";
+        });
+        newMech.zones.ctorso.loc8 = "";
+        newMech.zones.ctorso.loc9 = "";
+        newMech.zones.ctorso.loc10 = "";
+      }
+      if (newReactorType === "Light") {
+        reactor.reactorType = "Light";
+        newMech.remainingTons -= reactor.light;
+        newMech.criticalSlots -= 4;
+        ctReactorLocs.map((loc) => {
+          newMech.zones.ctorso[loc] = "Light Engine";
+        });
+        newMech.zones.rtorso.loc1 = "Light Engine";
+        newMech.zones.rtorso.loc2 = "Light Engine";
+        newMech.zones.ltorso.loc1 = "Light Engine";
+        newMech.zones.ltorso.loc2 = "Light Engine";
       }
 
       reactor.reactorType = newReactorType;

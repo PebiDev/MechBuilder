@@ -7,14 +7,14 @@ const AdvancedMechReactor = () => {
   const ui = useSelector((state) => state.ui);
 
   const handleReactorSelect = (event) => {
-    console.log(event.target.value);
+    dispatch(mechActions.setReactorType(event.target.value));
   };
 
   return (
     <div id="advanced-mech-reactor">
       {mech.technologyBase === "Inner Sphere" ? (
         <>
-          <label htmlFor="reactor-select-is">Installing Reactor:</label>{" "}
+          <label htmlFor="reactor-select-is">Choose Reactor:</label>{" "}
           <select
             id="reactor-select-is"
             name="reactor-select-is"
@@ -25,7 +25,7 @@ const AdvancedMechReactor = () => {
             <option value="XL">XL Engine</option>
             <option value="Compact">Compact Engine</option>
             <option value="Light">Light Engine</option>
-          </select>
+          </select>{" "}
         </>
       ) : (
         <>
