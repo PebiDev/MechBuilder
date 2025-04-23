@@ -412,6 +412,8 @@ const mechSlice = createSlice({
       const reactor = newMech.reactor;
       const ctReactorLocs = ["loc1", "loc2", "loc3", "loc8", "loc9", "loc10"];
 
+      newMech = mechSlice.caseReducers.unInstallAllFromCTorso(newMech);
+
       if (reactor.reactorType === "Standard") {
         newMech.remainingTons += reactor.standardTons;
       }
@@ -454,6 +456,7 @@ const mechSlice = createSlice({
         reactor.reactorType = "XL";
         newMech.remainingTons -= reactor.xlTons;
         newMech.criticalSlots -= 4;
+
         ctReactorLocs.map((loc) => {
           newMech.zones.ctorso[loc] = "XL Engine";
         });
@@ -552,7 +555,6 @@ const mechSlice = createSlice({
     },
     internalHeatsinks(state) {
       let newMech = deepCopy(state);
-      console.log("hi");
 
       const internalHeatsinks = Math.floor(newMech.reactor.reactorValue / 25);
       newMech.criticalSlots =
@@ -564,19 +566,22 @@ const mechSlice = createSlice({
         });
       });
       newMech.equipment.heatsinks = [];
+      let heatsinkName = "Heatsink";
 
       newMech.heatsinks.heatsinkCritSlots = 1;
       if (newMech.heatsinks.type === "double") {
-        console.log("double heatsinks");
+        heatsinkName = "Double Heatsink";
         newMech.heatsinks.heatsinkCritSlots = 3;
+        if (newMech.technologyBase === "Clan") {
+          heatsinkName = "Double Heatsink (C)";
+          newMech.heatsinks.heatsinkCritSlots = 2;
+        }
       }
-      if (newMech.technologyBase === "Clan")
-        newMech.heatsinks.heatsinkCritSlots = 2;
 
       if (newMech.heatsinks.number > internalHeatsinks) {
         for (let i = 0; i < newMech.heatsinks.number - internalHeatsinks; i++) {
           newMech.equipment.heatsinks.push({
-            name: "Heatsink",
+            name: heatsinkName,
             type: newMech.heatsinks.type,
             techBase: newMech.technologyBase,
             id: uuidv4(),
@@ -744,7 +749,6 @@ const mechSlice = createSlice({
 
       return newMech;
     },
-
     InstallEquipment(state, action) {
       let newMech = deepCopy(state);
       const equipId = action.payload.id;
@@ -930,6 +934,18 @@ const mechSlice = createSlice({
       );
 
       newMech.equipment.ammo = newAmmo;
+
+      return newMech;
+    },
+    unInstallAllFromCTorso(state) {
+      let newMech = deepCopy(state);
+
+      const ctorso = newMech.zones.ctorso;
+
+      for (const [slot, item] of Object.entries(ctorso)) {
+        if (item !== "") {
+        }
+      }
 
       return newMech;
     },
