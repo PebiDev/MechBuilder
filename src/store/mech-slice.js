@@ -392,7 +392,7 @@ const mechSlice = createSlice({
     },
     setReactorType(state, action) {
       let newMech = deepCopy(state);
-      newMech = mechSlice.caseReducers.unInstallAllFromCTorso(newMech);
+      //newMech = mechSlice.caseReducers.unInstallAllFromCTorso(newMech);
       const newReactorType = action.payload;
       const reactor = newMech.reactor;
       const ctReactorLocs = ["loc1", "loc2", "loc3", "loc8", "loc9", "loc10"];
@@ -940,6 +940,12 @@ const mechSlice = createSlice({
           });
         }
       }
+
+      return newMech;
+    },
+    unInstallEquipFromZone(state, action) {
+      let newMech = deepCopy(state);
+      console.log(action.payload);
 
       return newMech;
     },

@@ -1,4 +1,5 @@
 import equipment_lvl1 from "../../data/equipment_lvl1";
+import { useSelector } from "react-redux";
 
 import ShopItem from "./ShopItem";
 import ShopAmmo from "./ShopAmmo";
@@ -6,6 +7,7 @@ import ShopAmmo from "./ShopAmmo";
 const EQUIPMENT = equipment_lvl1;
 
 const ShopEquipment = () => {
+  const mech = useSelector((state) => state.mech);
   return (
     <div id="shop-equipment">
       <ShopAmmo />
@@ -21,7 +23,10 @@ const ShopEquipment = () => {
         </thead>
         <tbody>
           {EQUIPMENT.map((item) => {
-            return <ShopItem item={item} key={item.name} />;
+            //current solution: only display items that can still fit in the mech
+            if (item.critical <= mech.criticalSlots) {
+              return <ShopItem item={item} key={item.name} />;
+            }
           })}
         </tbody>
       </table>

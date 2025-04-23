@@ -43,20 +43,8 @@ const InstallEquipment = () => {
     }
   });
 
-  const freeSlots = getFreeSlots(mech.zones);
-  console.log(freeSlots);
+  //const freeSlots = getFreeSlots(mech.zones);
 
-  // const getZonesWithFreeSlots = (criticalSlots) => {
-  //   const zonesWithFreeSlots = [];
-  //   for (const [zones, hitLocation] of Object.entries(mech.zones)) {
-  //     for (const [key, value] of Object.entries(hitLocation)) {
-  //       if (key == "freeSlots" && value >= criticalSlots) {
-  //         zonesWithFreeSlots.push(zones);
-  //       }
-  //     }
-  //   }
-  //   return zonesWithFreeSlots;
-  // };
   const getZonesWithFreeSlots = (criticalSlots) => {
     const zonesWithFreeSlots = [];
     const freeSlots = getFreeSlots(mech.zones);

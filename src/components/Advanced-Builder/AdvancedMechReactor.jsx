@@ -7,6 +7,19 @@ const AdvancedMechReactor = () => {
   const ui = useSelector((state) => state.ui);
 
   const handleReactorSelect = (event) => {
+    const reactorType = event.target.value;
+    if (reactorType === "XL") {
+      let slots = ["loc1", "loc2"];
+      if (mech.technologyBase === "Inner Sphere") {
+        slots.push("loc3");
+      }
+      dispatch(
+        mechActions.unInstallEquipFromZone({
+          zones: ["rtorso", "ltorso"],
+          slots: slots,
+        })
+      );
+    }
     dispatch(mechActions.setReactorType(event.target.value));
   };
 
