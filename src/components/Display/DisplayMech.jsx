@@ -26,7 +26,12 @@ export default function DisplayMech({ mech }) {
           runningMP={mech.movement.running}
           jumpingMP={mech.movement.jumping}
         />
-        <p>Heatsinks: {mech.heatsinks.number}</p>
+        <p>
+          Heatsinks: {mech.heatsinks.number}
+          {mech.heatsinks.type === "double" && (
+            <> [{mech.heatsinks.number * 2}]</>
+          )}
+        </p>
         <DisplayArmor armor={mech.armor} />
         <DisplayEquipment equipment={mech.equipment} />
         <DisplayCritical zones={mech.zones} />

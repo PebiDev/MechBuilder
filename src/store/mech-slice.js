@@ -213,7 +213,7 @@ const initialMechState = {
   movement: { walking: 0, running: 0, jumping: 0 },
 
   gyro: { type: "standard", weight: 0 },
-  heatsinks: { type: "standard", number: 10 },
+  heatsinks: { type: "standard", heatsinkCritSlots: 1, number: 10 },
   armor: {
     armorweight: 0,
     armorfactor: 0,
@@ -409,7 +409,6 @@ const mechSlice = createSlice({
     setReactorType(state, action) {
       let newMech = deepCopy(state);
       const newReactorType = action.payload;
-      let oldReactorWeight = 0;
       const reactor = newMech.reactor;
       const ctReactorLocs = ["loc1", "loc2", "loc3", "loc8", "loc9", "loc10"];
 
@@ -553,6 +552,7 @@ const mechSlice = createSlice({
     },
     internalHeatsinks(state) {
       let newMech = deepCopy(state);
+      console.log("hi");
 
       const internalHeatsinks = Math.floor(newMech.reactor.reactorValue / 25);
       newMech.criticalSlots =
@@ -565,20 +565,32 @@ const mechSlice = createSlice({
       });
       newMech.equipment.heatsinks = [];
 
+      newMech.heatsinks.heatsinkCritSlots = 1;
+      if (newMech.heatsinks.type === "double") {
+        console.log("double heatsinks");
+        newMech.heatsinks.heatsinkCritSlots = 3;
+      }
+      if (newMech.technologyBase === "Clan")
+        newMech.heatsinks.heatsinkCritSlots = 2;
+
       if (newMech.heatsinks.number > internalHeatsinks) {
         for (let i = 0; i < newMech.heatsinks.number - internalHeatsinks; i++) {
           newMech.equipment.heatsinks.push({
             name: "Heatsink",
+            type: newMech.heatsinks.type,
+            techBase: newMech.technologyBase,
             id: uuidv4(),
             location: "n/a",
-            critical: 1,
+            critical: newMech.heatsinks.heatsinkCritSlots,
             tons: 1,
             slots: [],
           });
         }
       }
       newMech.criticalSlots =
-        newMech.criticalSlots - newMech.equipment.heatsinks.length;
+        newMech.criticalSlots -
+        newMech.equipment.heatsinks.length *
+          newMech.heatsinks.heatsinkCritSlots;
       return newMech;
     },
     removeHeatsinks(state) {
@@ -587,6 +599,12 @@ const mechSlice = createSlice({
 
       newMech.heatsinks.number = newMech.heatsinks.number - heatSinksToRemove;
       newMech.remainingTons = newMech.remainingTons + heatSinksToRemove;
+      return newMech;
+    },
+    setHeatsinkType(state, action) {
+      let newMech = deepCopy(state);
+      newMech.heatsinks.type = action.payload;
+      newMech = mechSlice.caseReducers.internalHeatsinks(newMech);
       return newMech;
     },
     addArmorValueToZone(state, action) {
