@@ -314,18 +314,69 @@ const mechSlice = createSlice({
         newMech.remainingTons = newMech.remainingTons + newMech.gyro.weight;
         newMech.gyro = {};
       }
-      newMech.gyro.type = "standard";
+      newMech.gyro.type = "Standard";
       newMech.gyro.weightMultiplier = 1;
       const gyroWeight =
         Math.ceil(parseInt(newMech.reactor.reactorValue) / 100) *
-        gyro.weightMultiplier;
+        newMech.gyro.weightMultiplier;
       newMech.gyro.weight = gyroWeight;
-      newMech.remainingTons = newMech.remainingTons - gyroWeight;
+      newMech.remainingTons -= gyroWeight;
       return newMech;
     },
-    setGyro(state) {
+    setGyro(state, action) {
       let newMech = deepCopy(state);
-      const gyroType = action.payload;
+      const newGyroType = action.payload;
+      console.log(newGyroType);
+
+      const gyro = newMech.gyro;
+      const gyroSlots = ["loc4", "loc5", "loc6", "loc7"];
+
+      newMech.remainingTons += gyro.weight;
+
+      if (gyro.type === "Heavy-Duty") {
+      }
+      if (gyro.type === "Compact") {
+      }
+      if (gyro.type === "Extra-Light") {
+        newMech.zones.ctorso.loc11 = "";
+        newMech.zones.ctorso.loc12 = "";
+      }
+
+      gyro.type = newGyroType;
+      if (newGyroType === "Standard") {
+        gyro.weightMultiplier = 1;
+        gyroSlots.map((gyroSlot) => {
+          newMech.zones.ctorso[gyroSlot] = "Gyro";
+        });
+      }
+
+      if (newGyroType === "Heavy-Duty") {
+        gyro.weightMultiplier = 2;
+        gyroSlots.map((gyroSlot) => {
+          newMech.zones.ctorso[gyroSlot] = "Heavy-Duty Gyro";
+        });
+      }
+      if (newGyroType === "Compact") {
+        gyro.weightMultiplier = 1.5;
+        newMech.zones.ctorso.loc4 = "Compact Gyro";
+        newMech.zones.ctorso.loc5 = "Compact Gyro";
+        newMech.zones.ctorso.loc6 = "";
+        newMech.zones.ctorso.loc7 = "";
+      }
+      if (newGyroType === "Extra-Light") {
+        gyro.weightMultiplier = 0.5;
+        gyroSlots.push(...["loc11", "loc12"]);
+        gyroSlots.map((gyroSlot) => {
+          newMech.zones.ctorso[gyroSlot] = "Extra Light Gyro";
+        });
+      }
+
+      const gyroWeight =
+        Math.ceil(parseInt(newMech.reactor.reactorValue) / 100) *
+        Number(gyro.weightMultiplier);
+      newMech.gyro.weight = Number(gyroWeight);
+      newMech.remainingTons -= newMech.gyro.weight;
+
       return newMech;
     },
 
