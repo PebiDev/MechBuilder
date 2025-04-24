@@ -8,9 +8,9 @@ const AdvancedMechReactor = () => {
 
   const handleReactorSelect = (event) => {
     const reactorType = event.target.value;
-    if (reactorType === "XL") {
+    if (reactorType === "XL" || reactorType === "Light") {
       let slots = ["loc1", "loc2"];
-      if (mech.technologyBase === "Inner Sphere") {
+      if (mech.technologyBase === "Inner Sphere" && reactorType === "XL") {
         slots.push("loc3");
       }
       dispatch(
@@ -20,6 +20,7 @@ const AdvancedMechReactor = () => {
         })
       );
     }
+
     dispatch(mechActions.setReactorType(event.target.value));
   };
 

@@ -964,7 +964,6 @@ const mechSlice = createSlice({
                   item.slots.map((itemSlot) => {
                     newMech.zones[zoneForRemoval][itemSlot] = "";
                   });
-                  //newMech.zones[zoneForRemoval][loc] = "";
                   item.location = "n/a";
                   item.slots = [];
                 }
