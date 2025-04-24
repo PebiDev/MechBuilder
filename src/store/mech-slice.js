@@ -196,7 +196,7 @@ const initialMechState = {
   reactor: { reactorType: "standard", reactorValue: 0, reactorweight: 0 },
   movement: { walking: 0, running: 0, jumping: 0 },
 
-  gyro: { type: "standard", weight: 0 },
+  gyro: { type: "standard", weightMultiplier: 0 },
   heatsinks: { type: "standard", heatsinkCritSlots: 1, number: 10 },
   armor: {
     armorweight: 0,
@@ -315,13 +315,20 @@ const mechSlice = createSlice({
         newMech.gyro = {};
       }
       newMech.gyro.type = "standard";
-      const gyroWeight = Math.ceil(
-        parseInt(newMech.reactor.reactorValue) / 100
-      );
+      newMech.gyro.weightMultiplier = 1;
+      const gyroWeight =
+        Math.ceil(parseInt(newMech.reactor.reactorValue) / 100) *
+        gyro.weightMultiplier;
       newMech.gyro.weight = gyroWeight;
       newMech.remainingTons = newMech.remainingTons - gyroWeight;
       return newMech;
     },
+    setGyro(state) {
+      let newMech = deepCopy(state);
+      const gyroType = action.payload;
+      return newMech;
+    },
+
     setInternalStructure(state, action) {
       let newMech = deepCopy(state);
       const internalStructure = action.payload;
@@ -732,6 +739,7 @@ const mechSlice = createSlice({
       return newMech;
     },
     InstallEquipment(state, action) {
+      //works currently - but probably needs a rework
       let newMech = deepCopy(state);
       const equipId = action.payload.id;
       const equipZone = action.payload.zone;
@@ -938,29 +946,6 @@ const mechSlice = createSlice({
 
       return newMech;
     },
-    unInstallAllFromCTorso(state) {
-      let newMech = deepCopy(state);
-
-      const ctorso = newMech.zones.ctorso;
-
-      for (const [slot, entry] of Object.entries(ctorso)) {
-        if (entry !== "") {
-          newMech.equipment.weapons.map((weapon) => {
-            if (weapon.location === "ctorso") {
-              weapon.slots.map((weaponSlot) => {
-                if (weaponSlot === slot) {
-                  ctorso[weaponSlot] = "";
-                  weapon.location = "n/a";
-                  weapon.slots = [];
-                }
-              });
-            }
-          });
-        }
-      }
-
-      return newMech;
-    },
     unInstallEquipFromZone(state, action) {
       let newMech = deepCopy(state);
       console.log(action.payload);
@@ -991,6 +976,30 @@ const mechSlice = createSlice({
           }
         }
       });
+
+      return newMech;
+    },
+    installEndoSteel(state) {
+      //Needs reworking to be more general and with action.payload for armors as well
+      let newMech = deepCopy(state);
+      let endoSteelSlots = 7;
+      if (newMech.technologyBase === "Inner Sphere") endoSteelSlots += 7;
+      let endoSteelCounter = 0;
+
+      while (endoSteelCounter < endoSteelSlots) {
+        outerLoop: for (const [zone, locs] of Object.entries(newMech.zones)) {
+          for (let i = 0; i < Object.keys(locs).length; i++) {
+            let counter = i + 1;
+            let location = "loc" + counter;
+
+            if (newMech.zones[zone][location] === "") {
+              newMech.zones[zone][location] = "ReRoll: Endo Steel";
+              endoSteelCounter++;
+              break outerLoop;
+            }
+          }
+        }
+      }
 
       return newMech;
     },

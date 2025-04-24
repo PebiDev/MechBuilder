@@ -10,6 +10,7 @@ import JumpJets from "./JumpJets";
 import HeatSinks from "./HeatSinks";
 import Armor from "./Armor";
 import InstallEquipment from "./InstallEquipment";
+import FinalActions from "./FinalActions";
 
 import "./CreateMechForm.modules.css";
 import ShopEquipment from "./ShopEquipment";
@@ -37,6 +38,7 @@ const CreateMechForm = () => {
             <Armor />
             <InstallEquipment />
             <ShopEquipment />
+            <FinalActions />
           </div>
         )}
       </form>
