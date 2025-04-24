@@ -753,7 +753,6 @@ const mechSlice = createSlice({
         for (let i = 0; i < slots; i++) {
           let locNumber = Number(index + 1 + i);
           let location = `loc` + locNumber;
-          console.log(location);
 
           item.slots.push(location);
           newMech.zones[equipZone][location] = item.name;
@@ -946,6 +945,34 @@ const mechSlice = createSlice({
     unInstallEquipFromZone(state, action) {
       let newMech = deepCopy(state);
       console.log(action.payload);
+      const zonesForRemoval = action.payload.zones;
+      const locsForRemoval = action.payload.slots;
+
+      zonesForRemoval.map((zoneForRemoval) => {
+        for (const [loc, entry] of Object.entries(
+          newMech.zones[zoneForRemoval]
+        )) {
+          if (entry !== "" && locsForRemoval.includes(loc)) {
+            for (const [equipCategory, categoryEntries] of Object.entries(
+              newMech.equipment
+            )) {
+              categoryEntries.map((item) => {
+                if (
+                  item.location === zoneForRemoval &&
+                  item.slots.includes(loc)
+                ) {
+                  item.slots.map((itemSlot) => {
+                    newMech.zones[zoneForRemoval][itemSlot] = "";
+                  });
+                  //newMech.zones[zoneForRemoval][loc] = "";
+                  item.location = "n/a";
+                  item.slots = [];
+                }
+              });
+            }
+          }
+        }
+      });
 
       return newMech;
     },
