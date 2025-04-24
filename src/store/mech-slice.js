@@ -735,6 +735,7 @@ const mechSlice = createSlice({
       let newMech = deepCopy(state);
       const equipId = action.payload.id;
       const equipZone = action.payload.zone;
+      const equipSlots = [];
 
       const addEquipmentToZone = (item) => {
         const slots = item.critical;
@@ -755,6 +756,7 @@ const mechSlice = createSlice({
           let location = `loc` + locNumber;
 
           item.slots.push(location);
+          equipSlots.push(location);
           newMech.zones[equipZone][location] = item.name;
         }
       };
@@ -770,6 +772,23 @@ const mechSlice = createSlice({
           }
         });
       }
+
+      // uninstall pushed out items
+      for (const [equipemntType, equipments] of Object.entries(
+        newMech.equipment
+      )) {
+        equipments.map((item) => {
+          item.slots.map((loc) => {
+            equipSlots.map((equipSlot) => {
+              if (loc === equipSlot && item.id !== equipId) {
+                item.slots = [];
+                item.location = "n/a";
+              }
+            });
+          });
+        });
+      }
+
       return newMech;
     },
     unInstallEquipment(state, action) {
