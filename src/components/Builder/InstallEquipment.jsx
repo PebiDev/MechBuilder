@@ -132,8 +132,8 @@ const InstallEquipment = () => {
                         {getZonesWithFreeSlots(equipment.critical).map(
                           (zone) => {
                             if (
-                              (equipment.name === "Jump Jet" ||
-                                "Improved Jump Jet") &&
+                              equipment.name === "Jump Jet" &&
+                              // ||   "Improved Jump Jet")
                               isJumpJetLegal(zone)
                             ) {
                               return;

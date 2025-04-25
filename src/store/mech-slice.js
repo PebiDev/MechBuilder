@@ -879,14 +879,16 @@ const mechSlice = createSlice({
         newMech.equipment
       )) {
         equipments.map((item) => {
-          item.slots.map((loc) => {
-            equipSlots.map((equipSlot) => {
-              if (loc === equipSlot && item.id !== equipId) {
-                item.slots = [];
-                item.location = "n/a";
-              }
+          if (item.location === equipZone) {
+            item.slots.map((loc) => {
+              equipSlots.map((equipSlot) => {
+                if (loc === equipSlot && item.id !== equipId) {
+                  item.slots = [];
+                  item.location = "n/a";
+                }
+              });
             });
-          });
+          }
         });
       }
 
