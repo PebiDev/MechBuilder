@@ -25,13 +25,13 @@ const HeatSinks = () => {
           <p>Choose Heatsink Type:</p>
           <input
             type="radio"
-            id="heatsink-standard"
-            name="heatsink-standard"
+            id="heatsink-type-standard"
+            name="heatsink-type-standard"
             value="standard"
             checked={mech.heatsinks.type === "standard"}
             onChange={handleHeatsinkType}
           />
-          <label htmlFor="heatsink-type-double">Standard</label>
+          <label htmlFor="heatsink-type-standard">Standard</label>
           <input
             type="radio"
             id="heatsink-type-double"

@@ -1,40 +1,76 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
+import { useState } from "react";
 
 const JumpJets = () => {
   const dispatch = useDispatch();
   const mech = useSelector((state) => state.mech);
+  const ui = useSelector((state) => state.ui);
+  const [jumpJetType, setJumpJetType] = useState("Standard");
+  console.log(jumpJetType);
 
   const jumpOptions = [];
-  for (let i = 0; i < mech.movement.walking + 1; i++) {
-    jumpOptions.push(i);
+  if (jumpJetType === "Improved") {
+    for (
+      let i = mech.movement.walking + 1;
+      i < mech.movement.running + 1;
+      i++
+    ) {
+      jumpOptions.push(i);
+    }
+  } else {
+    for (let i = 0; i < mech.movement.walking + 1; i++) {
+      jumpOptions.push(i);
+    }
   }
-  let jumpJetWeight = 1;
-  if (mech.tonnage < 60) {
-    jumpJetWeight = 0.5;
-  }
-  if (mech.tonnage > 85) {
-    jumpJetWeight = 2;
-  }
-  const jumpJetHandler = (event) => {
+
+  const handleJumpJetSelect = (event) => {
     dispatch(
       mechActions.addJumpJets({
         numberOfJumpJets: event.target.value,
-        jumpJetWeight: jumpJetWeight,
+        jumpJetType: jumpJetType,
       })
     );
   };
+
+  const imProvedJumpJetHandler = (event) => {
+    setJumpJetType(event.target.value);
+  };
+
   return (
     <div id="mech-jumpjets">
+      {ui.advancedOptions && (
+        <div id="jumpjet-type-radio">
+          <p>Choose Jumpjet Type:</p>
+          <input
+            type="radio"
+            id="jumpjet-standard"
+            name="jumpjet-standard"
+            value="Standard"
+            checked={jumpJetType === "Standard"}
+            onChange={imProvedJumpJetHandler}
+          />
+          <label htmlFor="jumpjet-standard">Standard</label>
+          <input
+            type="radio"
+            id="jumpjet-improved"
+            name="jumpjet-improved"
+            value="Improved"
+            checked={jumpJetType === "Improved"}
+            onChange={imProvedJumpJetHandler}
+          />
+          <label htmlFor="jumpjet-improved">Improved</label>
+        </div>
+      )}
       <label htmlFor="jumpjet-select">Choose Jump Capability</label>
       <select
         id="jumpjet-select"
         name="jumpjet-select"
         value={mech.movement.jumping}
-        onChange={jumpJetHandler}
+        onChange={handleJumpJetSelect}
       >
         {jumpOptions.map((jumpSpeed, index) => {
-          return <option key={jumpSpeed}>{index}</option>;
+          return <option key={jumpSpeed}>{jumpSpeed}</option>;
         })}
       </select>
 
@@ -42,7 +78,7 @@ const JumpJets = () => {
         <p>
           Installing Jumpjets: {mech.movement.jumping}
           <span className="substract-tons">
-            -{mech.movement.jumping * jumpJetWeight} tons
+            {mech.movement.jumping * mech.equipment.jumpjets[0].tons} tons
           </span>
         </p>
       )}

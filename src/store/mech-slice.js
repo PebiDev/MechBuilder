@@ -378,7 +378,6 @@ const mechSlice = createSlice({
 
       return newMech;
     },
-
     setInternalStructure(state, action) {
       let newMech = deepCopy(state);
       const internalStructure = action.payload;
@@ -544,19 +543,33 @@ const mechSlice = createSlice({
         newMech = mechSlice.caseReducers.removeJumpJets(state);
       }
       const numberOfJumpJets = action.payload.numberOfJumpJets;
-      const jumpJetWeight = action.payload.jumpJetWeight;
+      const jumpJetType = action.payload.jumpJetType;
+      let jumpJetName = "Jump Jet";
+      let jumpJetWeight = 1;
+      let jumpJetCriticalSlots = 1;
+      if (newMech.tonnage < 60) jumpJetWeight = 0.5;
+      if (newMech.tonnage > 85) jumpJetWeight = 2;
 
-      newMech.movement.jumping = numberOfJumpJets;
+      if (jumpJetType === "Improved") {
+        jumpJetWeight = 2;
+        jumpJetCriticalSlots = 2;
+        jumpJetName = "Improved Jump Jet";
+        if (newMech.tonnage < 60) jumpJetWeight = 1;
+        if (newMech.tonnage > 85) jumpJetWeight = 4;
+      }
+
+      newMech.movement.jumping = parseInt(numberOfJumpJets);
 
       for (let i = 0; i < numberOfJumpJets; i++) {
         newMech.equipment.jumpjets = [
           ...newMech.equipment.jumpjets,
           {
-            name: "Jump Jet",
+            name: jumpJetName,
             id: uuidv4(),
             location: "n/a",
-            critical: 1,
+            critical: jumpJetCriticalSlots,
             tons: jumpJetWeight,
+            type: jumpJetType,
             slots: [],
           },
         ];
@@ -580,6 +593,7 @@ const mechSlice = createSlice({
       newMech.equipment.jumpjets = [];
       return newMech;
     },
+
     addHeatsinks(state, action) {
       let newMech = deepCopy(state);
       const numberOfHeatsinks = parseInt(action.payload);
