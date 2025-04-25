@@ -13,8 +13,8 @@ const DistributeArmorSlider = ({ zone }) => {
   const checkOverArmored = (armorpoints) => {
     let ArmorPointsToAdd = armorpoints;
 
-    if (ArmorPointsToAdd > mech.armor.unassignedpoints) {
-      ArmorPointsToAdd = armorpoints - mech.armor.unassignedpoints;
+    if (ArmorPointsToAdd > mech.armor.unassignedPoints) {
+      ArmorPointsToAdd = armorpoints - mech.armor.unassignedPoints;
     }
     return ArmorPointsToAdd;
   };
@@ -34,14 +34,14 @@ const DistributeArmorSlider = ({ zone }) => {
   return (
     <div className="dist-armor-slider">
       <span>
-        Choose Armor for {zone}: {mech.armor.armorvalue[zone]} ({maxArmor})
+        Choose Armor for {zone}: {mech.armor.armorValue[zone]} ({maxArmor})
       </span>
       <input
         type="range"
         min="0"
         max={maxArmor}
         className="slider"
-        value={mech.armor.armorvalue[zone]}
+        value={mech.armor.armorValue[zone]}
         onInput={zoneSlideHandler}
       ></input>
     </div>

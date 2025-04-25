@@ -11,8 +11,8 @@ const DistributeArmorRearSlider = ({ zone, rearzone }) => {
   const checkOverArmored = (armorpoints) => {
     let ArmorPointsToAdd = armorpoints;
 
-    if (ArmorPointsToAdd > mech.armor.unassignedpoints) {
-      ArmorPointsToAdd = armorpoints - mech.armor.unassignedpoints;
+    if (ArmorPointsToAdd > mech.armor.unassignedPoints) {
+      ArmorPointsToAdd = armorpoints - mech.armor.unassignedPoints;
     }
     return ArmorPointsToAdd;
   };
@@ -20,13 +20,13 @@ const DistributeArmorRearSlider = ({ zone, rearzone }) => {
   const frontSlideHandler = (event) => {
     let sliderArmor = checkOverArmored(Number(event.target.value));
 
-    if (sliderArmor + mech.armor.armorvalue[rearzone] > maxArmor) {
-      const newRearArmorValue = maxArmor - sliderArmor;
+    if (sliderArmor + mech.armor.armorValue[rearzone] > maxArmor) {
+      const newReararmorValue = maxArmor - sliderArmor;
 
       dispatch(
         mechActions.addArmorValueToZone({
           zone: rearzone,
-          armorpoints: newRearArmorValue,
+          armorpoints: newReararmorValue,
         })
       );
     }
@@ -41,13 +41,13 @@ const DistributeArmorRearSlider = ({ zone, rearzone }) => {
   const rearSlideHandler = (event) => {
     let rearArmor = checkOverArmored(Number(event.target.value));
 
-    if (mech.armor.armorvalue[zone] + rearArmor > maxArmor) {
-      let newFrontArmorValue = maxArmor - rearArmor;
+    if (mech.armor.armorValue[zone] + rearArmor > maxArmor) {
+      let newFrontarmorValue = maxArmor - rearArmor;
 
       dispatch(
         mechActions.addArmorValueToZone({
           zone: zone,
-          armorpoints: newFrontArmorValue,
+          armorpoints: newFrontarmorValue,
         })
       );
     }
@@ -62,20 +62,20 @@ const DistributeArmorRearSlider = ({ zone, rearzone }) => {
   return (
     <div className="dist-armor-slider">
       <span>
-        Choose Armor for {zone}: {mech.armor.armorvalue[zone]} ({maxArmor})
+        Choose Armor for {zone}: {mech.armor.armorValue[zone]} ({maxArmor})
       </span>
       <input
         type="range"
         min="0"
         max={maxArmor}
         className="slider"
-        value={mech.armor.armorvalue[zone]}
+        value={mech.armor.armorValue[zone]}
         onInput={frontSlideHandler}
       ></input>
 
       <br />
       <span>
-        Choose Armor for {rearzone}: {mech.armor.armorvalue[rearzone]} (
+        Choose Armor for {rearzone}: {mech.armor.armorValue[rearzone]} (
         {maxArmor})
       </span>
       <input
@@ -83,7 +83,7 @@ const DistributeArmorRearSlider = ({ zone, rearzone }) => {
         min="0"
         max={maxArmor}
         className="slider"
-        value={mech.armor.armorvalue[rearzone]}
+        value={mech.armor.armorValue[rearzone]}
         onInput={rearSlideHandler}
       ></input>
     </div>

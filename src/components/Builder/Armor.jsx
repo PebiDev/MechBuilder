@@ -11,10 +11,10 @@ const Armor = () => {
   const maxArmor = mech.armor.internal.maxarmor;
 
   const sliderArmorInitialValue = () => {
-    if (mech.armor.armorfactor > 0) return mech.armor.armorfactor;
+    if (mech.armor.armorFactor > 0) return mech.armor.armorFactor;
     return Math.round(maxArmor / 2);
   };
-  const [armorValue, setArmorValue] = useState(sliderArmorInitialValue);
+  const [armorValue, setarmorValue] = useState(sliderArmorInitialValue);
 
   const armorOptionsStandard = [];
 
@@ -37,13 +37,13 @@ const Armor = () => {
 
   const armorSlideHandler = (event) => {
     const sliderArmor = Number(event.target.value);
-    setArmorValue(sliderArmor);
+    setarmorValue(sliderArmor);
     dispatch(mechActions.addArmor(sliderArmor));
   };
 
   const armorSelectHandler = (event) => {
     const selectedArmor = event.target.value.split("(tons: ")[0].trim();
-    setArmorValue(selectedArmor);
+    setarmorValue(selectedArmor);
     dispatch(mechActions.addArmor(Number(selectedArmor)));
   };
 
@@ -55,10 +55,10 @@ const Armor = () => {
     <div id="armor">
       <p>
         {" "}
-        ArmorValue: {mech.armor.armorfactor}
+        armorValue: {mech.armor.armorFactor}
         <br />
-        Armor Weight: {mech.armor.armorweight} tons
-        <span className="substract-tons">-{mech.armor.armorweight} tons</span>
+        Armor Weight: {mech.armor.armorWeight} tons
+        <span className="substract-tons">-{mech.armor.armorWeight} tons</span>
         {!ui.armorVisible && (
           <button type="button" onClick={showArmorHandler}>
             Show Armor
@@ -87,7 +87,7 @@ const Armor = () => {
               id="armor-select"
               name="armor-select"
               onChange={armorSelectHandler}
-              value={mech.armor.armorfactor}
+              value={mech.armor.armorFactor}
             >
               {armorOptionsStandard.map((armorEntry) => {
                 return (
@@ -98,7 +98,7 @@ const Armor = () => {
               })}
             </select>
           </div>
-          {mech.armor.armorfactor > 0 && (
+          {mech.armor.armorFactor > 0 && (
             <>
               <DistributeArmor
                 maxArmor={armorOptionsStandard[armorOptionsStandard.length - 1]}

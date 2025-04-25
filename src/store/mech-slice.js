@@ -199,12 +199,12 @@ const initialMechState = {
   gyro: { type: "standard", weightMultiplier: 0 },
   heatsinks: { type: "standard", heatsinkCritSlots: 1, number: 10 },
   armor: {
-    armorweight: 0,
-    armorfactor: 0,
-    armortype: "standard",
+    armorWeight: 0,
+    armorFactor: 0,
+    armorType: "standard",
     internal: { type: "standard" },
-    armorvalue: {},
-    unassignedpoints: 0,
+    armorValue: {},
+    unassignedPoints: 0,
   },
   equipment: { weapons: [], heatsinks: [], ammo: [], jumpjets: [], gear: [] },
   remainingTons: null,
@@ -679,33 +679,27 @@ const mechSlice = createSlice({
       ) {
         isPairedZone = true;
       }
-      // console.log(
-      //   `addArmorValueToZone: to ${zone} points: ${armorPointsToBeAdded}`
-      // );
+
       if (
-        newMech.armor.unassignedpoints < 1 ||
-        (isPairedZone && newMech.armor.unassignedpoints < 2)
+        newMech.armor.unassignedPoints < 1 ||
+        (isPairedZone && newMech.armor.unassignedPoints < 2)
       ) {
-        if (armorPointsToBeAdded > newMech.armor.armorvalue[zone]) {
+        if (armorPointsToBeAdded > newMech.armor.armorValue[zone]) {
           return newMech;
         }
       }
-      if (newMech.armor.armorvalue[zone] > 0) {
-        newMech.armor.unassignedpoints =
-          newMech.armor.unassignedpoints + newMech.armor.armorvalue[zone];
+      if (newMech.armor.armorValue[zone] > 0) {
+        newMech.armor.unassignedPoints += newMech.armor.armorValue[zone];
         if (isPairedZone) {
-          newMech.armor.unassignedpoints =
-            newMech.armor.unassignedpoints + newMech.armor.armorvalue[zone];
+          newMech.armor.unassignedPoints += newMech.armor.armorValue[zone];
         }
-        newMech.armor.armorvalue[zone] = 0;
+        newMech.armor.armorValue[zone] = 0;
       }
-      newMech.armor.armorvalue[zone] = armorPointsToBeAdded;
+      newMech.armor.armorValue[zone] = armorPointsToBeAdded;
 
-      newMech.armor.unassignedpoints =
-        newMech.armor.unassignedpoints - armorPointsToBeAdded;
+      newMech.armor.unassignedPoints -= armorPointsToBeAdded;
       if (isPairedZone) {
-        newMech.armor.unassignedpoints =
-          newMech.armor.unassignedpoints - armorPointsToBeAdded;
+        newMech.armor.unassignedPoints -= armorPointsToBeAdded;
       }
 
       return newMech;
@@ -713,27 +707,31 @@ const mechSlice = createSlice({
     addArmor(state, action) {
       let newMech = deepCopy(state);
 
-      if (newMech.armor.armorweight > 0) {
-        newMech.remainingTons =
-          newMech.remainingTons + newMech.armor.armorweight;
-        newMech.armor.armorweight = 0;
+      if (newMech.armor.armorWeight > 0) {
+        newMech.remainingTons += newMech.armor.armorWeight;
+        newMech.armor.armorWeight = 0;
       }
 
-      newMech.armor.armorfactor = Number(action.payload);
+      newMech.armor.armorFactor = Number(action.payload);
 
-      newMech.armor.armortype = "standard";
-      newMech.armor.armorweight =
-        Math.ceil(newMech.armor.armorfactor / 8) * 0.5;
+      newMech.armor.armorType = "standard";
+      newMech.armor.armorWeight =
+        Math.ceil(newMech.armor.armorFactor / 8) * 0.5;
 
       newMech = mechSlice.caseReducers.stripArmor(newMech);
-      newMech.remainingTons = newMech.remainingTons - newMech.armor.armorweight;
+      newMech.remainingTons -= newMech.armor.armorWeight;
 
+      return newMech;
+    },
+    setArmorType(state, action) {
+      let newMech = deepCopy(state);
+      newMech.armor.armorType = action.payload;
       return newMech;
     },
     testArmorDistribution(state) {
       let newMech = deepCopy(state);
 
-      let armorPoints = newMech.armor.armorfactor;
+      let armorPoints = newMech.armor.armorFactor;
       const intern = newMech.armor.internal;
 
       const maxArmor = {
@@ -750,13 +748,13 @@ const mechSlice = createSlice({
       // const distArmor = distributePoints(parseInt(armorPoints), maxAmorZones);
 
       console.log(`distributed armor: ${JSON.stringify(distArmor)}`);
-      newMech.armor.armorvalue = distArmor;
+      newMech.armor.armorValue = distArmor;
       return newMech;
     },
     stripArmor(state) {
       let newMech = deepCopy(state);
-      if (newMech.armor.armorweight > 0) {
-        newMech.armor.armorvalue = {
+      if (newMech.armor.armorWeight > 0) {
+        newMech.armor.armorValue = {
           head: 0,
           ctorso: 0,
           ctrear: 0,
@@ -765,23 +763,22 @@ const mechSlice = createSlice({
           rlarm: 0,
           rlleg: 0,
         };
-        newMech.armor.unassignedpoints = newMech.armor.armorfactor;
+        newMech.armor.unassignedPoints = newMech.armor.armorFactor;
       }
       return newMech;
     },
     maxArmor(state, action) {
       let newMech = deepCopy(state);
       const maxArmor = action.payload.tons;
-      if (newMech.armor.armorweight > 0) {
-        newMech.remainingTons =
-          newMech.remainingTons + newMech.armor.armorweight;
-        newMech.armor.armorweight = 0;
+      if (newMech.armor.armorWeight > 0) {
+        newMech.remainingTons += newMech.armor.armorWeight;
+        newMech.armor.armorWeight = 0;
       }
 
-      newMech.armor.armorweight = maxArmor;
-      newMech.remainingTons = newMech.remainingTons - newMech.armor.armorweight;
-      newMech.armor.unassignedpoints = 0;
-      newMech.armor.armorfactor = action.payload.value;
+      newMech.armor.armorWeight = maxArmor;
+      newMech.remainingTons -= newMech.armor.armorWeight;
+      newMech.armor.unassignedPoints = 0;
+      newMech.armor.armorFactor = action.payload.value;
 
       const ctorsoMax = newMech.armor.internal.ctorso * 2;
       const ctorsoFront = Math.floor(ctorsoMax * 0.75);
@@ -790,7 +787,7 @@ const mechSlice = createSlice({
       const rltorsoFront = Math.floor(rltorsoMax * 0.75);
       const rltorsoRear = rltorsoMax - rltorsoFront;
 
-      newMech.armor.armorvalue = {
+      newMech.armor.armorValue = {
         head: 9,
         ctorso: ctorsoFront,
         ctrear: ctorsoRear,

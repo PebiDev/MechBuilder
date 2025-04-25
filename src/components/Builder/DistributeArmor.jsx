@@ -38,7 +38,7 @@ const DistributeArmor = ({ maxArmor }) => {
       <button type="button" onClick={handleStripArmor}>
         Strip Armor
       </button>
-      {mech.armor.unassignedpoints == 0 && mech.armor.armorweight > 0 && (
+      {mech.armor.unassignedpoints == 0 && mech.armor.armorWeight > 0 && (
         <button type="button" onClick={hideArmorDistributionHandler}>
           Hide Armor Distribution
         </button>
