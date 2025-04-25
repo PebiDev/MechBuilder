@@ -13,7 +13,8 @@ const DistributeArmorSlider = ({ zone }) => {
   const checkOverArmored = (armorpoints) => {
     let ArmorPointsToAdd = armorpoints;
 
-    if (ArmorPointsToAdd > mech.armor.unassignedPoints) {
+    // this causes issues - allows for negative unassignedPoints
+    if (ArmorPointsToAdd >= mech.armor.unassignedPoints) {
       ArmorPointsToAdd = armorpoints - mech.armor.unassignedPoints;
     }
     return ArmorPointsToAdd;

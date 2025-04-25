@@ -20,11 +20,18 @@ const Armor = () => {
 
   const getArmorOptionsStandard = () => {
     let armorHalfTons = 0;
-    for (armorHalfTons = 0; armorHalfTons < maxArmor / 8; armorHalfTons++) {
+    for (
+      armorHalfTons = 0;
+      armorHalfTons <
+      Math.round(maxArmor / 8 / mech.armor.armorBasePointsMultiplier);
+      armorHalfTons++
+    ) {
       if (armorHalfTons * 8 < maxArmor) {
         armorOptionsStandard.push({
           tons: armorHalfTons * 0.5,
-          value: armorHalfTons * 8,
+          value: Math.round(
+            armorHalfTons * 8 * mech.armor.armorBasePointsMultiplier
+          ),
         });
       }
     }

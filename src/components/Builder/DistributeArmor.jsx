@@ -23,7 +23,7 @@ const DistributeArmor = ({ maxArmor }) => {
     dispatch(mechActions.stripArmor(mech));
   };
 
-  const hideArmorDistributionHandler = (event) => {
+  const hideArmorDistributionHandler = () => {
     dispatch(uiActions.toggleArmorVisible());
   };
 
@@ -38,7 +38,7 @@ const DistributeArmor = ({ maxArmor }) => {
       <button type="button" onClick={handleStripArmor}>
         Strip Armor
       </button>
-      {mech.armor.unassignedpoints == 0 && mech.armor.armorWeight > 0 && (
+      {mech.armor.unassignedPoints == 0 && mech.armor.armorWeight > 0 && (
         <button type="button" onClick={hideArmorDistributionHandler}>
           Hide Armor Distribution
         </button>
@@ -48,10 +48,10 @@ const DistributeArmor = ({ maxArmor }) => {
         <span
           // style={{ color: "#ffc404" }}
           style={{
-            color: mech.armor.unassignedpoints > 0 ? "ffc404" : "#40d250",
+            color: mech.armor.unassignedPoints > 0 ? "ffc404" : "#40d250",
           }}
         >
-          {mech.armor.unassignedpoints}
+          {mech.armor.unassignedPoints}
         </span>{" "}
       </p>
       <DistributeArmorSlider zone="head" />

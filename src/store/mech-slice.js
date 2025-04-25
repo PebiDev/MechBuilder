@@ -716,9 +716,11 @@ const mechSlice = createSlice({
 
       newMech.armor.armorFactor = Number(action.payload);
 
-      newMech.armor.armorType = "Standard";
-      newMech.armor.armorWeight =
-        Math.ceil(newMech.armor.armorFactor / 8) * 0.5;
+      //newMech.armor.armorType = "Standard";
+      const armorFactorUnmodified = Math.round(
+        newMech.armor.armorFactor / newMech.armor.armorBasePointsMultiplier
+      );
+      newMech.armor.armorWeight = Math.ceil(armorFactorUnmodified / 8) * 0.5;
 
       newMech = mechSlice.caseReducers.stripArmor(newMech);
       newMech.remainingTons -= newMech.armor.armorWeight;
@@ -765,7 +767,7 @@ const mechSlice = createSlice({
         newMech.armor.armorSlots = 7;
       }
       if (newMech.armor.armorType === "Stealth Armor") {
-        newMech.armor.armorBasePointsMultiplier = 1.06;
+        newMech.armor.armorBasePointsMultiplier = 1;
         newMech.equipment.gear.push({
           id: uuidv4(),
           name: "Guardian ECM",
