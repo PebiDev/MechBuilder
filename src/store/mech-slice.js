@@ -610,8 +610,9 @@ const mechSlice = createSlice({
       let newMech = deepCopy(state);
 
       const internalHeatsinks = Math.floor(newMech.reactor.reactorValue / 25);
-      newMech.criticalSlots =
-        newMech.criticalSlots + newMech.equipment.heatsinks.length;
+      newMech.criticalSlots +=
+        newMech.equipment.heatsinks.length *
+        newMech.heatsinks.heatsinkCritSlots;
 
       newMech.equipment.heatsinks.map((heatsink) => {
         heatsink.slots.map((slot) => {
@@ -645,10 +646,9 @@ const mechSlice = createSlice({
           });
         }
       }
-      newMech.criticalSlots =
-        newMech.criticalSlots -
+      newMech.criticalSlots -=
         newMech.equipment.heatsinks.length *
-          newMech.heatsinks.heatsinkCritSlots;
+        newMech.heatsinks.heatsinkCritSlots;
       return newMech;
     },
     removeHeatsinks(state) {

@@ -51,6 +51,12 @@ const Armor = () => {
     dispatch(uiActions.toggleArmorVisible());
   };
 
+  const handleArmorTypeSelect = (event) => {
+    console.log(event.target.value);
+
+    //dispatch(mechAction.setArmorType(event.target.value))
+  };
+
   return (
     <div id="armor">
       <p>
@@ -65,6 +71,20 @@ const Armor = () => {
           </button>
         )}
       </p>
+      <div id="armor-type">
+        {ui.advancedOptions && (
+          <>
+            <label htmlFor="armortype-select">Choose Armor Type</label>
+            <select
+              id="amortype-select"
+              name="amortype-select"
+              onChange={handleArmorTypeSelect}
+            >
+              <option></option>
+            </select>
+          </>
+        )}
+      </div>
       {ui.armorVisible && (
         <div id="armor-distribution">
           <div id="armor-points">

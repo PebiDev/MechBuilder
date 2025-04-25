@@ -151,7 +151,12 @@ const InstallEquipment = () => {
                     <td>{equipment.critical}</td>
                     <td>{equipment.tons}</td>
                     <td>
-                      {!["Jump Jet", "Heatsink"].includes(equipment.name) && (
+                      {![
+                        "Jump Jet",
+                        "Heatsink",
+                        "Double Heatsink",
+                        "Improved Jump Jet",
+                      ].includes(equipment.name) && (
                         <button
                           onClick={() => {
                             handleRemoveEquipment(equipment);
