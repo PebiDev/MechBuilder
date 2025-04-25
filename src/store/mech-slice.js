@@ -326,7 +326,6 @@ const mechSlice = createSlice({
     setGyro(state, action) {
       let newMech = deepCopy(state);
       const newGyroType = action.payload;
-      console.log(newGyroType);
 
       const gyro = newMech.gyro;
       const gyroSlots = ["loc4", "loc5", "loc6", "loc7"];

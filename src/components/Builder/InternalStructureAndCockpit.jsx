@@ -10,7 +10,14 @@ const InternalStructureAndCockpit = () => {
     dispatch(mechActions.setInternalStructure(event.target.value));
   };
   const cockpitHandler = (event) => {
-    dispatch(mechActions.setCockpit(event.target.value));
+    const cockpitType = event.target.value;
+    if (cockpitType === "Standard Cockpit") {
+      dispatch(
+        mechActions.unInstallEquipFromZone({ zones: ["head"], slots: ["loc6"] })
+      );
+    }
+
+    dispatch(mechActions.setCockpit(cockpitType));
   };
 
   return (
