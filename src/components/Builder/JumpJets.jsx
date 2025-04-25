@@ -7,7 +7,6 @@ const JumpJets = () => {
   const mech = useSelector((state) => state.mech);
   const ui = useSelector((state) => state.ui);
   const [jumpJetType, setJumpJetType] = useState("Standard");
-  console.log(jumpJetType);
 
   const jumpOptions = [];
   if (jumpJetType === "Improved") {

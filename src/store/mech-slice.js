@@ -1012,7 +1012,6 @@ const mechSlice = createSlice({
     },
     unInstallEquipFromZone(state, action) {
       let newMech = deepCopy(state);
-      console.log(action.payload);
       const zonesForRemoval = action.payload.zones;
       const locsForRemoval = action.payload.slots;
 
