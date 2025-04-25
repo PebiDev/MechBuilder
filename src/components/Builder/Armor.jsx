@@ -52,8 +52,6 @@ const Armor = () => {
   };
 
   const handleArmorTypeSelect = (event) => {
-    console.log(event.target.value);
-
     //dispatch(mechAction.setArmorType(event.target.value))
   };
 
@@ -78,9 +76,22 @@ const Armor = () => {
             <select
               id="amortype-select"
               name="amortype-select"
+              value={mech.armor.armorType}
               onChange={handleArmorTypeSelect}
             >
-              <option></option>
+              <option value="Standard">Standard Armor</option>
+              <option value="Ferro-Fibrous">Ferro-Fibrous</option>
+              {mech.technologyBase === "Inner Sphere" && (
+                <>
+                  <option value="Light Ferro-Fibrous">
+                    Light Ferro-Fibrous
+                  </option>
+                  <option value="Heavy Ferro-Fibrous">
+                    Heavy Ferro-Fibrous
+                  </option>
+                  <option value="Stealth Armor">Stealth Armor</option>
+                </>
+              )}
             </select>
           </>
         )}

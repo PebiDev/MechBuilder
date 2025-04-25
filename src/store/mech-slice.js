@@ -201,8 +201,10 @@ const initialMechState = {
   armor: {
     armorWeight: 0,
     armorFactor: 0,
-    armorType: "standard",
-    internal: { type: "standard" },
+    armorType: "Standard",
+    armorBasePointsMultiplier: 1,
+    armorSlots: 0,
+    internal: { type: "Standard" },
     armorValue: {},
     unassignedPoints: 0,
   },
@@ -714,7 +716,7 @@ const mechSlice = createSlice({
 
       newMech.armor.armorFactor = Number(action.payload);
 
-      newMech.armor.armorType = "standard";
+      newMech.armor.armorType = "Standard";
       newMech.armor.armorWeight =
         Math.ceil(newMech.armor.armorFactor / 8) * 0.5;
 
@@ -725,7 +727,37 @@ const mechSlice = createSlice({
     },
     setArmorType(state, action) {
       let newMech = deepCopy(state);
+      const oldArmor = { ...newMech.armor };
       newMech.armor.armorType = action.payload;
+      const armor = newMech.armor;
+      const techBase = newMech.technologyBase;
+
+      if (oldArmor === "Standard") {
+      }
+      if (oldArmor === "Ferro-Fibrous" && techBase === "Inner Sphere") {
+      }
+      if (oldArmor === "Ferro-Fibrous" && techBase === "Clan") {
+      }
+      if (oldArmor === "Heavy Ferro-Fibrous") {
+      }
+      if (oldArmor === "Light Ferro-Fibrous") {
+      }
+      if (oldArmor === "Stealth Armor") {
+      }
+
+      if (armor === "Standard") {
+      }
+      if (armor === "Ferro-Fibrous" && techBase === "Inner Sphere") {
+      }
+      if (armor === "Ferro-Fibrous" && techBase === "Clan") {
+      }
+      if (armor === "Heavy Ferro-Fibrous") {
+      }
+      if (armor === "Light Ferro-Fibrous") {
+      }
+      if (armor === "Stealth Armor") {
+      }
+
       return newMech;
     },
     testArmorDistribution(state) {
