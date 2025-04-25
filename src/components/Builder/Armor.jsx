@@ -52,7 +52,7 @@ const Armor = () => {
   };
 
   const handleArmorTypeSelect = (event) => {
-    //dispatch(mechAction.setArmorType(event.target.value))
+    dispatch(mechActions.setArmorType(event.target.value));
   };
 
   return (

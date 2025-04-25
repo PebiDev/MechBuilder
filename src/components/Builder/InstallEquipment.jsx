@@ -59,6 +59,23 @@ const InstallEquipment = () => {
     return jumpJetIllegalZones.includes(zone);
   };
 
+  const checkIsUninstallAllowed = (equipment) => {
+    let unInstallIsAllowed = true;
+    unInstallIsAllowed = ![
+      "Jump Jet",
+      "Heatsink",
+      "Double Heatsink",
+      "Improved Jump Jet",
+    ].includes(equipment.name);
+    if (
+      equipment.name === "Guardian ECM" &&
+      mech.armor.armorType === "Stealth Armor"
+    )
+      unInstallIsAllowed = false;
+
+    return unInstallIsAllowed;
+  };
+
   const handleZoneSelect = (event) => {
     const equipId = event.target.id;
     const equipToZone = event.target.value;
@@ -151,12 +168,7 @@ const InstallEquipment = () => {
                     <td>{equipment.critical}</td>
                     <td>{equipment.tons}</td>
                     <td>
-                      {![
-                        "Jump Jet",
-                        "Heatsink",
-                        "Double Heatsink",
-                        "Improved Jump Jet",
-                      ].includes(equipment.name) && (
+                      {checkIsUninstallAllowed(equipment) && (
                         <button
                           onClick={() => {
                             handleRemoveEquipment(equipment);

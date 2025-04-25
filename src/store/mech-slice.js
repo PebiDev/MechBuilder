@@ -728,34 +728,65 @@ const mechSlice = createSlice({
     setArmorType(state, action) {
       let newMech = deepCopy(state);
       const oldArmor = { ...newMech.armor };
-      newMech.armor.armorType = action.payload;
-      const armor = newMech.armor;
+      console.log(action.payload);
+
       const techBase = newMech.technologyBase;
 
-      if (oldArmor === "Standard") {
-      }
-      if (oldArmor === "Ferro-Fibrous" && techBase === "Inner Sphere") {
-      }
-      if (oldArmor === "Ferro-Fibrous" && techBase === "Clan") {
-      }
-      if (oldArmor === "Heavy Ferro-Fibrous") {
-      }
-      if (oldArmor === "Light Ferro-Fibrous") {
-      }
-      if (oldArmor === "Stealth Armor") {
-      }
+      newMech.remainingTons += oldArmor.armorWeight;
+      newMech.criticalSlots += oldArmor.armorSlots;
+      newMech.armor.armorType = action.payload;
 
-      if (armor === "Standard") {
+      newMech = mechSlice.caseReducers.removeAllArmorSlots(newMech);
+
+      newMech.armor.armorWeight = 0;
+      newMech.armor.armorFactor = 0;
+
+      if (newMech.armor.armorType === "Standard") {
+        newMech.armor.armorBasePointsMultiplier = 1;
+        newMech.armor.armorSlots = 0;
       }
-      if (armor === "Ferro-Fibrous" && techBase === "Inner Sphere") {
+      if (
+        newMech.armor.armorType === "Ferro-Fibrous" &&
+        techBase === "Inner Sphere"
+      ) {
+        newMech.armor.armorBasePointsMultiplier = 1.12;
+        newMech.armor.armorSlots = 14;
       }
-      if (armor === "Ferro-Fibrous" && techBase === "Clan") {
+      if (newMech.armor.armorType === "Ferro-Fibrous" && techBase === "Clan") {
+        newMech.armor.armorBasePointsMultiplier = 1.2;
+        newMech.armor.armorSlots = 7;
       }
-      if (armor === "Heavy Ferro-Fibrous") {
+      if (newMech.armor.armorType === "Heavy Ferro-Fibrous") {
+        newMech.armor.armorBasePointsMultiplier = 1.24;
+        newMech.armor.armorSlots = 21;
       }
-      if (armor === "Light Ferro-Fibrous") {
+      if (newMech.armor.armorType === "Light Ferro-Fibrous") {
+        newMech.armor.armorBasePointsMultiplier = 1.06;
+        newMech.armor.armorSlots = 7;
       }
-      if (armor === "Stealth Armor") {
+      if (newMech.armor.armorType === "Stealth Armor") {
+        newMech.armor.armorBasePointsMultiplier = 1.06;
+        newMech.equipment.gear.push({
+          id: uuidv4(),
+          name: "Guardian ECM",
+          tons: 1.5,
+          critical: 2,
+          location: "n/a",
+          slots: [],
+        });
+        newMech.remainingTons -= 1.5;
+        newMech.criticalSlots -= 14; //2 for ECM, 12 from Stealth Armor
+      }
+      newMech.criticalSlots -= newMech.armor.armorSlots;
+
+      return newMech;
+    },
+    removeAllArmorSlots(state) {
+      let newMech = deepCopy(state);
+      for (const [zone, locs] of Object.entries(newMech.zones)) {
+        for (const [loc, item] of Object.entries(locs)) {
+          if (loc === newMech.armor.armorType) item = "";
+        }
       }
 
       return newMech;
