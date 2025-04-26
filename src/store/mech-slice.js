@@ -595,7 +595,6 @@ const mechSlice = createSlice({
       newMech.equipment.jumpjets = [];
       return newMech;
     },
-
     addHeatsinks(state, action) {
       let newMech = deepCopy(state);
       const numberOfHeatsinks = parseInt(action.payload);
@@ -768,6 +767,7 @@ const mechSlice = createSlice({
       }
       if (newMech.armor.armorType === "Stealth Armor") {
         newMech.armor.armorBasePointsMultiplier = 1;
+        newMech.armor.armorSlots = 12;
         newMech.equipment.gear.push({
           id: uuidv4(),
           name: "Guardian ECM",
@@ -778,6 +778,16 @@ const mechSlice = createSlice({
         });
         newMech.remainingTons -= 1.5;
         newMech.criticalSlots -= 14; //2 for ECM, 12 from Stealth Armor
+        for (const [zoneName, zones] of Object.entries(newMech.zones)) {
+          if (zoneName !== "head") {
+            let zoneLength = Object.keys(zones).length;
+
+            let stealthArmorSlot1 = "loc" + Number(zoneLength - 1);
+            let stealthArmorSlot2 = "loc" + Number(zoneLength);
+            zones[stealthArmorSlot1] = "Stealth Armor";
+            zones[stealthArmorSlot2] = "Stealth Armor";
+          }
+        }
       }
       newMech.criticalSlots -= newMech.armor.armorSlots;
 
@@ -785,10 +795,15 @@ const mechSlice = createSlice({
     },
     removeAllArmorSlots(state) {
       let newMech = deepCopy(state);
-      for (const [zone, locs] of Object.entries(newMech.zones)) {
-        for (const [loc, item] of Object.entries(locs)) {
-          if (loc === newMech.armor.armorType) item = "";
-        }
+      for (const [zoneName, slots] of Object.entries(newMech.zones)) {
+        const slotEntries = Object.values(slots);
+
+        slotEntries.map((entry, index) => {
+          if (entry === newMech.armor.armorType) {
+            let slot = "loc" + Number(index + 1);
+            newMech.zones[zoneName][slot] = "";
+          }
+        });
       }
 
       return newMech;
@@ -936,12 +951,15 @@ const mechSlice = createSlice({
       )) {
         equipments.map((item) => {
           if (item.id == unInstallEquipmentId) {
-            newMech.equipment[equipmentType] = equipments.filter(
-              (item) => item.id !== unInstallEquipmentId
-            );
+            //total removal of item:
+            // newMech.equipment[equipmentType] = equipments.filter(
+            //   (item) => item.id !== unInstallEquipmentId
+            // );
+
             item.slots.map((slot) => {
               newMech.zones[item.location][slot] = "";
             });
+            item.location = "n/a";
           }
         });
       }

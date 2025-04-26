@@ -9,10 +9,16 @@ const FinalActions = () => {
   const installEndoSteelHandler = () => {
     dispatch(mechActions.installEndoSteel(mech));
   };
+  const handleRemoveArmor = () => {
+    dispatch(mechActions.removeAllArmorSlots(mech));
+  };
   return (
     <div id="final-actions">
       {mech.internalStructure === "Endo Steel" && (
         <button onClick={installEndoSteelHandler}>Install EndoSteel</button>
+      )}
+      {mech.armor.armorSlots > 0 && (
+        <button onClick={handleRemoveArmor}>Remove ArmorSlots</button>
       )}
     </div>
   );

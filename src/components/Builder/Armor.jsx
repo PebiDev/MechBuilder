@@ -59,7 +59,32 @@ const Armor = () => {
   };
 
   const handleArmorTypeSelect = (event) => {
-    dispatch(mechActions.setArmorType(event.target.value));
+    const armorType = event.target.value;
+    if (armorType === "Stealth Armor") {
+      for (const [zoneName, zones] of Object.entries(mech.zones)) {
+        console.log(zones);
+
+        if (zoneName !== "head") {
+          let slotsToUinstall = [];
+
+          slotsToUinstall.push(
+            "loc" + Number(Object.keys(zones).length),
+            "loc" + Number(Object.keys(zones).length - 1)
+          );
+          dispatch(
+            mechActions.unInstallEquipFromZone({
+              zones: [zoneName],
+              slots: slotsToUinstall,
+            })
+          );
+          console.log(slotsToUinstall);
+        }
+      }
+
+      //dispatch(mechActions.unInstallEquipFromZone())
+    }
+
+    dispatch(mechActions.setArmorType(armorType));
   };
 
   return (
@@ -120,10 +145,10 @@ const Armor = () => {
           </div>
           <div id="armor-tons">
             Choose Armor by Tons:
-            <label htmlFor="armor-select"></label>
+            <label htmlFor="armor-tons-select"></label>
             <select
-              id="armor-select"
-              name="armor-select"
+              id="armor-tons-select"
+              name="armor-tons-select"
               onChange={armorSelectHandler}
               value={mech.armor.armorFactor}
             >
