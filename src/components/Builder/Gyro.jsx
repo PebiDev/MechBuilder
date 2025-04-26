@@ -29,7 +29,7 @@ const Gyro = () => {
   };
 
   return (
-    <div id="mech-gyro">
+    <div id="mech-gyro" className="form-element">
       {mech.technologyBase === "Inner Sphere" && ui.advancedOptions ? (
         <>
           <p>

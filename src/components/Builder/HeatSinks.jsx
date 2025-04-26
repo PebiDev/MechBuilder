@@ -19,7 +19,7 @@ const HeatSinks = () => {
   };
 
   return (
-    <div id="mech-heatsinks">
+    <div id="mech-heatsinks" className="form-element">
       {ui.advancedOptions && (
         <div id="heatsink-type-radio">
           <p>Choose Heatsink Type:</p>

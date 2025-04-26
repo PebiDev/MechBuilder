@@ -27,7 +27,7 @@ const MechReactor = () => {
   };
 
   return (
-    <div id="mech-reactor">
+    <div id="mech-reactor" className="form-element">
       <label htmlFor="speed-select">Choose Walking Speed</label>
       <select
         name="speed-select"

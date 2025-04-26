@@ -86,13 +86,15 @@ const Armor = () => {
   };
 
   return (
-    <div id="armor">
+    <div id="armor" className="form-element">
       <p>
         {" "}
         armorValue: {mech.armor.armorFactor}
         <br />
         Armor Weight: {mech.armor.armorWeight} tons
-        <span className="substract-tons">-{mech.armor.armorWeight} tons</span>
+        {mech.armor.armorWeight > 0 && (
+          <span className="substract-tons">-{mech.armor.armorWeight} tons</span>
+        )}
         {!ui.armorVisible && (
           <button type="button" onClick={showArmorHandler}>
             Show Armor

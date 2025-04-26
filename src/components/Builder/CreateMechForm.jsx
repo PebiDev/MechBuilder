@@ -29,7 +29,6 @@ const CreateMechForm = () => {
         <MechData />
         {mech.remainingTons !== null && (
           <div>
-            <RemainingTons />
             <InternalStructureAndCockpit />
             <MechReactor />
             {mech.movement.walking > 0 && <Gyro />}
@@ -39,6 +38,8 @@ const CreateMechForm = () => {
             <InstallEquipment />
             <ShopEquipment />
             <FinalActions />
+            <RemainingTons />
+            {mech.remainingTons && <></>}
           </div>
         )}
       </form>

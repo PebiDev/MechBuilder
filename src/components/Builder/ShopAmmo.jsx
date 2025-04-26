@@ -62,6 +62,7 @@ const ShopAmmo = () => {
                     </td>
                     <td>{weapon.ammo}</td>
                     <td> {Number(weapon.ammo) * Number(ammoTons)}</td>
+
                     <td>
                       {ammoTons > 0.5 && (
                         <button onClick={() => handleRemoveAmmo(weapon)}>
@@ -69,8 +70,9 @@ const ShopAmmo = () => {
                         </button>
                       )}
                       {ammoTons}
-
-                      <button onClick={() => handleAddAmmo(weapon)}>+</button>
+                      {mech.criticalSlots > 0 && mech.remainingTons > 0 && (
+                        <button onClick={() => handleAddAmmo(weapon)}>+</button>
+                      )}
                     </td>
                   </tr>
                 );

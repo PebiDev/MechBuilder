@@ -21,7 +21,7 @@ const InternalStructureAndCockpit = () => {
   };
 
   return (
-    <div id="mech-structure">
+    <div id="mech-structure" className="form-element">
       {ui.advancedOptions ? (
         <p>
           <label htmlFor="internal-structure-select">Internal Structure:</label>

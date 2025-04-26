@@ -37,7 +37,7 @@ const JumpJets = () => {
   };
 
   return (
-    <div id="mech-jumpjets">
+    <div id="mech-jumpjets" className="form-element">
       {ui.advancedOptions && (
         <div id="jumpjet-type-radio">
           <p>Choose Jumpjet Type:</p>

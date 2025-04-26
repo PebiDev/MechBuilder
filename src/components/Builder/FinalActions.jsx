@@ -42,7 +42,6 @@ const FinalActions = () => {
       {mech.armor.armorSlots > 0 && (
         <button onClick={handleRemoveArmor}>Remove ArmorSlots</button>
       )}
-      {checkIfArmorSlotsInstalled() && <h1>Armor is Installed</h1>}
     </div>
   );
 };

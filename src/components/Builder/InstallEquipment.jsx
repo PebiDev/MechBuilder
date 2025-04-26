@@ -97,10 +97,7 @@ const InstallEquipment = () => {
   };
 
   return (
-    <div id="install-equipment">
-      <div id="critical-slots">
-        remaining Critical Slots: {mech.criticalSlots}
-      </div>
+    <div id="install-equipment" className="form-element">
       <ShowEquipment />
       {installedWeapons.length > 0 && (
         <div>

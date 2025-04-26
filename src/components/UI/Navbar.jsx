@@ -24,7 +24,7 @@ const Navbar = () => {
       <button onClick={handleResetMech}>Reset Mech</button>
       <button
         onClick={handleAdvancedOptions}
-        className={ui.advancedOptions && "advanced-options-active"}
+        className={ui.advancedOptions ? "advanced-options-active" : ""}
       >
         Advanced Options
       </button>

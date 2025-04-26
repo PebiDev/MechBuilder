@@ -9,7 +9,7 @@ const EQUIPMENT = equipment_lvl1;
 const ShopEquipment = () => {
   const mech = useSelector((state) => state.mech);
   return (
-    <div id="shop-equipment">
+    <div id="shop-equipment" className="form-element">
       <ShopAmmo />
       <h3>Choose Weapons</h3>
       <table id="shop-table">

@@ -24,7 +24,7 @@ const MechData = () => {
     dispatch(mechActions.setInternalStructure(event.target.value));
   };
   return (
-    <div className="mechData">
+    <div className="mech-data form-element">
       <label htmlFor="name">Name your Mech</label>
       <input type="text" id="name" name="name" onChange={nameHandler}></input>
       <br />
