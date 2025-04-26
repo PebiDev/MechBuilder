@@ -1173,6 +1173,26 @@ const mechSlice = createSlice({
 
       return newMech;
     },
+    installReRollSlotsByOli(state, action) {
+      let newMech = deepCopy(state);
+      const reRollName = "ReRoll: " + action.payload.name;
+      let reRollSlots = action.payload.slots;
+
+      for (const [zone, locs] of Object.entries(newMech.zones)) {
+        if (reRollSlots <= 0) break;
+        for (const [locName, entry] of Object.entries(locs)) {
+          if (reRollSlots <= 0) break;
+          if (!entry) {
+            newMech.zones[zone][locName] = reRollName;
+            reRollSlots--;
+          }
+        }
+      }
+
+      if (reRollSlots > 0) return state;
+
+      return newMech;
+    },
 
     resetMechToInitialState() {
       let newMech = deepCopy(initialMechState);

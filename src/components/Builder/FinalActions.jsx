@@ -22,7 +22,7 @@ const FinalActions = () => {
       slots: mech.armor.armorSlots,
     };
 
-    dispatch(mechActions.InstallReRollSlots(installSlots));
+    dispatch(mechActions.installReRollSlotsByOli(installSlots));
   };
   const handleRemoveArmor = () => {
     dispatch(mechActions.removeAllArmorSlots(mech));
