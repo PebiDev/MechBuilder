@@ -729,14 +729,12 @@ const mechSlice = createSlice({
     setArmorType(state, action) {
       let newMech = deepCopy(state);
       const oldArmor = { ...newMech.armor };
-
+      newMech = mechSlice.caseReducers.removeAllArmorSlots(newMech);
       const techBase = newMech.technologyBase;
 
       newMech.remainingTons += oldArmor.armorWeight;
       newMech.criticalSlots += oldArmor.armorSlots;
       newMech.armor.armorType = action.payload;
-
-      newMech = mechSlice.caseReducers.removeAllArmorSlots(newMech);
 
       newMech.armor.armorWeight = 0;
       newMech.armor.armorFactor = 0;
@@ -773,7 +771,6 @@ const mechSlice = createSlice({
             item.name.includes("ECM")
           );
         };
-
         if (!checkIfECMInstalled()) {
           newMech.equipment.gear.push({
             id: uuidv4(),
@@ -784,7 +781,6 @@ const mechSlice = createSlice({
             slots: [],
           });
         }
-
         newMech.remainingTons -= 1.5; //weight of ECM
         newMech.criticalSlots -= 14; //2 for ECM, 12 from Stealth Armor
         for (const [zoneName, zones] of Object.entries(newMech.zones)) {
@@ -799,7 +795,6 @@ const mechSlice = createSlice({
         }
       }
       newMech.criticalSlots -= newMech.armor.armorSlots;
-
       return newMech;
     },
     removeAllArmorSlots(state) {
@@ -813,7 +808,6 @@ const mechSlice = createSlice({
           }
         });
       }
-
       return newMech;
     },
     testArmorDistribution(state) {

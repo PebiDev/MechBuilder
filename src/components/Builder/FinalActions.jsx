@@ -7,11 +7,9 @@ const FinalActions = () => {
   const ui = useSelector((state) => state.ui);
 
   const checkIfArmorSlotsInstalled = () => {
-    let armorSlotsAreInstalled = false;
-    for (const [zoneName, zone] of Object.entries(mech.zones)) {
-      let slotEntries = Object.values(zone);
-      armorSlotsAreInstalled = slotEntries.includes("Ferro-Fibrous");
-    }
+    const armorSlotsAreInstalled = Object.values(mech.zones).some((zone) =>
+      Object.values(zone).some((entry) => entry.includes("Ferro-Fibrous"))
+    );
     return armorSlotsAreInstalled;
   };
 
@@ -23,21 +21,24 @@ const FinalActions = () => {
       name: mech.armor.armorType,
       slots: mech.armor.armorSlots,
     };
+
     dispatch(mechActions.InstallReRollSlots(installSlots));
   };
   const handleRemoveArmor = () => {
     dispatch(mechActions.removeAllArmorSlots(mech));
   };
+
   return (
     <div id="final-actions">
       {mech.internalStructure === "Endo Steel" && (
         <button onClick={installEndoSteelHandler}>Install EndoSteel</button>
       )}
-      {mech.armor.armorType.includes("Ferro-Fibrous") && (
-        <button onClick={handleInstallArmorSlots}>
-          Install {mech.armor.armorType} (Slots: {mech.armor.armorSlots})
-        </button>
-      )}
+      {mech.armor.armorType.includes("Ferro-Fibrous") &&
+        !checkIfArmorSlotsInstalled() && (
+          <button onClick={handleInstallArmorSlots}>
+            Install {mech.armor.armorType} (Slots: {mech.armor.armorSlots})
+          </button>
+        )}
       {mech.armor.armorSlots > 0 && (
         <button onClick={handleRemoveArmor}>Remove ArmorSlots</button>
       )}
