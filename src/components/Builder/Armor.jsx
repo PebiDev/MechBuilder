@@ -58,30 +58,28 @@ const Armor = () => {
     dispatch(uiActions.toggleArmorVisible());
   };
 
+  const removeEquipForStealthArmor = () => {
+    for (const [zoneName, zones] of Object.entries(mech.zones)) {
+      if (zoneName !== "head") {
+        let slotsToUinstall = [];
+        slotsToUinstall.push(
+          "loc" + Number(Object.keys(zones).length),
+          "loc" + Number(Object.keys(zones).length - 1)
+        );
+        dispatch(
+          mechActions.unInstallEquipFromZone({
+            zones: [zoneName],
+            slots: slotsToUinstall,
+          })
+        );
+      }
+    }
+  };
+
   const handleArmorTypeSelect = (event) => {
     const armorType = event.target.value;
     if (armorType === "Stealth Armor") {
-      for (const [zoneName, zones] of Object.entries(mech.zones)) {
-        console.log(zones);
-
-        if (zoneName !== "head") {
-          let slotsToUinstall = [];
-
-          slotsToUinstall.push(
-            "loc" + Number(Object.keys(zones).length),
-            "loc" + Number(Object.keys(zones).length - 1)
-          );
-          dispatch(
-            mechActions.unInstallEquipFromZone({
-              zones: [zoneName],
-              slots: slotsToUinstall,
-            })
-          );
-          console.log(slotsToUinstall);
-        }
-      }
-
-      //dispatch(mechActions.unInstallEquipFromZone())
+      removeEquipForStealthArmor();
     }
 
     dispatch(mechActions.setArmorType(armorType));
@@ -106,8 +104,8 @@ const Armor = () => {
           <>
             <label htmlFor="armortype-select">Choose Armor Type</label>
             <select
-              id="amortype-select"
-              name="amortype-select"
+              id="armortype-select"
+              name="armortype-select"
               value={mech.armor.armorType}
               onChange={handleArmorTypeSelect}
             >

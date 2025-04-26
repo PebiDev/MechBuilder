@@ -729,7 +729,6 @@ const mechSlice = createSlice({
     setArmorType(state, action) {
       let newMech = deepCopy(state);
       const oldArmor = { ...newMech.armor };
-      console.log(action.payload);
 
       const techBase = newMech.technologyBase;
 
@@ -768,15 +767,25 @@ const mechSlice = createSlice({
       if (newMech.armor.armorType === "Stealth Armor") {
         newMech.armor.armorBasePointsMultiplier = 1;
         newMech.armor.armorSlots = 12;
-        newMech.equipment.gear.push({
-          id: uuidv4(),
-          name: "Guardian ECM",
-          tons: 1.5,
-          critical: 2,
-          location: "n/a",
-          slots: [],
-        });
-        newMech.remainingTons -= 1.5;
+
+        const checkIfECMInstalled = () => {
+          return newMech.equipment.gear.some((item) =>
+            item.name.includes("ECM")
+          );
+        };
+
+        if (!checkIfECMInstalled()) {
+          newMech.equipment.gear.push({
+            id: uuidv4(),
+            name: "Guardian ECM",
+            tons: 1.5,
+            critical: 2,
+            location: "n/a",
+            slots: [],
+          });
+        }
+
+        newMech.remainingTons -= 1.5; //weight of ECM
         newMech.criticalSlots -= 14; //2 for ECM, 12 from Stealth Armor
         for (const [zoneName, zones] of Object.entries(newMech.zones)) {
           if (zoneName !== "head") {
@@ -797,9 +806,8 @@ const mechSlice = createSlice({
       let newMech = deepCopy(state);
       for (const [zoneName, slots] of Object.entries(newMech.zones)) {
         const slotEntries = Object.values(slots);
-
         slotEntries.map((entry, index) => {
-          if (entry === newMech.armor.armorType) {
+          if (entry.includes(newMech.armor.armorType)) {
             let slot = "loc" + Number(index + 1);
             newMech.zones[zoneName][slot] = "";
           }
@@ -1125,7 +1133,7 @@ const mechSlice = createSlice({
       return newMech;
     },
     installEndoSteel(state) {
-      //Needs reworking to be more general and with action.payload for armors as well
+      //can be removed once FinalActions is reworked
       let newMech = deepCopy(state);
       let endoSteelSlots = 7;
       if (newMech.technologyBase === "Inner Sphere") endoSteelSlots += 7;
@@ -1140,6 +1148,29 @@ const mechSlice = createSlice({
             if (newMech.zones[zone][location] === "") {
               newMech.zones[zone][location] = "ReRoll: Endo Steel";
               endoSteelCounter++;
+              break outerLoop;
+            }
+          }
+        }
+      }
+
+      return newMech;
+    },
+    InstallReRollSlots(state, action) {
+      let newMech = deepCopy(state);
+      const reRollName = "ReRoll: " + action.payload.name;
+      const reRollSlots = action.payload.slots;
+      let loopCounter = 0;
+
+      while (loopCounter < reRollSlots) {
+        outerLoop: for (const [zone, locs] of Object.entries(newMech.zones)) {
+          for (let i = 0; i < Object.keys(locs).length; i++) {
+            let counter = i + 1;
+            let location = "loc" + counter;
+
+            if (newMech.zones[zone][location] === "") {
+              newMech.zones[zone][location] = reRollName;
+              loopCounter++;
               break outerLoop;
             }
           }
