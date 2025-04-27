@@ -774,7 +774,14 @@ const mechSlice = createSlice({
         if (!checkIfECMInstalled()) {
           newMech.equipment.gear.push({
             id: uuidv4(),
+            category: "Special Equipment",
+            type: "gear",
             name: "Guardian ECM",
+            heat: 0,
+            damage: "n/a",
+            minimal: "-",
+            range: "n/a",
+            ammo: "-",
             tons: 1.5,
             critical: 2,
             location: "n/a",
