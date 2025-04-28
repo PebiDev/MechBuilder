@@ -9,6 +9,24 @@ const AdvancedShop = ({ equipmentList }) => {
   const [equipList, setEquipList] = useState(equipmentList);
   let categoriesList = [...new Set(equipmentList.map((item) => item.category))];
 
+  let hatchet = equipList.find((item) => item.name === "Hatchet");
+  if (hatchet) {
+    hatchet.tons = Math.round(mech.tonnage / 15);
+    hatchet.critical = Math.round(mech.tonnage / 15);
+  }
+
+  let lance = equipList.find((item) => item.name === "Lance");
+  if (lance) {
+    lance.tons = Math.round(mech.tonnage / 20);
+    lance.critical = Math.round(mech.tonnage / 20);
+  }
+
+  let sword = equipList.find((item) => item.name === "Sword");
+  if (sword) {
+    sword.tons = Math.round(mech.tonnage / 20);
+    sword.critical = Math.round(mech.tonnage / 15);
+  }
+
   const handleFilter = (category) => {
     setEquipList(equipmentList.filter((item) => item.category === category));
   };
@@ -35,7 +53,8 @@ const AdvancedShop = ({ equipmentList }) => {
         </thead>
         <tbody>
           {equipList.map((item) => {
-            //current solution: only display items that can still fit in the mech
+            //current solution: only dis
+            // play items that can still fit in the mech
             if (item.critical <= mech.criticalSlots) {
               return <ShopItem item={item} key={item.name} />;
             }

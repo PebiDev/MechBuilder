@@ -146,7 +146,6 @@ const InstallEquipment = () => {
                           (zone) => {
                             if (
                               equipment.name === "Jump Jet" &&
-                              // ||   "Improved Jump Jet")
                               isJumpJetLegal(zone)
                             ) {
                               return;

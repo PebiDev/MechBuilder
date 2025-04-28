@@ -14,6 +14,7 @@ const EQUIPMENT = equipment_lvl1;
 
 const ShopEquipment = () => {
   const mech = useSelector((state) => state.mech);
+  const tonnage = mech.tonnage;
   const ui = useSelector((state) => state.ui);
   return (
     <div id="shop-equipment" className="form-element">
