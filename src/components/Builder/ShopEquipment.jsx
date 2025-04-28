@@ -1,10 +1,15 @@
 import equipment_lvl1 from "../../data/equipment_lvl1";
+import equipment_IS from "../../data/equipment_IS/equipment_IS";
+import equipment_Clan from "../../data/equipment_Clan/equipment_Clan";
+
 import { useSelector } from "react-redux";
 import AdvancedShop from "../Advanced-Builder/AdvancedShop";
 
 import ShopItem from "./ShopItem";
 import ShopAmmo from "./ShopAmmo";
 
+const EQUIPMENT_IS = equipment_IS;
+const EQUIPMENT_CLAN = equipment_Clan;
 const EQUIPMENT = equipment_lvl1;
 
 const ShopEquipment = () => {
@@ -16,7 +21,13 @@ const ShopEquipment = () => {
 
       <h3>Choose Weapons</h3>
       {ui.advancedOptions ? (
-        <AdvancedShop />
+        <>
+          {mech.technologyBase === "Clan" ? (
+            <AdvancedShop equipmentList={EQUIPMENT_CLAN} />
+          ) : (
+            <AdvancedShop equipmentList={EQUIPMENT_IS} />
+          )}
+        </>
       ) : (
         <table id="shop-table">
           <thead>

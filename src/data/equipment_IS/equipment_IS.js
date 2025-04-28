@@ -95,7 +95,7 @@ export default [
     tons: 14,
     critical: 11,
   },
-  ,
+
   {
     category: "Autocannons",
     type: "balistic",
@@ -124,8 +124,8 @@ export default [
     category: "Autocannons",
     type: "balistic",
     name: "Rotary AC/2",
-    heat: 1 / Shot,
-    damage: 2 / Shot,
+    heat: "1 / Shot",
+    damage: "2 / Shot",
     minimal: "-",
     range: [6, 12, 18],
     ammo: 45,
@@ -135,34 +135,9 @@ export default [
   {
     category: "Autocannons",
     type: "balistic",
-    name: "Rotary AC/5",
-    heat: 1 / Shot,
-    damage: 5 / Shot,
-    minimal: "-",
-    range: [5, 10, 15],
-    ammo: 20,
-    tons: 10,
-    critical: 6,
-  },
-  ,
-  {
-    category: "Autocannons",
-    type: "balistic",
-    name: "Rotary AC/5",
-    heat: 1 / Shot,
-    damage: 5 / Shot,
-    minimal: "-",
-    range: [5, 10, 15],
-    ammo: 20,
-    tons: 10,
-    critical: 6,
-  },
-  {
-    category: "Autocannons",
-    type: "balistic",
     name: "Ultra AC/2",
-    heat: 1 / Shot,
-    damage: 2 / Shot,
+    heat: "1 / Shot",
+    damage: "2 / Shot",
     minimal: "3",
     range: [8, 17, 25],
     ammo: 45,
@@ -173,8 +148,8 @@ export default [
     category: "Autocannons",
     type: "balistic",
     name: "Ultra AC/5",
-    heat: 1 / Shot,
-    damage: 5 / Shot,
+    heat: "1 / Shot",
+    damage: "5 / Shot",
     minimal: "2",
     range: [6, 13, 20],
     ammo: 20,
@@ -185,8 +160,8 @@ export default [
     category: "Autocannons",
     type: "balistic",
     name: "Ultra AC/10",
-    heat: 4 / Shot,
-    damage: 10 / Shot,
+    heat: "4 / Shot",
+    damage: "10 / Shot",
     minimal: "-",
     range: [6, 12, 18],
     ammo: 10,
@@ -197,8 +172,8 @@ export default [
     category: "Autocannons",
     type: "balistic",
     name: "Ultra AC/20",
-    heat: 8 / Shot,
-    damage: 20 / Shot,
+    heat: "8 / Shot",
+    damage: "20 / Shot",
     minimal: "-",
     range: [3, 7, 10],
     ammo: 5,
@@ -398,6 +373,7 @@ export default [
     critical: 1,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "SRM 2",
     heat: 2,
@@ -409,6 +385,7 @@ export default [
     critical: 1,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "SRM 4",
     heat: 3,
@@ -420,6 +397,7 @@ export default [
     critical: 1,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "SRM 6",
     heat: 4,
@@ -431,6 +409,7 @@ export default [
     critical: 2,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "SRM 2 + Artemis IV",
     heat: 2,
@@ -442,6 +421,7 @@ export default [
     critical: 2,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "SRM 4 + Artemis IV",
     heat: 3,
@@ -453,6 +433,7 @@ export default [
     critical: 2,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "SRM 6 + Artemis IV",
     heat: 4,
@@ -464,6 +445,7 @@ export default [
     critical: 3,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "Streak SRM 2",
     heat: 2,
@@ -475,6 +457,7 @@ export default [
     critical: 1,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "Streak SRM 4",
     heat: 3,
@@ -486,6 +469,7 @@ export default [
     critical: 1,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "Streak SRM 6",
     heat: 4,
@@ -497,6 +481,7 @@ export default [
     critical: 2,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "LRM 5",
     heat: 2,
@@ -508,6 +493,7 @@ export default [
     critical: 1,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "LRM 10",
     heat: 4,
@@ -519,6 +505,7 @@ export default [
     critical: 2,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "LRM 15",
     heat: 5,
@@ -530,6 +517,7 @@ export default [
     critical: 3,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "LRM 20",
     heat: 6,
@@ -541,6 +529,7 @@ export default [
     critical: 5,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "LRM 5 + Artemis IV",
     heat: 2,
@@ -552,6 +541,7 @@ export default [
     critical: 2,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "LRM 10 + Artemis IV",
     heat: 4,
@@ -563,6 +553,7 @@ export default [
     critical: 3,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "LRM 15 + Artemis IV",
     heat: 5,
@@ -574,6 +565,7 @@ export default [
     critical: 2,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "LRM 20 + Artemis IV",
     heat: 6,
@@ -585,6 +577,7 @@ export default [
     critical: 6,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MML 3 (LRM)",
     heat: 2,
@@ -596,6 +589,7 @@ export default [
     critical: 2,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MML 3 (SRM)",
     heat: 2,
@@ -607,6 +601,7 @@ export default [
     critical: 2,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MML 5 (LRM)",
     heat: 3,
@@ -618,6 +613,7 @@ export default [
     critical: 3,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MML 5 (SRM)",
     heat: 3,
@@ -629,6 +625,7 @@ export default [
     critical: 3,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MML 7 (LRM)",
     heat: 4,
@@ -640,6 +637,7 @@ export default [
     critical: 3,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MML 7 (SRM)",
     heat: 4,
@@ -651,6 +649,7 @@ export default [
     critical: 3,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MML 9 (LRM)",
     heat: 5,
@@ -662,6 +661,7 @@ export default [
     critical: 5,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MML 9 (SRM)",
     heat: 5,
@@ -673,6 +673,7 @@ export default [
     critical: 5,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MML 3 (LRM) + Artemis IV",
     heat: 2,
@@ -684,6 +685,7 @@ export default [
     critical: 3,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MML 3 (SRM)+ Artemis IV",
     heat: 2,
@@ -695,6 +697,7 @@ export default [
     critical: 3,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MML 5 (LRM) + Artemis IV",
     heat: 3,
@@ -706,6 +709,7 @@ export default [
     critical: 4,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MML 5 (SRM) + Artemis IV",
     heat: 3,
@@ -717,6 +721,7 @@ export default [
     critical: 4,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MML 7 (LRM) + Artemis IV",
     heat: 4,
@@ -728,6 +733,7 @@ export default [
     critical: 4,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MML 7 (SRM) + Artemis IV",
     heat: 4,
@@ -739,6 +745,7 @@ export default [
     critical: 4,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MML 9 (LRM) + Artemis IV",
     heat: 5,
@@ -750,6 +757,7 @@ export default [
     critical: 6,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MML 9 (SRM) + Artemis IV",
     heat: 5,
@@ -761,6 +769,7 @@ export default [
     critical: 6,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MRM 10",
     heat: 4,
@@ -772,6 +781,7 @@ export default [
     critical: 2,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MRM 20",
     heat: 6,
@@ -783,6 +793,7 @@ export default [
     critical: 3,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MRM 30",
     heat: 10,
@@ -794,6 +805,7 @@ export default [
     critical: 5,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "MRM 40",
     heat: 12,
@@ -805,6 +817,7 @@ export default [
     critical: 7,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "Rocket Launcher 10",
     heat: 3,
@@ -816,6 +829,7 @@ export default [
     critical: 1,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "Rocket Launcher 15",
     heat: 4,
@@ -827,6 +841,7 @@ export default [
     critical: 2,
   },
   {
+    category: "Missiles",
     type: "missile",
     name: "Rocket Launcher 20",
     heat: 5,
@@ -922,6 +937,7 @@ export default [
     critical: 2,
   },
   {
+    category: "PPCs",
     type: "energy",
     name: "Light PPC",
     heat: 5,
@@ -933,6 +949,7 @@ export default [
     critical: 2,
   },
   {
+    category: "PPCs",
     type: "energy",
     name: "PPC",
     heat: 10,
@@ -944,6 +961,7 @@ export default [
     critical: 3,
   },
   {
+    category: "PPCs",
     type: "energy",
     name: "Heavy PPC",
     heat: 15,
@@ -955,6 +973,7 @@ export default [
     critical: 4,
   },
   {
+    category: "PPCs",
     type: "energy",
     name: "ER PPC",
     heat: 15,
@@ -966,6 +985,7 @@ export default [
     critical: 3,
   },
   {
+    category: "PPCs",
     type: "energy",
     name: "Snub-Nose PPC",
     heat: 10,
