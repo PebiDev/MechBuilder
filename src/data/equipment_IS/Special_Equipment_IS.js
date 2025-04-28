@@ -102,7 +102,7 @@ export default [
     heat: 0,
     damage: "n/a",
     minimal: "-",
-    range: "n/a",
+    range: [0, 0, 6],
     ammo: "-",
     tons: 1.5,
     critical: 2,
@@ -117,7 +117,7 @@ export default [
     range: "n/a",
     ammo: "-",
     tons: 0.5,
-    critical: "-",
+    critical: 1,
   },
   {
     category: "Special Equipment",
