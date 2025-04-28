@@ -34,6 +34,7 @@ const JumpJets = () => {
 
   const imProvedJumpJetHandler = (event) => {
     setJumpJetType(event.target.value);
+    dispatch(mechActions.removeJumpJets(mech));
   };
 
   return (

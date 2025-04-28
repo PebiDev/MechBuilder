@@ -593,6 +593,7 @@ const mechSlice = createSlice({
         });
       });
       newMech.equipment.jumpjets = [];
+      newMech.movement.jumping = 0;
       return newMech;
     },
     addHeatsinks(state, action) {

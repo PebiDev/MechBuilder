@@ -59,6 +59,10 @@ const InstallEquipment = () => {
     return jumpJetIllegalZones.includes(zone);
   };
 
+  const isZoneLegalForEquip = (zone, equipment) => {
+    if (equipment.name === "Jump Jet") return true;
+  };
+
   const checkIsUninstallAllowed = (equipment) => {
     let unInstallIsAllowed = true;
     unInstallIsAllowed = ![
