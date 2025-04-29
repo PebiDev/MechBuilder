@@ -1220,10 +1220,26 @@ const mechSlice = createSlice({
     setTargetingComputerWeightAndSlots(state, action) {
       let newMech = deepCopy(state);
       const directFireWeaponWeight = action.payload;
+      if (directFireWeaponWeight === 0) {
+        return state;
+      }
       let tc = newMech.equipment.gear.find(
         (gear) => (gear.name = "Targeting Computer")
       );
       if (tc !== undefined) {
+        newMech.remainingTons += tc.tons;
+        newMech.criticalSlots += tc.critical;
+
+        let newWeight = 0;
+        if (newMech.technologyBase === "Clan") {
+          newWeight = Math.ceil(directFireWeaponWeight / 5);
+        } else {
+          newWeight = Math.ceil(directFireWeaponWeight / 4);
+        }
+        tc.tons = newWeight;
+        tc.critical = newWeight;
+        newMech.remainingTons -= tc.tons;
+        newMech.criticalSlots -= tc.critical;
       } else {
         return state;
       }
