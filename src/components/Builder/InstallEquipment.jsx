@@ -59,8 +59,11 @@ const InstallEquipment = () => {
     return jumpJetIllegalZones.includes(zone);
   };
 
-  const isZoneLegalForEquip = (zone, equipment) => {
-    if (equipment.name === "Jump Jet") return true;
+  const isZoneIllegalForEquip = (zone, equipment) => {
+    if (equipment.name.includes("Jump Jet") && isJumpJetLegal(zone))
+      return true;
+    if (equipment.category === "Melee Weapon" && !zone.includes("arm"))
+      return true;
   };
 
   const checkIsUninstallAllowed = (equipment) => {
@@ -148,10 +151,7 @@ const InstallEquipment = () => {
                         <option default>n/a</option>
                         {getZonesWithFreeSlots(equipment.critical).map(
                           (zone) => {
-                            if (
-                              equipment.name === "Jump Jet" &&
-                              isJumpJetLegal(zone)
-                            ) {
+                            if (isZoneIllegalForEquip(zone, equipment)) {
                               return;
                             } else {
                               return (
