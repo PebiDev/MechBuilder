@@ -12,38 +12,6 @@ const InstallEquipment = () => {
   const unInstalledWeapons = [];
   const installedWeapons = [];
 
-  mech.equipment.heatsinks.map((heatsink) => {
-    if (heatsink.location == "n/a") {
-      unInstalledEquipment.push(heatsink);
-    }
-  });
-  mech.equipment.jumpjets.map((jumpjet) => {
-    if (jumpjet.location == "n/a") {
-      unInstalledEquipment.push(jumpjet);
-    }
-  });
-  mech.equipment.weapons.map((weapon) => {
-    if (weapon.location == "n/a") {
-      unInstalledEquipment.push(weapon);
-      unInstalledWeapons.push(weapon);
-    } else {
-      installedWeapons.push(weapon);
-    }
-  });
-  mech.equipment.ammo.map((ammoItem) => {
-    if (ammoItem.location == "n/a") {
-      unInstalledEquipment.push(ammoItem);
-    } else {
-      installedWeapons.push(ammoItem);
-    }
-  });
-  mech.equipment.gear.map((gearItem) => {
-    if (gearItem.location == "n/a") {
-      unInstalledEquipment.push(gearItem);
-    }
-  });
-
-  //TESTING
   const getTargetingComputerWeight = () => {
     const eligibleForTargetingComputer = ["DE", "DB", "P"];
     let directFireWeaponWeight = 0;
@@ -69,6 +37,50 @@ const InstallEquipment = () => {
 
     return targetingComputerWeightAndSlots;
   };
+
+  mech.equipment.heatsinks.map((heatsink) => {
+    if (heatsink.location == "n/a") {
+      unInstalledEquipment.push(heatsink);
+    }
+  });
+  mech.equipment.jumpjets.map((jumpjet) => {
+    if (jumpjet.location == "n/a") {
+      unInstalledEquipment.push(jumpjet);
+    }
+  });
+  mech.equipment.weapons.map((weapon) => {
+    if (weapon.location == "n/a") {
+      unInstalledEquipment.push(weapon);
+      unInstalledWeapons.push(weapon);
+    } else {
+      installedWeapons.push(weapon);
+    }
+    if (weapon.name === "Targeting Computer") {
+      const tcWeightSlots = getTargetingComputerWeight();
+
+      console.log(tcWeightSlots);
+    }
+  });
+  mech.equipment.ammo.map((ammoItem) => {
+    if (ammoItem.location == "n/a") {
+      unInstalledEquipment.push(ammoItem);
+    } else {
+      installedWeapons.push(ammoItem);
+    }
+  });
+  mech.equipment.gear.map((gearItem) => {
+    if (gearItem.location == "n/a") {
+      unInstalledEquipment.push(gearItem);
+    }
+    if (gearItem.name === "Targeting Computer") {
+      const tcWeightSlots = getTargetingComputerWeight();
+      gear.tons = tcWeightSlots;
+      gear.critical = tcWeightSlots;
+      console.log("Hi");
+    }
+  });
+
+  //TESTING
 
   const getZonesWithFreeSlots = (criticalSlots) => {
     const zonesWithFreeSlots = [];
@@ -180,7 +192,6 @@ const InstallEquipment = () => {
                             if (isZoneIllegalForEquip(zone, equipment)) {
                               return;
                             } else {
-                              getDirectFireWeapons();
                               return (
                                 <option key={zone} value={zone}>
                                   {zone}

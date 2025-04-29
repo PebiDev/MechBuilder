@@ -986,7 +986,8 @@ const mechSlice = createSlice({
       newMech.equipment.weapons.push(weapon);
       newMech.remainingTons -= weapon.tons;
       newMech.criticalSlots -= weapon.critical;
-      if (weapon.ammo !== "-") {
+
+      if (!isNaN(Number(weapon.ammo))) {
         const newAmmo = {
           id: uuidv4(),
           name: "Ammo (" + weapon.name + ") " + weapon.ammo,
@@ -1013,6 +1014,21 @@ const mechSlice = createSlice({
 
       return newMech;
     },
+    addGear(state, action) {
+      let newMech = deepCopy(state);
+      let newGear = { ...action.payload };
+
+      newGear.id = uuidv4();
+      newGear.location = "n/a";
+      newGear.slots = [];
+
+      newMech.remainingTons -= newGear.tons;
+      newMech.criticalSlots -= newGear.critical;
+      newMech.equipment.gear.push(newGear);
+
+      return newMech;
+    },
+
     removeEquipment(state, action) {
       let newMech = deepCopy(state);
       const equip = action.payload;
@@ -1198,6 +1214,19 @@ const mechSlice = createSlice({
       }
 
       if (reRollSlots > 0) return state;
+
+      return newMech;
+    },
+    setTargetingComputerWeightAndSlots(state, action) {
+      let newMech = deepCopy(state);
+      const directFireWeaponWeight = action.payload;
+      let tc = newMech.equipment.gear.find(
+        (gear) => (gear.name = "Targeting Computer")
+      );
+      if (tc !== undefined) {
+      } else {
+        return state;
+      }
 
       return newMech;
     },

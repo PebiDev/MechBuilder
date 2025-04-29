@@ -11,15 +11,12 @@ const ShopAmmo = () => {
   const handleRemoveAmmo = (weapon) => {
     dispatch(mechActions.removeAmmo(weapon));
   };
-  const toggleHalfTons = (weapon) => {
-    dispatch(mechActions.setAmmoToHalfTons(weapon));
-  };
 
   const weaponsWithAmmo = [];
   let mechHasAmmoWeapons = false;
 
   mech.equipment.weapons.map((weapon) => {
-    if (weapon.ammo !== "-") {
+    if (!isNaN(Number(weapon.ammo))) {
       mechHasAmmoWeapons = true;
       const weaponWithAmmo = { ...weapon, number: 0 };
       weaponsWithAmmo.push(weaponWithAmmo);

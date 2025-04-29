@@ -8,7 +8,11 @@ const ShopItem = ({ item }) => {
 
   const handleAddItem = () => {
     const itemToAdd = { ...item };
-    dispatch(mechActions.addWeapon(itemToAdd));
+    if (itemToAdd.category === "Special Equipment") {
+      dispatch(mechActions.addGear(itemToAdd));
+    } else {
+      dispatch(mechActions.addWeapon(itemToAdd));
+    }
   };
 
   return (
