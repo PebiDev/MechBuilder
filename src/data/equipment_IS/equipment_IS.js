@@ -1,7 +1,7 @@
 export default [
   {
     category: "Autocannons",
-    type: "balistic",
+    type: "DB,S",
     name: "AC/2",
     heat: 1,
     damage: 2,
@@ -13,7 +13,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "balistic",
+    type: "DB,S",
     name: "AC/5",
     heat: 1,
     damage: 5,
@@ -25,7 +25,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "balistic",
+    type: "DB,S",
     name: "AC/10",
     heat: 3,
     damage: 10,
@@ -37,7 +37,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "balistic",
+    type: "DB,S",
     name: "AC/20",
     heat: 7,
     damage: 20,
@@ -49,7 +49,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "balistic",
+    type: "DB,S",
     name: "LB 2-X AC",
     heat: 1,
     damage: 2,
@@ -61,7 +61,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "balistic",
+    type: "DB,S",
     name: "LB 5-X AC",
     heat: 1,
     damage: 5,
@@ -73,7 +73,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "balistic",
+    type: "DB,S",
     name: "LB 10-X AC",
     heat: 2,
     damage: 10,
@@ -85,7 +85,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "balistic",
+    type: "DB,S",
     name: "LB 20-X AC",
     heat: 6,
     damage: 20,
@@ -98,7 +98,7 @@ export default [
 
   {
     category: "Autocannons",
-    type: "balistic",
+    type: "DB,S",
     name: "Light AC/2",
     heat: 1,
     damage: 2,
@@ -110,7 +110,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "balistic",
+    type: "DB,S",
     name: "Light AC/5",
     heat: 1,
     damage: 5,
@@ -122,7 +122,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "balistic",
+    type: "DB,R",
     name: "Rotary AC/2",
     heat: "1 / Shot",
     damage: "2 / Shot",
@@ -134,7 +134,19 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "balistic",
+    type: "DB,R",
+    name: "Rotary AC/5",
+    heat: "1 / Shot",
+    damage: "5 / Shot",
+    minimal: "-",
+    range: [5, 10, 15],
+    ammo: 20,
+    tons: 10,
+    critical: 6,
+  },
+  {
+    category: "Autocannons",
+    type: "DB,R",
     name: "Ultra AC/2",
     heat: "1 / Shot",
     damage: "2 / Shot",
@@ -146,7 +158,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "balistic",
+    type: "DB,R",
     name: "Ultra AC/5",
     heat: "1 / Shot",
     damage: "5 / Shot",
@@ -158,7 +170,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "balistic",
+    type: "DB,R",
     name: "Ultra AC/10",
     heat: "4 / Shot",
     damage: "10 / Shot",
@@ -170,7 +182,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "balistic",
+    type: "DB,R",
     name: "Ultra AC/20",
     heat: "8 / Shot",
     damage: "20 / Shot",
@@ -182,7 +194,7 @@ export default [
   },
   {
     category: "Flamers",
-    type: "energy",
+    type: "AI,DE,H",
     name: "Flamer",
     heat: 3,
     damage: 2,
@@ -194,7 +206,7 @@ export default [
   },
   {
     category: "Gauss Rifles",
-    type: "balistic",
+    type: "DB,X",
     name: "Light Gauss Rifle",
     heat: 1,
     damage: 8,
@@ -206,7 +218,7 @@ export default [
   },
   {
     category: "Gauss Rifles",
-    type: "balistic",
+    type: "DB,X",
     name: "Gauss Rifle",
     heat: 1,
     damage: 15,
@@ -218,7 +230,7 @@ export default [
   },
   {
     category: "Gauss Rifles",
-    type: "balistic",
+    type: "DB,X,V",
     name: "Heavy Gauss Rifle",
     heat: 1,
     damage: 25 / 20 / 10,
@@ -230,7 +242,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "energy",
+    type: "DE",
     name: "Small Laser",
     heat: 1,
     damage: 3,
@@ -242,7 +254,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "energy",
+    type: "DE",
     name: "Medium Laser",
     heat: 3,
     damage: 5,
@@ -254,7 +266,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "energy",
+    type: "DE",
     name: "Large Laser",
     heat: 8,
     damage: 8,
@@ -266,7 +278,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "energy",
+    type: "DE",
     name: "ER Small Laser",
     heat: 2,
     damage: 3,
@@ -278,7 +290,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "energy",
+    type: "DE",
     name: "ER Medium Laser",
     heat: 5,
     damage: 5,
@@ -290,7 +302,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "energy",
+    type: "DE",
     name: "ER Large Laser",
     heat: 12,
     damage: 8,
@@ -302,7 +314,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "energy",
+    type: "AI,P",
     name: "Small Pulse Laser",
     heat: 2,
     damage: 3,
@@ -314,7 +326,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "energy",
+    type: "P",
     name: "Medium Pulse Laser",
     heat: 4,
     damage: 6,
@@ -326,7 +338,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "energy",
+    type: "P",
     name: "Large Pulse Laser",
     heat: 10,
     damage: 9,
@@ -338,7 +350,7 @@ export default [
   },
   {
     category: "Machine Gun",
-    type: "balistic",
+    type: "AI,DB",
     name: "Light Machine Gun",
     heat: 0,
     damage: 1,
@@ -350,7 +362,7 @@ export default [
   },
   {
     category: "Machine Gun",
-    type: "balistic",
+    type: "AI,DB",
     name: "Machine Gun",
     heat: 0,
     damage: 2,
@@ -362,7 +374,7 @@ export default [
   },
   {
     category: "Machine Gun",
-    type: "balistic",
+    type: "AI,DB",
     name: "Heavy Machine Gun",
     heat: 0,
     damage: 3,
@@ -374,7 +386,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "SRM 2",
     heat: 2,
     damage: "2/missile",
@@ -386,7 +398,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "SRM 4",
     heat: 3,
     damage: "2/missile",
@@ -398,7 +410,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "SRM 6",
     heat: 4,
     damage: "2/missile",
@@ -410,7 +422,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "SRM 2 + Artemis IV",
     heat: 2,
     damage: "2/missile",
@@ -422,7 +434,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "SRM 4 + Artemis IV",
     heat: 3,
     damage: "2/missile",
@@ -434,7 +446,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "SRM 6 + Artemis IV",
     heat: 4,
     damage: "2/missile",
@@ -446,7 +458,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M",
     name: "Streak SRM 2",
     heat: 2,
     damage: "2/missile",
@@ -458,7 +470,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M",
     name: "Streak SRM 4",
     heat: 3,
     damage: "2/missile",
@@ -470,7 +482,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M",
     name: "Streak SRM 6",
     heat: 4,
     damage: "2/missile",
@@ -482,7 +494,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "LRM 5",
     heat: 2,
     damage: "1/missile",
@@ -494,7 +506,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "LRM 10",
     heat: 4,
     damage: "1/missile",
@@ -506,7 +518,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "LRM 15",
     heat: 5,
     damage: "1/missile",
@@ -518,7 +530,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "LRM 20",
     heat: 6,
     damage: "1/missile",
@@ -530,7 +542,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "LRM 5 + Artemis IV",
     heat: 2,
     damage: "1/missile",
@@ -542,7 +554,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "LRM 10 + Artemis IV",
     heat: 4,
     damage: "1/missile",
@@ -554,7 +566,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "LRM 15 + Artemis IV",
     heat: 5,
     damage: "1/missile",
@@ -566,7 +578,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "LRM 20 + Artemis IV",
     heat: 6,
     damage: "1/missile",
@@ -578,7 +590,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MML 3 (LRM)",
     heat: 2,
     damage: "1/missile",
@@ -590,7 +602,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MML 3 (SRM)",
     heat: 2,
     damage: "2/missile",
@@ -602,7 +614,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MML 5 (LRM)",
     heat: 3,
     damage: "1/missile",
@@ -614,7 +626,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MML 5 (SRM)",
     heat: 3,
     damage: "2/missile",
@@ -626,7 +638,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MML 7 (LRM)",
     heat: 4,
     damage: "1/missile",
@@ -638,7 +650,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MML 7 (SRM)",
     heat: 4,
     damage: "2/missile",
@@ -650,7 +662,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MML 9 (LRM)",
     heat: 5,
     damage: "1/missile",
@@ -662,7 +674,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MML 9 (SRM)",
     heat: 5,
     damage: "2/missile",
@@ -674,7 +686,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MML 3 (LRM) + Artemis IV",
     heat: 2,
     damage: "1/missile",
@@ -686,7 +698,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MML 3 (SRM)+ Artemis IV",
     heat: 2,
     damage: "2/missile",
@@ -698,7 +710,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MML 5 (LRM) + Artemis IV",
     heat: 3,
     damage: "1/missile",
@@ -710,7 +722,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MML 5 (SRM) + Artemis IV",
     heat: 3,
     damage: "2/missile",
@@ -722,7 +734,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MML 7 (LRM) + Artemis IV",
     heat: 4,
     damage: "1/missile",
@@ -734,7 +746,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MML 7 (SRM) + Artemis IV",
     heat: 4,
     damage: "2/missile",
@@ -746,7 +758,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MML 9 (LRM) + Artemis IV",
     heat: 5,
     damage: "1/missile",
@@ -758,7 +770,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MML 9 (SRM) + Artemis IV",
     heat: 5,
     damage: "2/missile",
@@ -770,7 +782,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MRM 10",
     heat: 4,
     damage: "1/missile",
@@ -782,7 +794,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MRM 20",
     heat: 6,
     damage: "1/missile",
@@ -794,7 +806,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MRM 30",
     heat: 10,
     damage: "1/missile",
@@ -806,7 +818,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,S",
     name: "MRM 40",
     heat: 12,
     damage: "1/missile",
@@ -818,7 +830,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,OS",
     name: "Rocket Launcher 10",
     heat: 3,
     damage: "1/missile",
@@ -830,7 +842,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,OS",
     name: "Rocket Launcher 15",
     heat: 4,
     damage: "1/missile",
@@ -842,7 +854,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "missile",
+    type: "C,M,OS",
     name: "Rocket Launcher 20",
     heat: 5,
     damage: "1/missile",
@@ -938,7 +950,7 @@ export default [
   },
   {
     category: "PPCs",
-    type: "energy",
+    type: "DE",
     name: "Light PPC",
     heat: 5,
     damage: 5,
@@ -950,7 +962,7 @@ export default [
   },
   {
     category: "PPCs",
-    type: "energy",
+    type: "DE",
     name: "PPC",
     heat: 10,
     damage: 10,
@@ -962,7 +974,7 @@ export default [
   },
   {
     category: "PPCs",
-    type: "energy",
+    type: "DE",
     name: "Heavy PPC",
     heat: 15,
     damage: 15,
@@ -974,7 +986,7 @@ export default [
   },
   {
     category: "PPCs",
-    type: "energy",
+    type: "DE",
     name: "ER PPC",
     heat: 15,
     damage: 10,
@@ -986,7 +998,7 @@ export default [
   },
   {
     category: "PPCs",
-    type: "energy",
+    type: "DE,V",
     name: "Snub-Nose PPC",
     heat: 10,
     damage: 10 / 8 / 5,

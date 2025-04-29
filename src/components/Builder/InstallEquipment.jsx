@@ -48,6 +48,7 @@ const InstallEquipment = () => {
   const getZonesWithFreeSlots = (criticalSlots) => {
     const zonesWithFreeSlots = [];
     const freeSlots = getFreeSlots(mech.zones);
+
     for (const [zone, slots] of Object.entries(freeSlots)) {
       if (slots >= criticalSlots) zonesWithFreeSlots.push(zone);
     }
