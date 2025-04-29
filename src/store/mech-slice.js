@@ -987,6 +987,8 @@ const mechSlice = createSlice({
       newMech.remainingTons -= weapon.tons;
       newMech.criticalSlots -= weapon.critical;
 
+      // const checkForTargetingComputer = newMech.equipment.gear.find
+
       if (!isNaN(Number(weapon.ammo))) {
         const newAmmo = {
           id: uuidv4(),
@@ -1025,6 +1027,9 @@ const mechSlice = createSlice({
       newMech.remainingTons -= newGear.tons;
       newMech.criticalSlots -= newGear.critical;
       newMech.equipment.gear.push(newGear);
+      if (newGear.name === "Targeting Computer") {
+        newMech = mechSlice.caseReducers.setTargetingComputerWeightAndSlots();
+      }
 
       return newMech;
     },
@@ -1217,18 +1222,28 @@ const mechSlice = createSlice({
 
       return newMech;
     },
-    setTargetingComputerWeightAndSlots(state, action) {
+    setTargetingComputerWeightAndSlots(state) {
       let newMech = deepCopy(state);
-      const directFireWeaponWeight = action.payload;
-      if (directFireWeaponWeight === 0) {
-        return state;
-      }
+
       let tc = newMech.equipment.gear.find(
         (gear) => (gear.name = "Targeting Computer")
       );
       if (tc !== undefined) {
         newMech.remainingTons += tc.tons;
         newMech.criticalSlots += tc.critical;
+
+        let directFireWeaponWeight = 0;
+        mech.equipment.weapons.map((item) => {
+          if (
+            item.type.some(
+              (weaponType) =>
+                eligibleForTargetingComputer.includes(weaponType) &&
+                !item.name.includes("Machine Gun")
+            )
+          ) {
+            directFireWeaponWeight += item.tons;
+          }
+        });
 
         let newWeight = 0;
         if (newMech.technologyBase === "Clan") {

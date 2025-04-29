@@ -29,15 +29,13 @@ const InstallEquipment = () => {
       }
     });
 
-    return directFireWeaponWeight;
+    if (mech.technologyBase === "Clan") {
+      targetingComputerWeightAndSlots = Math.ceil(directFireWeaponWeight / 5);
+    } else {
+      targetingComputerWeightAndSlots = Math.ceil(directFireWeaponWeight / 4);
+    }
 
-    // if (mech.technologyBase === "Clan") {
-    //   targetingComputerWeightAndSlots = Math.ceil(directFireWeaponWeight / 5);
-    // } else {
-    //   targetingComputerWeightAndSlots = Math.ceil(directFireWeaponWeight / 4);
-    // }
-
-    // return targetingComputerWeightAndSlots;
+    return targetingComputerWeightAndSlots;
   };
 
   mech.equipment.heatsinks.map((heatsink) => {
@@ -68,11 +66,6 @@ const InstallEquipment = () => {
   mech.equipment.gear.map((gearItem) => {
     if (gearItem.location == "n/a") {
       unInstalledEquipment.push(gearItem);
-    }
-    if (gearItem.name === "Targeting Computer") {
-      // const tcWeightSlots = getTargetingComputerWeight();
-      // dispatch(mechActions.setTargetingComputerWeightAndSlots(tcWeightSlots));
-      // console.log("Hi");
     }
   });
 
