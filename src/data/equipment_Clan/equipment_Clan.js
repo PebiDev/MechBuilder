@@ -1,7 +1,7 @@
 export default [
   {
     category: "Autocannons",
-    type: "DB,S",
+    type: ["DB", "S"],
     name: "LB 2-X AC",
     heat: 1,
     damage: 2,
@@ -13,7 +13,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "DB,S",
+    type: ["DB", "S"],
     name: "LB 5-X AC",
     heat: 1,
     damage: 5,
@@ -25,7 +25,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "DB,S",
+    type: ["DB", "S"],
     name: "LB 10-X AC",
     heat: 2,
     damage: 10,
@@ -37,7 +37,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "DB,S",
+    type: ["DB", "S"],
     name: "LB 20-X AC",
     heat: 6,
     damage: 20,
@@ -50,7 +50,7 @@ export default [
 
   {
     category: "Autocannons",
-    type: "DB,R",
+    type: ["DB", "R"],
     name: "Ultra AC/2",
     heat: " 1 / Shot",
     damage: "2 / Shot",
@@ -62,7 +62,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "DB,R",
+    type: ["DB", "R"],
     name: "Ultra AC/5",
     heat: "1 / Shot",
     damage: "5 / Shot",
@@ -74,7 +74,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "DB,R",
+    type: ["DB", "R"],
     name: "Ultra AC/10",
     heat: "3 / Shot",
     damage: "10 / Shot",
@@ -86,7 +86,7 @@ export default [
   },
   {
     category: "Autocannons",
-    type: "DB,R",
+    type: ["DB", "R"],
     name: "Ultra AC/20",
     heat: "7 / Shot",
     damage: "20 / Shot",
@@ -98,7 +98,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "DE",
+    type: ["DE"],
     name: "ER Micro Laser",
     heat: 1,
     damage: 2,
@@ -110,7 +110,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "DE",
+    type: ["DE"],
     name: "ER Small Laser",
     heat: 2,
     damage: 5,
@@ -122,7 +122,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "DE",
+    type: ["DE"],
     name: "ER Medium Laser",
     heat: 4,
     damage: 7,
@@ -134,7 +134,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "DE",
+    type: ["DE"],
     name: "ER Large Laser",
     heat: 12,
     damage: 10,
@@ -146,7 +146,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "AI,P",
+    type: ["AI", "P"],
     name: "Micro Pulse Laser",
     heat: 1,
     damage: 3,
@@ -158,7 +158,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "AI,P",
+    type: ["AI", "P"],
     name: "Small Pulse Laser",
     heat: 2,
     damage: 3,
@@ -170,7 +170,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "P",
+    type: ["P"],
     name: "Medium Pulse Laser",
     heat: 4,
     damage: 7,
@@ -182,7 +182,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "P",
+    type: ["P"],
     name: "Large Pulse Laser",
     heat: 10,
     damage: 10,
@@ -194,7 +194,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "DE",
+    type: ["DE"],
     name: "Heavy Small Laser",
     heat: 3,
     damage: 6,
@@ -206,7 +206,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "DE",
+    type: ["DE"],
     name: "Heavy Medium Laser",
     heat: 7,
     damage: 10,
@@ -218,7 +218,7 @@ export default [
   },
   {
     category: "Lasers",
-    type: "DE",
+    type: ["DE"],
     name: "Heavy Large Laser",
     heat: 18,
     damage: 16,
@@ -230,7 +230,7 @@ export default [
   },
   {
     category: "Gauss Rifles",
-    type: "AI,DB,X",
+    type: ["AI", "DB", "X"],
     name: "AP Gauss Rifle",
     heat: 1,
     damage: 3,
@@ -242,7 +242,7 @@ export default [
   },
   {
     category: "Gauss Rifles",
-    type: "DB,X",
+    type: ["DB", "X"],
     name: "Gauss Rifle",
     heat: 1,
     damage: 15,
@@ -254,7 +254,7 @@ export default [
   },
   {
     category: "Gauss Rifles",
-    type: "C,DB,F,X",
+    type: ["C", "DB", "F", "X"],
     name: "Hyper Assault Gauss 20",
     heat: 4,
     damage: 20,
@@ -266,7 +266,7 @@ export default [
   },
   {
     category: "Gauss Rifles",
-    type: "C,DB,F,X",
+    type: ["C", "DB", "F", "X"],
     name: "Hyper Assault Gauss 30",
     heat: 6,
     damage: 30,
@@ -279,7 +279,7 @@ export default [
 
   {
     category: "Gauss Rifles",
-    type: "C,DB,F,X",
+    type: ["C", "DB", "F", "X"],
     name: "Hyper Assault Gauss 40",
     heat: 8,
     damage: 40,
@@ -291,7 +291,7 @@ export default [
   },
   {
     category: "Flamers",
-    type: "AI,DE,H",
+    type: ["AI", "DE", "H"],
     name: "Flamer",
     heat: 3,
     damage: 2,
@@ -303,7 +303,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "ATM 3",
     heat: 2,
     damage: "2/missile",
@@ -315,7 +315,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "ATM 6",
     heat: 4,
     damage: "2/missile",
@@ -327,7 +327,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "ATM 9",
     heat: 6,
     damage: "2/missile",
@@ -339,7 +339,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "ATM 12",
     heat: 8,
     damage: "2/missile",
@@ -351,7 +351,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "SRM 2",
     heat: 2,
     damage: "2/missile",
@@ -363,7 +363,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "SRM 4",
     heat: 3,
     damage: "2/missile",
@@ -375,7 +375,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "SRM 6",
     heat: 4,
     damage: "2/missile",
@@ -387,7 +387,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "SRM 2 + Artemis IV",
     heat: 2,
     damage: "2/missile",
@@ -399,7 +399,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "SRM 4 + Artemis IV",
     heat: 3,
     damage: "2/missile",
@@ -411,7 +411,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "SRM 6 + Artemis IV",
     heat: 4,
     damage: "2/missile",
@@ -423,7 +423,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M",
+    type: ["C", "M"],
     name: "Streak SRM 2",
     heat: 2,
     damage: "2/missile",
@@ -435,7 +435,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M",
+    type: ["C", "M"],
     name: "Streak SRM 4",
     heat: 3,
     damage: "2/missile",
@@ -447,7 +447,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M",
+    type: ["C", "M"],
     name: "Streak SRM 6",
     heat: 4,
     damage: "2/missile",
@@ -459,7 +459,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "LRM 5",
     heat: 2,
     damage: "1/missile",
@@ -471,7 +471,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "LRM 10",
     heat: 4,
     damage: "1/missile",
@@ -483,7 +483,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "LRM 15",
     heat: 5,
     damage: "1/missile",
@@ -495,7 +495,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "LRM 20",
     heat: 6,
     damage: "1/missile",
@@ -507,7 +507,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "LRM 5 + Artemis IV",
     heat: 2,
     damage: "1/missile",
@@ -519,7 +519,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "LRM 10 + Artemis IV",
     heat: 4,
     damage: "1/missile",
@@ -531,7 +531,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "LRM 15 + Artemis IV",
     heat: 5,
     damage: "1/missile",
@@ -543,7 +543,7 @@ export default [
   },
   {
     category: "Missiles",
-    type: "C,M,S",
+    type: ["C", "M", "S"],
     name: "LRM 20 + Artemis IV",
     heat: 6,
     damage: "1/missile",
@@ -555,7 +555,7 @@ export default [
   },
   {
     category: "Plasma Weapons",
-    type: "DE,H",
+    type: ["DE", "H"],
     name: "Plasma Cannon",
     heat: 7,
     damage: 0,
@@ -567,7 +567,7 @@ export default [
   },
   {
     category: "PPCs",
-    type: "DE",
+    type: ["DE"],
     name: "ER PPC",
     heat: 15,
     damage: 15,
@@ -579,7 +579,7 @@ export default [
   },
   {
     category: "Special Equipment",
-    type: "gear",
+    type: [],
     name: "A-Pods",
     heat: "*",
     damage: "*",
@@ -591,7 +591,7 @@ export default [
   },
   {
     category: "Special Equipment",
-    type: "gear",
+    type: [],
     name: "B-Pods",
     heat: "*",
     damage: "*",
@@ -603,7 +603,7 @@ export default [
   },
   {
     category: "Special Equipment",
-    type: "gear",
+    type: [],
     name: "Anti Missile System",
     heat: 1,
     damage: "*",
@@ -615,7 +615,7 @@ export default [
   },
   {
     category: "Special Equipment",
-    type: "gear",
+    type: [],
     name: "Active Probe",
     heat: 0,
     damage: "n/a",
@@ -627,7 +627,7 @@ export default [
   },
   {
     category: "Special Equipment",
-    type: "gear",
+    type: [],
     name: "Light Active Probe",
     heat: 0,
     damage: "n/a",
@@ -640,7 +640,7 @@ export default [
 
   {
     category: "Special Equipment",
-    type: "gear",
+    type: [],
     name: "ECM Suite",
     heat: 0,
     damage: "n/a",
@@ -652,7 +652,7 @@ export default [
   },
   {
     category: "Special Equipment",
-    type: "gear",
+    type: [],
     name: "Machine Gun Array",
     heat: 0,
     damage: "n/a",
@@ -664,7 +664,7 @@ export default [
   },
   {
     category: "Special Equipment",
-    type: "gear",
+    type: ["M", "S"],
     name: "Narc Missile Beacon",
     heat: 0,
     damage: "n/a",
@@ -677,7 +677,7 @@ export default [
 
   {
     category: "Special Equipment",
-    type: "gear",
+    type: [],
     name: "TAG",
     heat: 0,
     damage: "n/a",
@@ -689,7 +689,7 @@ export default [
   },
   {
     category: "Special Equipment",
-    type: "gear",
+    type: [],
     name: "Light TAG",
     heat: 0,
     damage: "n/a",
@@ -701,7 +701,7 @@ export default [
   },
   {
     category: "Special Equipment",
-    type: "gear",
+    type: [],
     name: "Targeting Computer",
     heat: 0,
     damage: "n/a",

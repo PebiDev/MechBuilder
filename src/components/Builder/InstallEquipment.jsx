@@ -43,7 +43,15 @@ const InstallEquipment = () => {
     }
   });
 
-  //const freeSlots = getFreeSlots(mech.zones);
+  //TESTING
+  const getDirectFireWeapons = () => {
+    const eligibleForTargetingComputer = ["DE", "DB", "P"];
+    mech.equipment.weapons.map((item) => {
+      if (item.types.some(type.includes(eligibleForTargetingComputer))) {
+        console.log(item.name);
+      }
+    });
+  };
 
   const getZonesWithFreeSlots = (criticalSlots) => {
     const zonesWithFreeSlots = [];
@@ -155,6 +163,7 @@ const InstallEquipment = () => {
                             if (isZoneIllegalForEquip(zone, equipment)) {
                               return;
                             } else {
+                              getDirectFireWeapons();
                               return (
                                 <option key={zone} value={zone}>
                                   {zone}
