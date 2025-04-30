@@ -948,6 +948,11 @@ const mechSlice = createSlice({
       const addEquipmentToZone = (item) => {
         const slots = item.critical;
 
+        const itemDisplayName = (item) => {
+          let displayName = "";
+          if (item.slots.length < 2) return item.name;
+        };
+
         const zoneValues = Object.values(newMech.zones[equipZone]);
         const index = zoneValues.findIndex((loc) => {
           return loc === "";
