@@ -3,18 +3,17 @@
   padding: 5px;
 }
 
-.navbar button {
+.navbar-button.MuiButton-root {
   /* padding: calc(0.875rem - 1px) calc(1.5rem - 1px); */
-  padding: 8px;
+  margin: 10px;
   align-items: center;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 0.25rem;
 }
 
-.navbar button:hover,
-.navbar button:focus {
-  background-color: #ffc404;
+.navbar-button.MuiButton-root:hover,
+.navbar-button.MuiButton-root:focus {
+  color: whitesmoke;
+  background-color: orange;
+  font-weight: bold;
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
 }
 

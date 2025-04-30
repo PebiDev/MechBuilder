@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 import AdvancedMechData from "../Advanced-Builder/AdvancedMechData";
+import { TextField } from "@mui/material";
 
 const MechData = () => {
   const mechTonnage = [
@@ -25,8 +26,15 @@ const MechData = () => {
   };
   return (
     <div className="mech-data form-element">
-      <label htmlFor="name">Name your Mech</label>
-      <input type="text" id="name" name="name" onChange={nameHandler}></input>
+      {/* <label htmlFor="name">Name your Mech</label>
+      <input type="text" id="name" name="name" onChange={nameHandler}></input> */}
+      <TextField
+        label="Name your Mech"
+        value={mech.name}
+        onChange={nameHandler}
+        // variant="outlined"
+        className="name-textfield"
+      />{" "}
       <br />
       {ui.advancedOptions && <AdvancedMechData />}
       <br />

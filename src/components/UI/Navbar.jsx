@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { uiActions } from "../../store/ui-slice";
 import "./Navbar.modules.css";
 import { mechActions } from "../../store/mech-slice";
+import Button from "@mui/material/Button";
 
 const Navbar = () => {
   const mech = useSelector((state) => state.mech);
@@ -20,14 +21,27 @@ const Navbar = () => {
 
   return (
     <nav id="navbar" className="navbar">
-      <button onClick={toggleMechVisible}>Display PH-1</button>
-      <button onClick={handleResetMech}>Reset Mech</button>
-      <button
+      <Button
+        variant="outlined"
+        className="navbar-button"
+        onClick={toggleMechVisible}
+      >
+        Display PH-1
+      </Button>
+      <Button
+        variant="outlined"
+        className="navbar-button"
+        onClick={handleResetMech}
+      >
+        Reset Mech
+      </Button>
+      <Button
+        variant="outlined"
         onClick={handleAdvancedOptions}
-        className={ui.advancedOptions ? "advanced-options-active" : ""}
+        className="navbar-button"
       >
         Advanced Options
-      </button>
+      </Button>
       {ui.advancedOptions && <span id="adv-options">Advanced Options</span>}
     </nav>
   );
