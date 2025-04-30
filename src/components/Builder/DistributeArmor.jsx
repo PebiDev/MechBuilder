@@ -57,8 +57,16 @@ const DistributeArmor = ({ maxArmor }) => {
       <DistributeArmorSlider zone="head" />
       <DistributeArmorRearSlider zone="ctorso" rearzone="ctrear" />
       <DistributeArmorRearSlider zone="rltorso" rearzone="rltrear" />
-      <DistributeArmorSlider zone="rlarm" />
-      <DistributeArmorSlider zone="rlleg" />
+      {mech.chassisType === "Quad" ? (
+        <DistributeArmorSlider zone="frlleg" />
+      ) : (
+        <DistributeArmorSlider zone="rlarm" />
+      )}
+      {mech.chassisType === "Quad" ? (
+        <DistributeArmorSlider zone="rrlleg" />
+      ) : (
+        <DistributeArmorSlider zone="rlleg" />
+      )}
     </div>
   );
 };

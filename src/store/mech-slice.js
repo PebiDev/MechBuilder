@@ -228,6 +228,7 @@ const mechSlice = createSlice({
     },
     setChassisType(state, action) {
       let newMech = deepCopy(state);
+      newMech = mechSlice.caseReducers.resetMechToInitialState();
       //should be "BattleMech" or "QuadMech"
       const chassisType = action.payload;
       newMech.chassisType = chassisType;
@@ -239,6 +240,7 @@ const mechSlice = createSlice({
         newMech.zones = zonesBiped;
         newMech.criticalSlots = 47;
       }
+
       return newMech;
     },
     setMechType(state, action) {
@@ -273,7 +275,6 @@ const mechSlice = createSlice({
         name,
       };
 
-      //newMech = mechSlice.caseReducers.resetMechToInitialState();
       newMech.id = uuidv4();
       newMech.tonnage = action.payload;
       newMech.remainingTons = action.payload;
@@ -407,10 +408,31 @@ const mechSlice = createSlice({
     },
     addInternalStructure(state) {
       let newMech = deepCopy(state);
+      newMech.armor.internal = {};
 
       newMech.armor.internal = internalStructure.find(
         (e) => e.tonnage == newMech.tonnage
       );
+      if (newMech.chassisType === "Quad") {
+        newMech.armor.internal.frlleg = newMech.armor.internal.rlleg;
+        newMech.armor.internal.rrlleg = newMech.armor.internal.rlleg;
+        delete newMech.armor.internal.rlarm;
+        delete newMech.armor.internal.rlleg;
+      }
+
+      let maximumArmor =
+        9 +
+        newMech.armor.internal.ctorso * 2 +
+        newMech.armor.internal.rltorso * 4;
+
+      if (newMech.chassisType === "Quad") {
+        maximumArmor += newMech.armor.internal.frlleg * 8;
+      } else {
+        maximumArmor +=
+          newMech.armor.internal.rlarm * 4 + newMech.armor.internal.rlleg * 4;
+      }
+
+      newMech.armor.internal.maxArmor = maximumArmor;
 
       if (newMech.internalStructure === "Endo Steel") {
         newMech.remainingTons -= newMech.armor.internal.endosteel;
@@ -677,7 +699,9 @@ const mechSlice = createSlice({
         zone == "rltorso" ||
         zone == "rltrear" ||
         zone == "rlarm" ||
-        zone == "rlleg"
+        zone == "rlleg" ||
+        zone == "frlleg" ||
+        zone == "rrlleg"
       ) {
         isPairedZone = true;
       }
@@ -844,15 +868,28 @@ const mechSlice = createSlice({
     stripArmor(state) {
       let newMech = deepCopy(state);
       if (newMech.armor.armorWeight > 0) {
-        newMech.armor.armorValue = {
-          head: 0,
-          ctorso: 0,
-          ctrear: 0,
-          rltorso: 0,
-          rltrear: 0,
-          rlarm: 0,
-          rlleg: 0,
-        };
+        if (newMech.chassisType === "bipedal") {
+          newMech.armor.armorValue = {
+            head: 0,
+            ctorso: 0,
+            ctrear: 0,
+            rltorso: 0,
+            rltrear: 0,
+            rlarm: 0,
+            rlleg: 0,
+          };
+        } else {
+          newMech.armor.armorValue = {
+            head: 0,
+            ctorso: 0,
+            ctrear: 0,
+            rltorso: 0,
+            rltrear: 0,
+            frlleg: 0,
+            rrlleg: 0,
+          };
+        }
+
         newMech.armor.unassignedPoints = newMech.armor.armorFactor;
       }
       return newMech;
@@ -877,15 +914,27 @@ const mechSlice = createSlice({
       const rltorsoFront = Math.floor(rltorsoMax * 0.75);
       const rltorsoRear = rltorsoMax - rltorsoFront;
 
-      newMech.armor.armorValue = {
-        head: 9,
-        ctorso: ctorsoFront,
-        ctrear: ctorsoRear,
-        rltorso: rltorsoFront,
-        rltrear: rltorsoRear,
-        rlarm: newMech.armor.internal.rlarm * 2,
-        rlleg: newMech.armor.internal.rlleg * 2,
-      };
+      if (newMech.chassisType === "bipedal") {
+        newMech.armor.armorValue = {
+          head: 9,
+          ctorso: ctorsoFront,
+          ctrear: ctorsoRear,
+          rltorso: rltorsoFront,
+          rltrear: rltorsoRear,
+          rlarm: newMech.armor.internal.rlarm * 2,
+          rlleg: newMech.armor.internal.rlleg * 2,
+        };
+      } else {
+        newMech.armor.armorValue = {
+          head: 9,
+          ctorso: ctorsoFront,
+          ctrear: ctorsoRear,
+          rltorso: rltorsoFront,
+          rltrear: rltorsoRear,
+          frlleg: newMech.armor.internal.frlleg * 2,
+          rrlleg: newMech.armor.internal.rrlleg * 2,
+        };
+      }
 
       return newMech;
     },
@@ -1041,7 +1090,6 @@ const mechSlice = createSlice({
 
       return newMech;
     },
-
     removeEquipment(state, action) {
       let newMech = deepCopy(state);
       const equip = action.payload;
