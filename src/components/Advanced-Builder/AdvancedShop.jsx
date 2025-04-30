@@ -53,8 +53,7 @@ const AdvancedShop = ({ equipmentList }) => {
         </thead>
         <tbody>
           {equipList.map((item) => {
-            //current solution: only dis
-            // play items that can still fit in the mech
+            //current solution: only display items that can still fit in the mech
             if (item.critical <= mech.criticalSlots) {
               return <ShopItem item={item} key={item.name} />;
             }

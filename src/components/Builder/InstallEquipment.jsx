@@ -12,31 +12,31 @@ const InstallEquipment = () => {
   const unInstalledWeapons = [];
   const installedWeapons = [];
 
-  const getTargetingComputerWeight = () => {
-    const eligibleForTargetingComputer = ["DE", "DB", "P"];
-    let directFireWeaponWeight = 0;
-    let targetingComputerWeightAndSlots = 0;
+  // const getTargetingComputerWeight = () => {
+  //   const eligibleForTargetingComputer = ["DE", "DB", "P"];
+  //   let directFireWeaponWeight = 0;
+  //   let targetingComputerWeightAndSlots = 0;
 
-    mech.equipment.weapons.map((item) => {
-      if (
-        item.type.some(
-          (weaponType) =>
-            eligibleForTargetingComputer.includes(weaponType) &&
-            !item.name.includes("Machine Gun")
-        )
-      ) {
-        directFireWeaponWeight += item.tons;
-      }
-    });
+  //   mech.equipment.weapons.map((item) => {
+  //     if (
+  //       item.type.some(
+  //         (weaponType) =>
+  //           eligibleForTargetingComputer.includes(weaponType) &&
+  //           !item.name.includes("Machine Gun")
+  //       )
+  //     ) {
+  //       directFireWeaponWeight += item.tons;
+  //     }
+  //   });
 
-    if (mech.technologyBase === "Clan") {
-      targetingComputerWeightAndSlots = Math.ceil(directFireWeaponWeight / 5);
-    } else {
-      targetingComputerWeightAndSlots = Math.ceil(directFireWeaponWeight / 4);
-    }
+  //   if (mech.technologyBase === "Clan") {
+  //     targetingComputerWeightAndSlots = Math.ceil(directFireWeaponWeight / 5);
+  //   } else {
+  //     targetingComputerWeightAndSlots = Math.ceil(directFireWeaponWeight / 4);
+  //   }
 
-    return targetingComputerWeightAndSlots;
-  };
+  //   return targetingComputerWeightAndSlots;
+  // };
 
   mech.equipment.heatsinks.map((heatsink) => {
     if (heatsink.location == "n/a") {
@@ -68,8 +68,6 @@ const InstallEquipment = () => {
       unInstalledEquipment.push(gearItem);
     }
   });
-
-  //TESTING
 
   const getZonesWithFreeSlots = (criticalSlots) => {
     const zonesWithFreeSlots = [];

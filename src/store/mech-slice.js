@@ -987,7 +987,14 @@ const mechSlice = createSlice({
       newMech.remainingTons -= weapon.tons;
       newMech.criticalSlots -= weapon.critical;
 
-      // const checkForTargetingComputer = newMech.equipment.gear.find
+      // const eligibleForTargetingComputer = ["DE", "DB", "P"];
+      const checkForTargetingComputer = newMech.equipment.gear.find(
+        (gearItem) => (gearItem.name = "Targeting Computer")
+      );
+      if (checkForTargetingComputer) {
+        newMech =
+          mechSlice.caseReducers.setTargetingComputerWeightAndSlots(newMech);
+      }
 
       if (!isNaN(Number(weapon.ammo))) {
         const newAmmo = {
@@ -1028,7 +1035,8 @@ const mechSlice = createSlice({
       newMech.criticalSlots -= newGear.critical;
       newMech.equipment.gear.push(newGear);
       if (newGear.name === "Targeting Computer") {
-        newMech = mechSlice.caseReducers.setTargetingComputerWeightAndSlots();
+        newMech =
+          mechSlice.caseReducers.setTargetingComputerWeightAndSlots(newMech);
       }
 
       return newMech;
@@ -1052,6 +1060,14 @@ const mechSlice = createSlice({
       newMech.equipment.weapons = weapons;
       newMech.equipment.ammo = ammo;
       newMech.equipment.gear = gear;
+
+      const checkForTargetingComputer = newMech.equipment.gear.find(
+        (gearItem) => (gearItem.name = "Targeting Computer")
+      );
+      if (checkForTargetingComputer) {
+        newMech =
+          mechSlice.caseReducers.setTargetingComputerWeightAndSlots(newMech);
+      }
 
       newMech.remainingTons += equip.tons;
       newMech.criticalSlots += equip.critical;
@@ -1233,7 +1249,8 @@ const mechSlice = createSlice({
         newMech.criticalSlots += tc.critical;
 
         let directFireWeaponWeight = 0;
-        mech.equipment.weapons.map((item) => {
+        const eligibleForTargetingComputer = ["DE", "DB", "P"];
+        newMech.equipment.weapons.map((item) => {
           if (
             item.type.some(
               (weaponType) =>
@@ -1251,6 +1268,17 @@ const mechSlice = createSlice({
         } else {
           newWeight = Math.ceil(directFireWeaponWeight / 4);
         }
+        if (newWeight < 1) newWeight = 1;
+        if (newWeight !== tc.tons) {
+          if (tc.location !== "n/a") {
+            tc.slots.map((tcSlot) => {
+              newMech.zones[tc.location][tcSlot] = "";
+            });
+            tc.location = "n/a";
+            tc.slots = [];
+          }
+        }
+
         tc.tons = newWeight;
         tc.critical = newWeight;
         newMech.remainingTons -= tc.tons;
