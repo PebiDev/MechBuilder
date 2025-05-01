@@ -34,7 +34,7 @@ const theme = createTheme({
         },
         input: {
           padding: 8,
-          color: "#ffa726", // Optional: text color
+          color: "#ffffff", // Optional: text color
         },
       },
     },

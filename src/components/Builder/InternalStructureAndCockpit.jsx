@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
+import { FormControl, InputLabel, MenuItem, Select, Box } from "@mui/material";
 
 const InternalStructureAndCockpit = () => {
   const mech = useSelector((state) => state.mech);
@@ -23,17 +24,28 @@ const InternalStructureAndCockpit = () => {
   return (
     <div id="mech-structure" className="form-element">
       {ui.advancedOptions ? (
-        <p>
-          <label htmlFor="internal-structure-select">Internal Structure:</label>
-          <select
-            id="internal-structure-select"
-            name="internal-structure-select"
-            value={mech.internalStructure}
-            onChange={internalStructureHandler}
-          >
-            <option>Standard</option>
-            <option>Endo Steel</option>
-          </select>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          width="300px"
+        >
+          <FormControl sx={{ m: 1, minWidth: 180 }}>
+            <InputLabel id="select-internal-label">
+              Select Internal Structure
+            </InputLabel>
+            <Select
+              labelid="select-internal-label"
+              id="select-internal"
+              label="Select Internal Structure"
+              value={mech.internalStructure}
+              onChange={internalStructureHandler}
+              style={{ minWidth: 120 }}
+            >
+              <MenuItem value="Standard">Standard</MenuItem>
+              <MenuItem value="Endo Steel">Endo Steel</MenuItem>
+            </Select>
+          </FormControl>
           {mech.internalStructure === "Standard" ? (
             <span className="substract-tons">
               -{mech.armor.internal.standardton} tons
@@ -43,7 +55,7 @@ const InternalStructureAndCockpit = () => {
               -{mech.armor.internal.endosteel} tons
             </span>
           )}
-        </p>
+        </Box>
       ) : (
         <p>
           Internal Structure: {mech.internalStructure}{" "}
@@ -53,18 +65,28 @@ const InternalStructureAndCockpit = () => {
         </p>
       )}
       {ui.advancedOptions && mech.technologyBase === "Inner Sphere" ? (
-        <p>
-          <label htmlFor="cockpit-select">Cockpit: </label>
-          <select
-            id="cockpit-select"
-            name="cockpit-select"
-            onChange={cockpitHandler}
-          >
-            <option>Standard Cockpit</option>
-            <option>Small Cockpit</option>
-          </select>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          width="300px"
+        >
+          <FormControl sx={{ m: 1, minWidth: 180 }}>
+            <InputLabel id="select-cockpit-label">Select Cockpit</InputLabel>
+            <Select
+              labelid="select-cockpit-label"
+              id="select-cockpit"
+              label="Select Cockpit"
+              value={mech.cockpit.type}
+              onChange={cockpitHandler}
+              style={{ minWidth: 120 }}
+            >
+              <MenuItem value="Standard Cockpit">Standard Cockpit</MenuItem>
+              <MenuItem value="Small Cockpit">Small Cockpit</MenuItem>
+            </Select>
+          </FormControl>
           <span className="substract-tons">-{mech.cockpit.weight} tons</span>
-        </p>
+        </Box>
       ) : (
         <p>
           {mech.cockpit.type}:
