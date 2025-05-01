@@ -1,7 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 import AdvancedMechData from "../Advanced-Builder/AdvancedMechData";
-import { TextField } from "@mui/material";
+import {
+  FormControl,
+  MenuItem,
+  TextField,
+  InputLabel,
+  Select,
+} from "@mui/material";
 
 const MechData = () => {
   const mechTonnage = [
@@ -26,8 +32,6 @@ const MechData = () => {
   };
   return (
     <div className="mech-data form-element">
-      {/* <label htmlFor="name">Name your Mech</label>
-      <input type="text" id="name" name="name" onChange={nameHandler}></input> */}
       <TextField
         label="Name your Mech"
         value={mech.name}
@@ -38,25 +42,26 @@ const MechData = () => {
       <br />
       {ui.advancedOptions && <AdvancedMechData />}
       <br />
-      <label htmlFor="mechTonnage">Select Mech Tonnage</label>
-      <select
-        value={tonnageState}
-        name="mechTonnage"
-        id="mechTonnage"
-        onChange={mechTonnageHandler}
-      >
-        <option value="" disabled>
-          Select Tonnage
-        </option>
-
-        {mechTonnage.map((tonnage) => {
-          return (
-            <option key={tonnage} value={tonnage}>
-              {tonnage}
-            </option>
-          );
-        })}
-      </select>
+      <FormControl sx={{ m: 1, minWidth: 180 }}>
+        <InputLabel id="select-mech-tonnage-label">
+          Select Mech Tonnage
+        </InputLabel>
+        <Select
+          labelId="select-mech-tonnage-label"
+          id="select-mech-tonnage"
+          value={mech.tonnage}
+          label="Select Mech Tonnage"
+          onChange={mechTonnageHandler}
+        >
+          {mechTonnage.map((tonnage) => {
+            return (
+              <MenuItem key={tonnage} value={tonnage}>
+                {tonnage}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </FormControl>
     </div>
   );
 };

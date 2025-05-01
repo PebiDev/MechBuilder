@@ -1,5 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  RadioGroup,
+  Radio,
+} from "@mui/material";
 
 const AdvancedMechData = () => {
   const dispatch = useDispatch();
@@ -16,46 +23,46 @@ const AdvancedMechData = () => {
   return (
     <>
       <div id="tech-base-radio">
-        <p>Choose Technology Base:</p>
-        <input
-          type="radio"
-          id="tech-base-is"
-          name="tech-base"
-          value="Inner Sphere"
-          checked={mech.technologyBase === "Inner Sphere"}
-          onChange={handleTechBaseRadio}
-        />
-        <label htmlFor="tech-base-is">Inner Sphere</label>
-        <input
-          type="radio"
-          id="tech-base-clan"
-          name="tech-base"
-          value="Clan"
-          checked={mech.technologyBase === "Clan"}
-          onChange={handleTechBaseRadio}
-        />
-        <label htmlFor="tech-base-clan">Clan</label>
+        <FormControl>
+          <FormLabel id="techbase-radio-group" style={{ color: "#ffa726" }}>
+            Choose Technology Base
+          </FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="techbase-radio-group"
+            name="techbase-radio-group"
+            onChange={handleTechBaseRadio}
+            value={mech.technologyBase}
+          >
+            <FormControlLabel
+              value="Inner Sphere"
+              control={<Radio />}
+              label="Inner Sphere"
+            />
+            <FormControlLabel value="Clan" control={<Radio />} label="Clan" />
+          </RadioGroup>
+        </FormControl>
       </div>
       <div id="chassis-type-radio">
-        <p>Choose Chassis Type:</p>
-        <input
-          type="radio"
-          id="chassis-type-bipedal"
-          name="chassis-type"
-          value="Bipedal"
-          checked={mech.chassisType === "Bipedal"}
-          onChange={handleChassisTypeRadio}
-        />
-        <label htmlFor="chassis-type-bipedal">Bipedal</label>
-        <input
-          type="radio"
-          id="chassis-type-quad"
-          name="chassis-type"
-          value="Quad"
-          checked={mech.chassisType === "Quad"}
-          onChange={handleChassisTypeRadio}
-        />
-        <label htmlFor="chassis-type-quad">Quad</label>
+        <FormControl>
+          <FormLabel id="chassistype-radio-group" style={{ color: "#ffa726" }}>
+            Choose Chassis Type
+          </FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="chassistype-radio-group"
+            name="chassistype-radio-group"
+            onChange={handleChassisTypeRadio}
+            value={mech.chassisType}
+          >
+            <FormControlLabel
+              value="Bipedal"
+              control={<Radio />}
+              label="Bipedal"
+            />
+            <FormControlLabel value="Quad" control={<Radio />} label="Quad" />
+          </RadioGroup>
+        </FormControl>
       </div>
     </>
   );
