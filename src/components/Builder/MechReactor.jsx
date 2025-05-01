@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 import AdvancedMechReactor from "../Advanced-Builder/AdvancedMechReactor";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 const MechReactor = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const MechReactor = () => {
 
   return (
     <div id="mech-reactor" className="form-element">
-      <label htmlFor="speed-select">Choose Walking Speed</label>
+      {/* <label htmlFor="speed-select">Choose Walking Speed</label>
       <select
         name="speed-select"
         id="speed-select"
@@ -38,7 +39,25 @@ const MechReactor = () => {
         {speedOptions.map((walkSpeed, index) => {
           return <option key={walkSpeed}>{index + 1}</option>;
         })}
-      </select>
+      </select> */}
+      <FormControl sx={{ m: 1, minWidth: 180 }}>
+        <InputLabel id="select-speed-label">Choose Walking Speed</InputLabel>
+        <Select
+          labelId="select-speed-label"
+          id="select-speed"
+          label="Choose Walking Speed"
+          value={mech.movement.walking}
+          onChange={speedHandler}
+        >
+          {speedOptions.map((walkSpeed, index) => {
+            return (
+              <MenuItem key={walkSpeed} value={index + 1}>
+                {index + 1}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </FormControl>
       {mech.movement.walking > 0 && (
         <>
           {ui.advancedOptions && <AdvancedMechReactor />}

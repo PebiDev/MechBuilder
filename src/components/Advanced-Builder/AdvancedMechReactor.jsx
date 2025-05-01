@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 const AdvancedMechReactor = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const AdvancedMechReactor = () => {
 
   return (
     <div id="advanced-mech-reactor">
-      {mech.technologyBase === "Inner Sphere" ? (
+      {/* {mech.technologyBase === "Inner Sphere" ? (
         <>
           <label htmlFor="reactor-select-is">Choose Reactor:</label>{" "}
           <select
@@ -39,22 +40,41 @@ const AdvancedMechReactor = () => {
             <option value="XL">XL Engine</option>
             <option value="Compact">Compact Engine</option>
             <option value="Light">Light Engine</option>
-          </select>{" "}
-        </>
-      ) : (
-        <>
-          <label htmlFor="reactor-select-clan">Installing Reactor:</label>{" "}
-          <select
-            id="reactor-select-clan"
-            name="reactor-select-clan"
-            value={mech.reactor.reactorType}
-            onChange={handleReactorSelect}
-          >
-            <option value="Standard">Standard</option>
-            <option value="XL">XL Engine</option>
-          </select>
-        </>
-      )}
+         < /select>{" "}
+        </> */}
+      <FormControl sx={{ m: 1, minWidth: 150 }}>
+        <InputLabel id="select-reactor-label">Choose Reactor</InputLabel>
+        <Select
+          labelId="select-reactor-label"
+          id="select-reactor"
+          label="Choose Reactor"
+          value={mech.reactor.reactorType}
+          onChange={handleReactorSelect}
+        >
+          <MenuItem value="Standard">Standard</MenuItem>
+          <MenuItem value="XL">XL Engine</MenuItem>
+          {mech.technologyBase === "Inner Sphere" && (
+            <MenuItem value="Compact">Compact Engine</MenuItem>
+          )}
+          {mech.technologyBase === "Inner Sphere" && (
+            <MenuItem value="Light">Light Engine</MenuItem>
+          )}
+        </Select>
+      </FormControl>
+      {/* // ) : (
+      //   <>
+      //     <label htmlFor="reactor-select-clan">Installing Reactor:</label>{" "}
+      //     <select
+      //       id="reactor-select-clan"
+      //       name="reactor-select-clan"
+      //       value={mech.reactor.reactorType}
+      //       onChange={handleReactorSelect}
+      //     >
+      //       <option value="Standard">Standard</option>
+      //       <option value="XL">XL Engine</option>
+      //     </select>
+      //   </>
+      // )} */}
     </div>
   );
 };
