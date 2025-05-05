@@ -12,9 +12,16 @@ const AdvancedRemoveHand = () => {
   const dispatch = useDispatch();
   const mech = useSelector((state) => state.mech);
 
+  const handleActuatorChange = (arm, actuator) => {
+    const zone = [arm];
+    const slots = ["loc3", "loc4"];
+    dispatch(mechActions.unInstallEquipFromZone({ zones: zone, slots }));
+    dispatch(mechActions.setArmActuators({ arm, actuator }));
+  };
+
   return (
     <Grid container spacing={2}>
-      <Grid item xs={6}>
+      <Grid size={{ xs: 6 }}>
         <FormGroup>
           <FormLabel sx={{ color: "#ffa726" }} id="remove-hands-select-label">
             UnInstall Right Arm Actuators
@@ -23,20 +30,7 @@ const AdvancedRemoveHand = () => {
             control={
               <Checkbox
                 checked={mech.zones.rarm.loc4 === "Hand Actuator"}
-                onChange={() => {
-                  dispatch(
-                    mechActions.unInstallEquipFromZone({
-                      zones: ["rarm"],
-                      slots: ["loc3", "loc4"],
-                    })
-                  );
-                  dispatch(
-                    mechActions.setArmActuators({
-                      arm: "rarm",
-                      actuator: "Hand Actuator",
-                    })
-                  );
-                }}
+                onChange={() => handleActuatorChange("rarm", "Hand Actuator")}
               />
             }
             label="Right Hand Actuator"
@@ -45,27 +39,16 @@ const AdvancedRemoveHand = () => {
             control={
               <Checkbox
                 checked={mech.zones.rarm.loc3 === "Lower Arm Actuator"}
-                onChange={() => {
-                  dispatch(
-                    mechActions.unInstallEquipFromZone({
-                      zones: ["rarm"],
-                      slots: ["loc3", "loc4"],
-                    })
-                  );
-                  dispatch(
-                    mechActions.setArmActuators({
-                      arm: "rarm",
-                      actuator: "Lower Arm Actuator",
-                    })
-                  );
-                }}
+                onChange={() =>
+                  handleActuatorChange("rarm", "Lower Arm Actuator")
+                }
               />
             }
             label="Right Lower Arm Actuator"
           />
         </FormGroup>
       </Grid>
-      <Grid item xs={6}>
+      <Grid size={{ xs: 6 }}>
         <FormGroup>
           <FormLabel sx={{ color: "#ffa726" }} id="remove-hands-select-label">
             UnInstall Left Arm Actuators
@@ -74,20 +57,7 @@ const AdvancedRemoveHand = () => {
             control={
               <Checkbox
                 checked={mech.zones.larm.loc4 === "Hand Actuator"}
-                onChange={() => {
-                  dispatch(
-                    mechActions.unInstallEquipFromZone({
-                      zones: ["larm"],
-                      slots: ["loc3", "loc4"],
-                    })
-                  );
-                  dispatch(
-                    mechActions.setArmActuators({
-                      arm: "larm",
-                      actuator: "Hand Actuator",
-                    })
-                  );
-                }}
+                onChange={() => handleActuatorChange("larm", "Hand Actuator")}
               />
             }
             label="Left Hand Actuator"
@@ -96,20 +66,9 @@ const AdvancedRemoveHand = () => {
             control={
               <Checkbox
                 checked={mech.zones.larm.loc3 === "Lower Arm Actuator"}
-                onChange={() => {
-                  dispatch(
-                    mechActions.unInstallEquipFromZone({
-                      zones: ["larm"],
-                      slots: ["loc3", "loc4"],
-                    })
-                  );
-                  dispatch(
-                    mechActions.setArmActuators({
-                      arm: "larm",
-                      actuator: "Lower Arm Actuator",
-                    })
-                  );
-                }}
+                onChange={() =>
+                  handleActuatorChange("larm", "Lower Arm Actuator")
+                }
               />
             }
             label="Left Lower Arm Actuator"
