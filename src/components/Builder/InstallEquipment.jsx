@@ -3,10 +3,12 @@ import { mechActions } from "../../store/mech-slice";
 import { uiActions } from "../../store/ui-slice";
 import ShowEquipment from "./ShowEquipment";
 import getFreeSlots from "../../util/getFreeSlots";
+import AdvancedRemoveHand from "../Advanced-Builder/AdvancedRemoveHand";
 
 const InstallEquipment = () => {
   const dispatch = useDispatch();
   const mech = useSelector((state) => state.mech);
+  const ui = useSelector((state) => state.ui);
 
   const unInstalledEquipment = [];
   const unInstalledWeapons = [];
@@ -130,6 +132,7 @@ const InstallEquipment = () => {
 
   return (
     <div id="install-equipment" className="form-element">
+      {ui.advancedOptions && <AdvancedRemoveHand />}
       <ShowEquipment />
       {installedWeapons.length > 0 && (
         <div>
@@ -152,6 +155,7 @@ const InstallEquipment = () => {
       {unInstalledEquipment.length > 0 && (
         <div id="uninstalled-equipment">
           <h3>Installing Equipment</h3>
+
           <table id="equipment-table">
             <thead>
               <tr>

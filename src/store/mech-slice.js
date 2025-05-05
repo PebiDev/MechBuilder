@@ -939,7 +939,6 @@ const mechSlice = createSlice({
       return newMech;
     },
     InstallEquipment(state, action) {
-      //works currently - but probably needs a rework
       let newMech = deepCopy(state);
       const equipId = action.payload.id;
       const equipZone = action.payload.zone;
@@ -948,6 +947,7 @@ const mechSlice = createSlice({
       const addEquipmentToZone = (item) => {
         const slots = item.critical;
 
+        //WIP: changing multine item display names
         const itemDisplayName = (item) => {
           let displayName = "";
           if (item.slots.length < 2) return item.name;
@@ -1129,6 +1129,38 @@ const mechSlice = createSlice({
 
       newMech.remainingTons += equip.tons;
       newMech.criticalSlots += equip.critical;
+
+      return newMech;
+    },
+    setArmActuators(state, action) {
+      let newMech = deepCopy(state);
+      const arm = action.payload.arm;
+      const actuator = action.payload.actuator;
+      console.log(action.payload.actuator);
+
+      if (actuator === "Hand Actuator") {
+        if (newMech.zones[arm].loc4 !== "Hand Actuator") {
+          newMech.zones[arm].loc4 = "Hand Actuator";
+          if (newMech.zones[arm].loc3 !== "Lower Arm Actuator") {
+            newMech.zones[arm].loc3 = "Lower Arm Actuator";
+            newMech.criticalSlots -= 1;
+          }
+          newMech.criticalSlots -= 1;
+        } else {
+          newMech.zones[arm].loc4 = "";
+          newMech.criticalSlots += 1;
+        }
+      }
+      if (actuator === "Lower Arm Actuator") {
+        if (newMech.zones[arm].loc3 !== "Lower Arm Actuator") {
+          newMech.zones[arm].loc3 = "Lower Arm Actuator";
+          newMech.criticalSlots -= 1;
+        } else {
+          newMech.zones[arm].loc3 = "";
+          newMech.zones[arm].loc4 = "";
+          newMech.criticalSlots += 2;
+        }
+      }
 
       return newMech;
     },
