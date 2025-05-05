@@ -5,6 +5,8 @@ import ShowEquipment from "./ShowEquipment";
 import getFreeSlots from "../../util/getFreeSlots";
 import AdvancedRemoveHand from "../Advanced-Builder/AdvancedRemoveHand";
 
+import { radioGroupClasses } from "@mui/material";
+
 const InstallEquipment = () => {
   const dispatch = useDispatch();
   const mech = useSelector((state) => state.mech);
@@ -13,32 +15,6 @@ const InstallEquipment = () => {
   const unInstalledEquipment = [];
   const unInstalledWeapons = [];
   const installedWeapons = [];
-
-  // const getTargetingComputerWeight = () => {
-  //   const eligibleForTargetingComputer = ["DE", "DB", "P"];
-  //   let directFireWeaponWeight = 0;
-  //   let targetingComputerWeightAndSlots = 0;
-
-  //   mech.equipment.weapons.map((item) => {
-  //     if (
-  //       item.type.some(
-  //         (weaponType) =>
-  //           eligibleForTargetingComputer.includes(weaponType) &&
-  //           !item.name.includes("Machine Gun")
-  //       )
-  //     ) {
-  //       directFireWeaponWeight += item.tons;
-  //     }
-  //   });
-
-  //   if (mech.technologyBase === "Clan") {
-  //     targetingComputerWeightAndSlots = Math.ceil(directFireWeaponWeight / 5);
-  //   } else {
-  //     targetingComputerWeightAndSlots = Math.ceil(directFireWeaponWeight / 4);
-  //   }
-
-  //   return targetingComputerWeightAndSlots;
-  // };
 
   mech.equipment.heatsinks.map((heatsink) => {
     if (heatsink.location == "n/a") {
@@ -78,6 +54,25 @@ const InstallEquipment = () => {
     for (const [zone, slots] of Object.entries(freeSlots)) {
       if (slots >= criticalSlots) zonesWithFreeSlots.push(zone);
     }
+    if (criticalSlots > 7 && mech.chassisType === "Bipedal") {
+      if (freeSlots["rarm"] + freeSlots["rtorso"] >= criticalSlots) {
+        zonesWithFreeSlots.push("rarm/rtorso");
+      }
+      if (freeSlots["larm"] + freeSlots["ltorso"] >= criticalSlots) {
+        zonesWithFreeSlots.push("larm/ltorso");
+      }
+    }
+    if (criticalSlots > 7) {
+      if (freeSlots["ctorso"] + freeSlots["rtorso"] >= criticalSlots) {
+        zonesWithFreeSlots.push("ctorso/rtorso");
+      }
+    }
+    if (criticalSlots > 7) {
+      if (freeSlots["ctorso"] + freeSlots["ltorso"] >= criticalSlots) {
+        zonesWithFreeSlots.push("ctorso/ltorso");
+      }
+    }
+
     return zonesWithFreeSlots;
   };
 
@@ -113,12 +108,18 @@ const InstallEquipment = () => {
   const handleZoneSelect = (event) => {
     const equipId = event.target.id;
     const equipToZone = event.target.value;
-    dispatch(
-      mechActions.InstallEquipment({
-        id: equipId,
-        zone: equipToZone,
-      })
-    );
+    if (equipToZone.includes("/")) {
+      dispatch(
+        mechActions.addSplitZoneWeapon({ id: equipId, zones: equipToZone })
+      );
+    } else {
+      dispatch(
+        mechActions.InstallEquipment({
+          id: equipId,
+          zone: equipToZone,
+        })
+      );
+    }
   };
 
   const handleRemoveEquipment = (equip) => {
@@ -130,9 +131,16 @@ const InstallEquipment = () => {
     dispatch(mechActions.unInstallEquipment(weaponId));
   };
 
+  const handleSplitZones = (event) => {
+    console.log(event.target.value);
+  };
+
   return (
     <div id="install-equipment" className="form-element">
-      {ui.advancedOptions && <AdvancedRemoveHand />}
+      {ui.advancedOptions && mech.chassisType === "Bipedal" && (
+        <AdvancedRemoveHand />
+      )}
+
       <ShowEquipment />
       {installedWeapons.length > 0 && (
         <div>
@@ -204,6 +212,36 @@ const InstallEquipment = () => {
                         >
                           X
                         </button>
+                      )}
+                      {equipment.splitZones && (
+                        <>
+                          <label htmlFor={equipment.name}>
+                            {equipment.splitZones[0] +
+                              "/" +
+                              equipment.splitZones[1]}
+                          </label>
+                          <select
+                            id={equipment.name}
+                            name={equipment.name}
+                            onChange={handleSplitZones}
+                          >
+                            {Array.from(
+                              { length: equipment.critical - 1 },
+                              (_, i) => {
+                                const left = i + 1;
+                                const right = equipment.critical - left;
+                                return (
+                                  <option
+                                    key={`${left}/${right}`}
+                                    value={`${left}/${right}`}
+                                  >
+                                    {left}/{right}
+                                  </option>
+                                );
+                              }
+                            )}
+                          </select>
+                        </>
                       )}
                     </td>
                   </tr>

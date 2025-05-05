@@ -1029,6 +1029,9 @@ const mechSlice = createSlice({
               newMech.zones[item.location][slot] = "";
             });
             item.location = "n/a";
+            if ("splitZones" in item) {
+              delete item.splitZones;
+            }
           }
         });
       }
@@ -1079,6 +1082,19 @@ const mechSlice = createSlice({
           newMech.criticalSlots -= newAmmo.critical;
         }
       }
+
+      return newMech;
+    },
+    addSplitZoneWeapon(state, action) {
+      let newMech = deepCopy(state);
+      const weaponId = action.payload.id;
+      const zones = action.payload.zones.split("/");
+
+      let weapon = newMech.equipment.weapons.find(
+        (weapon) => weapon.id === weaponId
+      );
+      weapon.splitZones = zones;
+      console.log(weapon.splitZones);
 
       return newMech;
     },
