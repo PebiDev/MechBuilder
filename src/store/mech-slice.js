@@ -194,7 +194,7 @@ const initialMechState = {
   internalStructure: "Standard",
   cockpit: { type: "Standard Cockpit", weight: 3 },
   reactor: { reactorType: "standard", reactorValue: 0, reactorweight: 0 },
-  movement: { walking: 0, running: 0, jumping: 0 },
+  movement: { walking: "", running: "", jumping: "" },
 
   gyro: { type: "standard", weightMultiplier: 0 },
   heatsinks: { type: "standard", heatsinkCritSlots: 1, number: 10 },

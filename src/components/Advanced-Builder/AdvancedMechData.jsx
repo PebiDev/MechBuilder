@@ -1,12 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
+import { RadioGroup, Radio } from "@mui/material";
 import {
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  RadioGroup,
-  Radio,
-} from "@mui/material";
+  StyledFormControl,
+  StyledFormLabel,
+  StyledFormControlLabel,
+} from "../StyledComponents";
 
 const AdvancedMechData = () => {
   const dispatch = useDispatch();
@@ -23,10 +22,10 @@ const AdvancedMechData = () => {
   return (
     <>
       <div id="tech-base-radio">
-        <FormControl>
-          <FormLabel id="techbase-radio-group" style={{ color: "#ffa726" }}>
+        <StyledFormControl>
+          <StyledFormLabel id="techbase-radio-group">
             Choose Technology Base
-          </FormLabel>
+          </StyledFormLabel>
           <RadioGroup
             row
             aria-labelledby="techbase-radio-group"
@@ -34,20 +33,24 @@ const AdvancedMechData = () => {
             onChange={handleTechBaseRadio}
             value={mech.technologyBase}
           >
-            <FormControlLabel
+            <StyledFormControlLabel
               value="Inner Sphere"
               control={<Radio />}
               label="Inner Sphere"
             />
-            <FormControlLabel value="Clan" control={<Radio />} label="Clan" />
+            <StyledFormControlLabel
+              value="Clan"
+              control={<Radio />}
+              label="Clan"
+            />
           </RadioGroup>
-        </FormControl>
+        </StyledFormControl>
       </div>
       <div id="chassis-type-radio">
-        <FormControl>
-          <FormLabel id="chassistype-radio-group" style={{ color: "#ffa726" }}>
+        <StyledFormControl>
+          <StyledFormLabel id="chassistype-radio-group">
             Choose Chassis Type
-          </FormLabel>
+          </StyledFormLabel>
           <RadioGroup
             row
             aria-labelledby="chassistype-radio-group"
@@ -55,14 +58,18 @@ const AdvancedMechData = () => {
             onChange={handleChassisTypeRadio}
             value={mech.chassisType}
           >
-            <FormControlLabel
+            <StyledFormControlLabel
               value="Bipedal"
               control={<Radio />}
               label="Bipedal"
             />
-            <FormControlLabel value="Quad" control={<Radio />} label="Quad" />
+            <StyledFormControlLabel
+              value="Quad"
+              control={<Radio />}
+              label="Quad"
+            />
           </RadioGroup>
-        </FormControl>
+        </StyledFormControl>
       </div>
     </>
   );

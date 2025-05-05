@@ -1,14 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 import AdvancedMechReactor from "../Advanced-Builder/AdvancedMechReactor";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useMemo } from "react";
 
 const MechReactor = () => {
   const dispatch = useDispatch();
   const mech = useSelector((state) => state.mech);
   const ui = useSelector((state) => state.ui);
 
-  // getting Mech Speedoptions
   let reactorValue = 0;
   const speedOptions = [];
   let walkingSpeedMP = 1;
@@ -23,24 +23,24 @@ const MechReactor = () => {
     }
   }
 
+  const menuItems = useMemo(
+    () =>
+      speedOptions.map((walkSpeed, index) => {
+        return (
+          <MenuItem key={walkSpeed} value={index + 1}>
+            {index + 1}
+          </MenuItem>
+        );
+      }),
+    [speedOptions]
+  );
   const speedHandler = (event) => {
     dispatch(mechActions.addReactor(event.target.value));
   };
 
   return (
     <div id="mech-reactor" className="form-element">
-      {/* <label htmlFor="speed-select">Choose Walking Speed</label>
-      <select
-        name="speed-select"
-        id="speed-select"
-        value={mech.movement.walking}
-        onChange={speedHandler}
-      >
-        {speedOptions.map((walkSpeed, index) => {
-          return <option key={walkSpeed}>{index + 1}</option>;
-        })}
-      </select> */}
-      <FormControl sx={{ m: 1, minWidth: 180 }}>
+      <FormControl fullWidth>
         <InputLabel id="select-speed-label">Choose Walking Speed</InputLabel>
         <Select
           labelId="select-speed-label"
@@ -49,15 +49,10 @@ const MechReactor = () => {
           value={mech.movement.walking}
           onChange={speedHandler}
         >
-          {speedOptions.map((walkSpeed, index) => {
-            return (
-              <MenuItem key={walkSpeed} value={index + 1}>
-                {index + 1}
-              </MenuItem>
-            );
-          })}
+          {menuItems}
         </Select>
       </FormControl>
+
       {mech.movement.walking > 0 && (
         <>
           {ui.advancedOptions && <AdvancedMechReactor />}
@@ -65,10 +60,6 @@ const MechReactor = () => {
             Installing Reactor: {mech.reactor.reactorType}{" "}
             {mech.reactor.reactorValue}
             <br />
-            {/* Fusion Engine {mech.reactor.reactorValue}{" "}
-              <span className="substract-tons">
-                -{mech.reactor.standardTons} tons
-              </span> */}
             <span className="substract-tons">
               -
               {mech.reactor.reactorType === "XL"

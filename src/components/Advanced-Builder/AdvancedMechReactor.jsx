@@ -27,21 +27,6 @@ const AdvancedMechReactor = () => {
 
   return (
     <div id="advanced-mech-reactor">
-      {/* {mech.technologyBase === "Inner Sphere" ? (
-        <>
-          <label htmlFor="reactor-select-is">Choose Reactor:</label>{" "}
-          <select
-            id="reactor-select-is"
-            name="reactor-select-is"
-            value={mech.reactor.reactorType}
-            onChange={handleReactorSelect}
-          >
-            <option value="Standard">Standard</option>
-            <option value="XL">XL Engine</option>
-            <option value="Compact">Compact Engine</option>
-            <option value="Light">Light Engine</option>
-         < /select>{" "}
-        </> */}
       <FormControl sx={{ m: 1, minWidth: 150 }}>
         <InputLabel id="select-reactor-label">Choose Reactor</InputLabel>
         <Select
@@ -61,20 +46,6 @@ const AdvancedMechReactor = () => {
           )}
         </Select>
       </FormControl>
-      {/* // ) : (
-      //   <>
-      //     <label htmlFor="reactor-select-clan">Installing Reactor:</label>{" "}
-      //     <select
-      //       id="reactor-select-clan"
-      //       name="reactor-select-clan"
-      //       value={mech.reactor.reactorType}
-      //       onChange={handleReactorSelect}
-      //     >
-      //       <option value="Standard">Standard</option>
-      //       <option value="XL">XL Engine</option>
-      //     </select>
-      //   </>
-      // )} */}
     </div>
   );
 };
