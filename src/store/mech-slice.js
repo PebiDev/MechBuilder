@@ -971,6 +971,11 @@ const mechSlice = createSlice({
           item.slots.push(location);
           equipSlots.push(location);
           newMech.zones[equipZone][location] = item.name;
+          if (item.name.includes("Artemis") && i === slots - 1) {
+            const missileName = item.name.split(" + ")[0];
+            newMech.zones[equipZone][location] =
+              "Artemis IV (" + missileName + ")";
+          }
         }
       };
 
