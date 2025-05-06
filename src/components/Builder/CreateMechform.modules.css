@@ -74,3 +74,17 @@ div {
   cursor: pointer;
   border: 1px solid black;
 }
+
+tr {
+  margin: 2px;
+  border: white solid 1px;
+}
+
+.tableEntry {
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+}
+.tableRow:hover {
+  color: orange;
+}
