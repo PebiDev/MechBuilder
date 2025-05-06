@@ -1263,7 +1263,7 @@ const mechSlice = createSlice({
       newMech.equipment.gear = gear;
 
       const checkForTargetingComputer = newMech.equipment.gear.find(
-        (gearItem) => (gearItem.name = "Targeting Computer")
+        (gearItem) => gearItem.name === "Targeting Computer"
       );
       if (checkForTargetingComputer) {
         newMech =
@@ -1481,7 +1481,7 @@ const mechSlice = createSlice({
       let newMech = deepCopy(state);
 
       let tc = newMech.equipment.gear.find(
-        (gear) => (gear.name = "Targeting Computer")
+        (gear) => gear.name === "Targeting Computer"
       );
       if (tc !== undefined) {
         newMech.remainingTons += tc.tons;
