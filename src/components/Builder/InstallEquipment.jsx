@@ -131,8 +131,14 @@ const InstallEquipment = () => {
     dispatch(mechActions.unInstallEquipment(weaponId));
   };
 
-  const handleSplitZones = (event) => {
-    console.log(event.target.value);
+  const handleSplitZones = (weapon, slotsLeft, slotsRight) => {
+    dispatch(
+      mechActions.installSplitZoneWeapon({
+        weapon: weapon,
+        slotsZoneA: slotsLeft,
+        slotsZoneB: slotsRight,
+      })
+    );
   };
 
   return (
@@ -223,13 +229,29 @@ const InstallEquipment = () => {
                           <select
                             id={equipment.name}
                             name={equipment.name}
-                            onChange={handleSplitZones}
+                            onChange={(e) => {
+                              const [left, right] = e.target.value
+                                .split("/")
+                                .map(Number);
+                              handleSplitZones(equipment, left, right);
+                            }}
                           >
                             {Array.from(
                               { length: equipment.critical - 1 },
                               (_, i) => {
                                 const left = i + 1;
                                 const right = equipment.critical - left;
+                                const freeSlots = getFreeSlots(mech.zones);
+                                const maxZoneleft =
+                                  freeSlots[equipment.splitZones[0]];
+                                const maxZoneRight =
+                                  freeSlots[equipment.splitZones[1]];
+                                if (
+                                  left > maxZoneleft ||
+                                  right > maxZoneRight
+                                ) {
+                                  return null;
+                                }
                                 return (
                                   <option
                                     key={`${left}/${right}`}

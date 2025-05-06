@@ -216,6 +216,11 @@ const initialMechState = {
 
 const deepCopy = (o) => JSON.parse(JSON.stringify(o));
 
+const checkForItemInZone = (zone, locs) => {
+  let itemToRemove = [];
+  return true;
+};
+
 const mechSlice = createSlice({
   name: "mech",
   initialState: initialMechState,
@@ -992,19 +997,38 @@ const mechSlice = createSlice({
       }
 
       // uninstall pushed out items
-      for (const [equipemntType, equipments] of Object.entries(
-        newMech.equipment
-      )) {
+      let unInstallItem = false;
+      for (const [_, equipments] of Object.entries(newMech.equipment)) {
         equipments.map((item) => {
           if (item.location === equipZone) {
             item.slots.map((loc) => {
               equipSlots.map((equipSlot) => {
                 if (loc === equipSlot && item.id !== equipId) {
-                  item.slots = [];
-                  item.location = "n/a";
+                  unInstallItem = true;
                 }
               });
             });
+          }
+          if ("splitZones" in item && item.splitZones[1] === equipZone) {
+            if ("splitZoneSlots" in item) {
+              item.splitZoneSlots.map((loc) => {
+                equipSlots.map((equipSlot) => {
+                  if (loc === equipSlot && item.id !== equipId)
+                    unInstallItem = true;
+                });
+              });
+            }
+          }
+          if (unInstallItem) {
+            item.slots = [];
+            item.location = "n/a";
+            if ("splitZones" in item) {
+              delete item.splitZones;
+            }
+            if ("splitZoneSlots" in item) {
+              delete item.splitZoneSlots;
+            }
+            unInstallItem = false;
           }
         });
       }
@@ -1031,6 +1055,9 @@ const mechSlice = createSlice({
             item.location = "n/a";
             if ("splitZones" in item) {
               delete item.splitZones;
+            }
+            if ("splitZoneSlots" in item) {
+              delete item.splitZoneSlots;
             }
           }
         });
@@ -1094,7 +1121,107 @@ const mechSlice = createSlice({
         (weapon) => weapon.id === weaponId
       );
       weapon.splitZones = zones;
-      console.log(weapon.splitZones);
+
+      return newMech;
+    },
+    installSplitZoneWeapon(state, action) {
+      let newMech = deepCopy(state);
+      let weapon = action.payload.weapon;
+      const slotsZoneA = action.payload.slotsZoneA;
+      const slotsZoneB = action.payload.slotsZoneB;
+      const equipSlotsA = [];
+      const equipSlotsB = [];
+
+      const addEquipmentToZone = (
+        item,
+        slotsPerZone,
+        equipSlots,
+        equipZone
+      ) => {
+        let itemSlots = [];
+        const slots = slotsPerZone;
+        const zoneValues = Object.values(newMech.zones[equipZone]);
+        const index = zoneValues.findIndex((loc) => {
+          return loc === "";
+        });
+        for (let i = 0; i < slots; i++) {
+          if (!zoneValues[index + i] === "") {
+            //implementation needed!
+            console.log("Component doesn't fit");
+            return state;
+          }
+        }
+        for (let i = 0; i < slots; i++) {
+          let locNumber = Number(index + 1 + i);
+          let location = `loc` + locNumber;
+
+          itemSlots.push(location);
+          equipSlots.push(location);
+          newMech.zones[equipZone][location] = item.name;
+        }
+        return itemSlots;
+      };
+
+      for (const [equipmentType, equipments] of Object.entries(
+        newMech.equipment
+      )) {
+        equipments.map((equip, index) => {
+          if (weapon.id === equip.id) {
+            newMech.equipment[equipmentType][index] = {
+              ...newMech.equipment[equipmentType][index],
+              slots: addEquipmentToZone(
+                weapon,
+                slotsZoneA,
+                equipSlotsA,
+                weapon.splitZones[0]
+              ),
+              splitZoneSlots: addEquipmentToZone(
+                weapon,
+                slotsZoneB,
+                equipSlotsB,
+                weapon.splitZones[1]
+              ),
+              location: weapon.splitZones[0],
+            };
+          }
+        });
+      }
+
+      // uninstall pushed out items
+      let unInstallItem = false;
+      for (const [_, equipments] of Object.entries(newMech.equipment)) {
+        equipments.map((item) => {
+          if (item.location === weapon.splitZones[0]) {
+            item.slots.map((loc) => {
+              equipSlotsA.map((equipSlot) => {
+                if (loc === equipSlot && item.id !== weapon.id) {
+                  unInstallItem = true;
+                }
+              });
+            });
+          }
+          if (item.location === weapon.splitZones[1]) {
+            item.slots.map((loc) => {
+              equipSlotsB.map((equipSlot) => {
+                if (loc === equipSlot && item.id !== weapon.id) {
+                  unInstallItem = true;
+                }
+              });
+            });
+          }
+          if (unInstallItem) {
+            item.slots = [];
+            item.location = "n/a";
+            if ("splitZones" in item) {
+              delete item.splitZones;
+            }
+            if ("splitZoneSlots" in item) {
+              delete item.splitZoneSlots;
+            }
+            unInstallItem = false;
+          }
+        });
+      }
 
       return newMech;
     },
@@ -1268,6 +1395,12 @@ const mechSlice = createSlice({
                   });
                   item.location = "n/a";
                   item.slots = [];
+                  if ("splitZones" in item) {
+                    delete item.splitZones;
+                  }
+                  if ("splitZoneSlots" in item) {
+                    delete item.splitZoneSlots;
+                  }
                 }
               });
             }
