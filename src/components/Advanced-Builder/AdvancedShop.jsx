@@ -1,35 +1,51 @@
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 
 import ShopItem from "../Builder/ShopItem";
 import AdvancedShopCategory from "./AdvancedShopCategory";
 
 const AdvancedShop = ({ equipmentList }) => {
-  const mech = useSelector((state) => state.mech);
-  const [equipList, setEquipList] = useState(equipmentList);
-  let categoriesList = [...new Set(equipmentList.map((item) => item.category))];
+  const tonnage = useSelector((state) => state.mech.tonnage);
+  const criticalSlots = useSelector((state) => state.mech.criticalSlots);
 
-  let hatchet = equipList.find((item) => item.name === "Hatchet");
-  if (hatchet) {
-    hatchet.tons = Math.round(mech.tonnage / 15);
-    hatchet.critical = Math.round(mech.tonnage / 15);
-  }
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
-  let lance = equipList.find((item) => item.name === "Lance");
-  if (lance) {
-    lance.tons = Math.round(mech.tonnage / 20);
-    lance.critical = Math.round(mech.tonnage / 20);
-  }
+  const adjustedEquipment = useMemo(() => {
+    return equipmentList.map((item) => {
+      if (item.name === "Hatchet") {
+        return {
+          ...item,
+          tons: Math.round(tonnage / 15),
+          critical: Math.round(tonnage / 15),
+        };
+      }
+      if (item.name === "Lance") {
+        return {
+          ...item,
+          tons: Math.round(tonnage / 20),
+          critical: Math.round(tonnage / 20),
+        };
+      }
+      if (item.name === "Sword") {
+        return {
+          ...item,
+          tons: Math.round(tonnage / 20),
+          critical: Math.round(tonnage / 15),
+        };
+      }
+      return item;
+    });
+  }, [equipmentList, tonnage]);
 
-  let sword = equipList.find((item) => item.name === "Sword");
-  if (sword) {
-    sword.tons = Math.round(mech.tonnage / 20);
-    sword.critical = Math.round(mech.tonnage / 15);
-  }
+  const categoriesList = useMemo(() => {
+    return [...new Set(equipmentList.map((item) => item.category))];
+  }, [equipmentList]);
 
-  const handleFilter = (category) => {
-    setEquipList(equipmentList.filter((item) => item.category === category));
-  };
+  const filteredList = useMemo(() => {
+    return selectedCategory
+      ? adjustedEquipment.filter((item) => item.category === selectedCategory)
+      : adjustedEquipment;
+  }, [adjustedEquipment, selectedCategory]);
 
   return (
     <>
@@ -38,9 +54,12 @@ const AdvancedShop = ({ equipmentList }) => {
           <AdvancedShopCategory
             key={category}
             category={category}
-            handleCategory={handleFilter}
+            handleCategory={() => setSelectedCategory(category)}
           />
         ))}
+        {selectedCategory && (
+          <button onClick={() => setSelectedCategory(null)}>Show All</button>
+        )}
       </div>
       <table id="shop-table">
         <thead>
@@ -52,12 +71,11 @@ const AdvancedShop = ({ equipmentList }) => {
           </tr>
         </thead>
         <tbody>
-          {equipList.map((item) => {
-            //current solution: only display items that can still fit in the mech
-            if (item.critical <= mech.criticalSlots) {
-              return <ShopItem item={item} key={item.name} />;
-            }
-          })}
+          {filteredList.map((item) =>
+            item.critical <= criticalSlots ? (
+              <ShopItem item={item} key={item.name} />
+            ) : null
+          )}
         </tbody>
       </table>
     </>

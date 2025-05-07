@@ -1274,7 +1274,6 @@ const mechSlice = createSlice({
       let newMech = deepCopy(state);
       const arm = action.payload.arm;
       const actuator = action.payload.actuator;
-      console.log(action.payload.actuator);
 
       if (actuator === "Hand Actuator") {
         if (newMech.zones[arm].loc4 !== "Hand Actuator") {

@@ -1,45 +1,49 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
+import { useCallback } from "react";
 
 const FinalActions = () => {
   const dispatch = useDispatch();
-  const mech = useSelector((state) => state.mech);
-  const ui = useSelector((state) => state.ui);
 
-  const checkIfArmorSlotsInstalled = () => {
-    const armorSlotsAreInstalled = Object.values(mech.zones).some((zone) =>
-      Object.values(zone).some((entry) => entry.includes("Ferro-Fibrous"))
+  const zones = useSelector((state) => state.mech.zones);
+  const armorType = useSelector((state) => state.mech.armor.armorType);
+  const armorSlots = useSelector((state) => state.mech.armor.armorSlots);
+  const internalStructure = useSelector(
+    (state) => state.mech.internalStructure
+  );
+
+  const armorSlotsInstalled = Object.values(zones).some((zone) =>
+    Object.values(zone).some((entry) => entry.includes("Ferro-Fibrous"))
+  );
+
+  const installEndoSteelHandler = useCallback(() => {
+    dispatch(mechActions.installEndoSteel());
+  }, [dispatch]);
+
+  const handleInstallArmorSlots = useCallback(() => {
+    dispatch(
+      mechActions.installReRollSlotsByOli({
+        name: armorType,
+        slots: armorSlots,
+      })
     );
-    return armorSlotsAreInstalled;
-  };
+  }, [dispatch, armorType, armorSlots]);
 
-  const installEndoSteelHandler = () => {
-    dispatch(mechActions.installEndoSteel(mech));
-  };
-  const handleInstallArmorSlots = () => {
-    const installSlots = {
-      name: mech.armor.armorType,
-      slots: mech.armor.armorSlots,
-    };
-
-    dispatch(mechActions.installReRollSlotsByOli(installSlots));
-  };
-  const handleRemoveArmor = () => {
-    dispatch(mechActions.removeAllArmorSlots(mech));
-  };
+  const handleRemoveArmor = useCallback(() => {
+    dispatch(mechActions.removeAllArmorSlots());
+  }, [dispatch]);
 
   return (
     <div id="final-actions">
-      {mech.internalStructure === "Endo Steel" && (
+      {internalStructure === "Endo Steel" && (
         <button onClick={installEndoSteelHandler}>Install EndoSteel</button>
       )}
-      {mech.armor.armorType.includes("Ferro-Fibrous") &&
-        !checkIfArmorSlotsInstalled() && (
-          <button onClick={handleInstallArmorSlots}>
-            Install {mech.armor.armorType} (Slots: {mech.armor.armorSlots})
-          </button>
-        )}
-      {mech.armor.armorSlots > 0 && (
+      {armorType.includes("Ferro-Fibrous") && !armorSlotsInstalled && (
+        <button onClick={handleInstallArmorSlots}>
+          Install {armorType} (Slots: {armorSlots})
+        </button>
+      )}
+      {armorSlots > 0 && (
         <button onClick={handleRemoveArmor}>Remove ArmorSlots</button>
       )}
     </div>

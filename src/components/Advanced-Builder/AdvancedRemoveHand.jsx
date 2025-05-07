@@ -6,30 +6,36 @@ import {
   Checkbox,
   Grid,
 } from "@mui/material";
+import { useCallback } from "react";
 import { mechActions } from "../../store/mech-slice";
 
 const AdvancedRemoveHand = () => {
   const dispatch = useDispatch();
-  const mech = useSelector((state) => state.mech);
 
-  const handleActuatorChange = (arm, actuator) => {
-    const zone = [arm];
-    const slots = ["loc3", "loc4"];
-    dispatch(mechActions.unInstallEquipFromZone({ zones: zone, slots }));
-    dispatch(mechActions.setArmActuators({ arm, actuator }));
-  };
+  const rarm = useSelector((state) => state.mech.zones.rarm);
+  const larm = useSelector((state) => state.mech.zones.larm);
+
+  const handleActuatorChange = useCallback(
+    (arm, actuator) => {
+      const zone = [arm];
+      const slots = ["loc3", "loc4"];
+      dispatch(mechActions.unInstallEquipFromZone({ zones: zone, slots }));
+      dispatch(mechActions.setArmActuators({ arm, actuator }));
+    },
+    [dispatch]
+  );
 
   return (
     <Grid container spacing={2}>
-      <Grid size={{ xs: 6 }}>
+      <Grid>
         <FormGroup>
-          <FormLabel sx={{ color: "#ffa726" }} id="remove-hands-select-label">
+          <FormLabel sx={{ color: "#ffa726" }}>
             UnInstall Right Arm Actuators
           </FormLabel>
           <FormControlLabel
             control={
               <Checkbox
-                checked={mech.zones.rarm.loc4 === "Hand Actuator"}
+                checked={rarm.loc4 === "Hand Actuator"}
                 onChange={() => handleActuatorChange("rarm", "Hand Actuator")}
               />
             }
@@ -38,7 +44,7 @@ const AdvancedRemoveHand = () => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={mech.zones.rarm.loc3 === "Lower Arm Actuator"}
+                checked={rarm.loc3 === "Lower Arm Actuator"}
                 onChange={() =>
                   handleActuatorChange("rarm", "Lower Arm Actuator")
                 }
@@ -48,24 +54,24 @@ const AdvancedRemoveHand = () => {
           />
         </FormGroup>
       </Grid>
-      <Grid size={{ xs: 6 }}>
+      <Grid>
         <FormGroup>
-          <FormLabel sx={{ color: "#ffa726" }} id="remove-hands-select-label">
+          <FormLabel sx={{ color: "#ffa726" }}>
             UnInstall Left Arm Actuators
           </FormLabel>
           <FormControlLabel
             control={
               <Checkbox
-                checked={mech.zones.larm.loc4 === "Hand Actuator"}
+                checked={larm.loc4 === "Hand Actuator"}
                 onChange={() => handleActuatorChange("larm", "Hand Actuator")}
               />
             }
             label="Left Hand Actuator"
-          />{" "}
+          />
           <FormControlLabel
             control={
               <Checkbox
-                checked={mech.zones.larm.loc3 === "Lower Arm Actuator"}
+                checked={larm.loc3 === "Lower Arm Actuator"}
                 onChange={() =>
                   handleActuatorChange("larm", "Lower Arm Actuator")
                 }

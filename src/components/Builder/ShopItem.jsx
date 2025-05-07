@@ -1,10 +1,10 @@
 import styles from "./ShopEquipment.module.css";
 import { mechActions } from "../../store/mech-slice";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import React from "react";
 
 const ShopItem = ({ item }) => {
   const dispatch = useDispatch();
-  const mech = useSelector((state) => state.mech);
 
   const handleAddItem = () => {
     const itemToAdd = { ...item };
@@ -16,7 +16,7 @@ const ShopItem = ({ item }) => {
   };
 
   return (
-    <tr key={item.name} className={styles.tableRow}>
+    <tr className={styles.tableRow}>
       <td className={styles.tableEntry}>{item.name}</td>
       <td className={styles.tableEntry}>{item.tons}</td>
       <td className={styles.tableEntry}>{item.critical}</td>
@@ -27,4 +27,4 @@ const ShopItem = ({ item }) => {
   );
 };
 
-export default ShopItem;
+export default React.memo(ShopItem);

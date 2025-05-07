@@ -4,25 +4,27 @@ import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 const AdvancedMechReactor = () => {
   const dispatch = useDispatch();
-  const mech = useSelector((state) => state.mech);
-  const ui = useSelector((state) => state.ui);
+
+  const reactorType = useSelector((state) => state.mech.reactor.reactorType);
+  const technologyBase = useSelector((state) => state.mech.technologyBase);
 
   const handleReactorSelect = (event) => {
-    const reactorType = event.target.value;
-    if (reactorType === "XL" || reactorType === "Light") {
-      let slots = ["loc1", "loc2"];
-      if (mech.technologyBase === "Inner Sphere" && reactorType === "XL") {
+    const selectedType = event.target.value;
+
+    if (selectedType === "XL" || selectedType === "Light") {
+      const slots = ["loc1", "loc2"];
+      if (technologyBase === "Inner Sphere" && selectedType === "XL") {
         slots.push("loc3");
       }
       dispatch(
         mechActions.unInstallEquipFromZone({
           zones: ["rtorso", "ltorso"],
-          slots: slots,
+          slots,
         })
       );
     }
 
-    dispatch(mechActions.setReactorType(event.target.value));
+    dispatch(mechActions.setReactorType(selectedType));
   };
 
   return (
@@ -33,15 +35,15 @@ const AdvancedMechReactor = () => {
           labelId="select-reactor-label"
           id="select-reactor"
           label="Choose Reactor"
-          value={mech.reactor.reactorType}
+          value={reactorType}
           onChange={handleReactorSelect}
         >
           <MenuItem value="Standard">Standard</MenuItem>
           <MenuItem value="XL">XL Engine</MenuItem>
-          {mech.technologyBase === "Inner Sphere" && (
+          {technologyBase === "Inner Sphere" && (
             <MenuItem value="Compact">Compact Engine</MenuItem>
           )}
-          {mech.technologyBase === "Inner Sphere" && (
+          {technologyBase === "Inner Sphere" && (
             <MenuItem value="Light">Light Engine</MenuItem>
           )}
         </Select>

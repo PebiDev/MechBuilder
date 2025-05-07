@@ -1,29 +1,28 @@
 import { useSelector } from "react-redux";
+import { useMemo } from "react";
 
 const ShowEquipment = () => {
-  const mech = useSelector((state) => state.mech);
-  const equipment = [];
+  const weapons = useSelector((state) => state.mech.equipment.weapons);
+  const ammo = useSelector((state) => state.mech.equipment.ammo);
+  const gear = useSelector((state) => state.mech.equipment.gear);
 
-  mech.equipment.weapons.map((weapon) => equipment.push(weapon));
-  mech.equipment.ammo.map((ammo) => equipment.push(ammo));
-  mech.equipment.gear.map((gear) => equipment.push(gear));
+  const equipment = useMemo(
+    () => [...weapons, ...ammo, ...gear],
+    [weapons, ammo, gear]
+  );
+
+  if (equipment.length === 0) return null;
 
   return (
-    <>
-      {equipment.length > 0 && (
-        <div>
-          <h3>Equipment :</h3>
-          {equipment.map((item) => {
-            return (
-              <p key={item.id}>
-                {item.name}
-                <span className="substract-tons">-{item.tons} tons</span>
-              </p>
-            );
-          })}
-        </div>
-      )}
-    </>
+    <div>
+      <h3>Equipment :</h3>
+      {equipment.map((item) => (
+        <p key={item.id}>
+          {item.name}
+          <span className="substract-tons"> -{item.tons} tons</span>
+        </p>
+      ))}
+    </div>
   );
 };
 
