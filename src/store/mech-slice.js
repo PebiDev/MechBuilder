@@ -216,11 +216,6 @@ const initialMechState = {
 
 const deepCopy = (o) => JSON.parse(JSON.stringify(o));
 
-const checkForItemInZone = (zone, locs) => {
-  let itemToRemove = [];
-  return true;
-};
-
 const mechSlice = createSlice({
   name: "mech",
   initialState: initialMechState,
@@ -873,7 +868,7 @@ const mechSlice = createSlice({
     stripArmor(state) {
       let newMech = deepCopy(state);
       if (newMech.armor.armorWeight > 0) {
-        if (newMech.chassisType === "bipedal") {
+        if (newMech.chassisType === "Bipedal") {
           newMech.armor.armorValue = {
             head: 0,
             ctorso: 0,
@@ -919,7 +914,7 @@ const mechSlice = createSlice({
       const rltorsoFront = Math.floor(rltorsoMax * 0.75);
       const rltorsoRear = rltorsoMax - rltorsoFront;
 
-      if (newMech.chassisType === "bipedal") {
+      if (newMech.chassisType === "Bipedal") {
         newMech.armor.armorValue = {
           head: 9,
           ctorso: ctorsoFront,

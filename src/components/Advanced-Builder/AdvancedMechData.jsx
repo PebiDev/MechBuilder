@@ -6,10 +6,13 @@ import {
   StyledFormLabel,
   StyledFormControlLabel,
 } from "../StyledComponents";
+import React from "react";
 
 const AdvancedMechData = () => {
   const dispatch = useDispatch();
-  const mech = useSelector((state) => state.mech);
+
+  const technologyBase = useSelector((state) => state.mech.technologyBase);
+  const chassisType = useSelector((state) => state.mech.chassisType);
 
   const handleTechBaseRadio = (event) => {
     dispatch(mechActions.setTechnologyBase(event.target.value));
@@ -31,7 +34,7 @@ const AdvancedMechData = () => {
             aria-labelledby="techbase-radio-group"
             name="techbase-radio-group"
             onChange={handleTechBaseRadio}
-            value={mech.technologyBase}
+            value={technologyBase}
           >
             <StyledFormControlLabel
               value="Inner Sphere"
@@ -46,6 +49,7 @@ const AdvancedMechData = () => {
           </RadioGroup>
         </StyledFormControl>
       </div>
+
       <div id="chassis-type-radio">
         <StyledFormControl>
           <StyledFormLabel id="chassistype-radio-group">
@@ -56,7 +60,7 @@ const AdvancedMechData = () => {
             aria-labelledby="chassistype-radio-group"
             name="chassistype-radio-group"
             onChange={handleChassisTypeRadio}
-            value={mech.chassisType}
+            value={chassisType}
           >
             <StyledFormControlLabel
               value="Bipedal"
@@ -75,4 +79,4 @@ const AdvancedMechData = () => {
   );
 };
 
-export default AdvancedMechData;
+export default React.memo(AdvancedMechData);

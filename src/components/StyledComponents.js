@@ -14,10 +14,10 @@ export const StyledFormControl = styled(FormControl)(({ theme }) => ({
 export const StyledSelect = styled(Select)(({ theme }) => ({
   //   backgroundColor: theme.palette.background.paper,
   borderRadius: 4,
-  padding: "8px 12px",
+  // padding: "8px 12px",
   minWidth: 200,
   "& .MuiSelect-select": {
-    paddingRight: "32px", // space for dropdown icon
+    paddingRight: "32px",
   },
   "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
     borderColor: theme.palette.primary.main,

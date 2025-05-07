@@ -1,93 +1,79 @@
+import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
-import { useState } from "react";
 
 const DistributeArmorRearSlider = ({ zone, rearzone }) => {
   const dispatch = useDispatch();
-  const mech = useSelector((state) => state.mech);
+  const armor = useSelector((state) => state.mech.armor);
 
-  let maxArmor = mech.armor.internal[zone] * 2;
+  const maxArmor = useMemo(
+    () => armor.internal[zone] * 2,
+    [armor.internal, zone]
+  );
 
-  const checkOverArmored = (armorpoints) => {
-    let ArmorPointsToAdd = armorpoints;
-
-    if (ArmorPointsToAdd > mech.armor.unassignedPoints) {
-      ArmorPointsToAdd = armorpoints - mech.armor.unassignedPoints;
-    }
-    return ArmorPointsToAdd;
-  };
+  const checkOverArmored = (points) => Math.min(points, armor.unassignedPoints);
 
   const frontSlideHandler = (event) => {
-    let sliderArmor = checkOverArmored(Number(event.target.value));
+    const frontValue = checkOverArmored(Number(event.target.value));
+    const rearValue = Math.min(
+      maxArmor - frontValue,
+      armor.armorValue[rearzone]
+    );
 
-    if (sliderArmor + mech.armor.armorValue[rearzone] > maxArmor) {
-      const newReararmorValue = maxArmor - sliderArmor;
-
-      dispatch(
-        mechActions.addArmorValueToZone({
-          zone: rearzone,
-          armorpoints: newReararmorValue,
-        })
-      );
-    }
+    dispatch(
+      mechActions.addArmorValueToZone({ zone, armorpoints: frontValue })
+    );
     dispatch(
       mechActions.addArmorValueToZone({
-        zone: zone,
-        armorpoints: sliderArmor,
+        zone: rearzone,
+        armorpoints: rearValue,
       })
     );
   };
 
   const rearSlideHandler = (event) => {
-    let rearArmor = checkOverArmored(Number(event.target.value));
+    const rearValue = checkOverArmored(Number(event.target.value));
+    const frontValue = Math.min(maxArmor - rearValue, armor.armorValue[zone]);
 
-    if (mech.armor.armorValue[zone] + rearArmor > maxArmor) {
-      let newFrontarmorValue = maxArmor - rearArmor;
-
-      dispatch(
-        mechActions.addArmorValueToZone({
-          zone: zone,
-          armorpoints: newFrontarmorValue,
-        })
-      );
-    }
     dispatch(
       mechActions.addArmorValueToZone({
         zone: rearzone,
-        armorpoints: rearArmor,
+        armorpoints: rearValue,
       })
+    );
+    dispatch(
+      mechActions.addArmorValueToZone({ zone, armorpoints: frontValue })
     );
   };
 
   return (
     <div className="dist-armor-slider">
       <span>
-        Choose Armor for {zone}: {mech.armor.armorValue[zone]} ({maxArmor})
+        Choose Armor for {zone}: {armor.armorValue[zone]} ({maxArmor})
       </span>
       <input
         type="range"
         min="0"
         max={maxArmor}
         className="slider"
-        value={mech.armor.armorValue[zone]}
+        value={armor.armorValue[zone]}
         onInput={frontSlideHandler}
-      ></input>
+      />
 
       <br />
       <span>
-        Choose Armor for {rearzone}: {mech.armor.armorValue[rearzone]} (
-        {maxArmor})
+        Choose Armor for {rearzone}: {armor.armorValue[rearzone]} ({maxArmor})
       </span>
       <input
         type="range"
         min="0"
         max={maxArmor}
         className="slider"
-        value={mech.armor.armorValue[rearzone]}
+        value={armor.armorValue[rearzone]}
         onInput={rearSlideHandler}
-      ></input>
+      />
     </div>
   );
 };
 
-export default DistributeArmorRearSlider;
+export default React.memo(DistributeArmorRearSlider);

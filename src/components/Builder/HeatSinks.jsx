@@ -1,64 +1,75 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
+import { useMemo } from "react";
 
 const HeatSinks = () => {
   const dispatch = useDispatch();
-  const mech = useSelector((state) => state.mech);
-  const ui = useSelector((state) => state.ui);
 
-  const heatSinkHandler = (event) => {
-    dispatch(mechActions.addHeatsinks(event.target.value));
+  const heatsinkType = useSelector((state) => state.mech.heatsinks.type);
+  const heatsinkNumber = useSelector((state) => state.mech.heatsinks.number);
+  const advancedOptions = useSelector((state) => state.ui.advancedOptions);
+
+  const heatSinkOptions = useMemo(
+    () => Array.from({ length: 24 }, (_, i) => i),
+    []
+  );
+
+  const handleHeatSinkChange = (event) => {
+    dispatch(mechActions.addHeatsinks(Number(event.target.value)));
   };
-  const heatSinkOptions = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-    22, 23,
-  ];
 
-  const handleHeatsinkType = (event) => {
+  const handleHeatsinkTypeChange = (event) => {
     dispatch(mechActions.setHeatsinkType(event.target.value));
   };
 
+  const additionalHeatsinks = useMemo(() => {
+    return Math.max(0, heatsinkNumber - 10);
+  }, [heatsinkNumber]);
+
   return (
     <div id="mech-heatsinks" className="form-element">
-      {ui.advancedOptions && (
+      {advancedOptions && (
         <div id="heatsink-type-radio">
           <p>Choose Heatsink Type:</p>
           <input
             type="radio"
             id="heatsink-type-standard"
-            name="heatsink-type-standard"
+            name="heatsink-type"
             value="standard"
-            checked={mech.heatsinks.type === "standard"}
-            onChange={handleHeatsinkType}
+            checked={heatsinkType === "standard"}
+            onChange={handleHeatsinkTypeChange}
           />
           <label htmlFor="heatsink-type-standard">Standard</label>
           <input
             type="radio"
             id="heatsink-type-double"
-            name="heatsink-type-double"
+            name="heatsink-type"
             value="double"
-            checked={mech.heatsinks.type === "double"}
-            onChange={handleHeatsinkType}
+            checked={heatsinkType === "double"}
+            onChange={handleHeatsinkTypeChange}
           />
           <label htmlFor="heatsink-type-double">Double</label>
         </div>
       )}
-      <label htmlFor="heatsink-select">Choose additional Heatsinks</label>
+
+      <label htmlFor="heatsink-select">Choose Additional Heatsinks</label>
       <select
         name="heatsink-select"
         id="heatsink-select"
-        onChange={heatSinkHandler}
+        onChange={handleHeatSinkChange}
+        value={heatsinkNumber}
       >
-        {heatSinkOptions.map((heatsink, index) => {
-          return <option key={heatsink}>{index}</option>;
-        })}
+        {heatSinkOptions.map((count) => (
+          <option key={count} value={count}>
+            {count}
+          </option>
+        ))}
       </select>
-      {mech.heatsinks.number > 10 && (
+
+      {additionalHeatsinks > 0 && (
         <p>
-          Installing {mech.heatsinks.number - 10} additional Heatsinks:
-          <span className="substract-tons">
-            -{mech.heatsinks.number - 10} tons
-          </span>
+          Installing {additionalHeatsinks} additional Heatsinks:
+          <span className="substract-tons">-{additionalHeatsinks} tons</span>
         </p>
       )}
     </div>

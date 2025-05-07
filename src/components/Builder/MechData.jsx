@@ -1,19 +1,16 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 import AdvancedMechData from "../Advanced-Builder/AdvancedMechData";
-import { MenuItem, TextField, InputLabel, Select } from "@mui/material";
+import { MenuItem, TextField, InputLabel } from "@mui/material";
 import { StyledSelect, StyledFormControl } from "../StyledComponents";
 import { useMemo } from "react";
 
 const MechData = () => {
-  const mechTonnage = useMemo(
-    () => [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100],
-    []
-  );
-
   const dispatch = useDispatch();
-  const mech = useSelector((state) => state.mech);
-  const ui = useSelector((state) => state.ui);
+
+  const mechName = useSelector((state) => state.mech.name);
+  const mechTonnage = useSelector((state) => state.mech.tonnage);
+  const advancedOptions = useSelector((state) => state.ui.advancedOptions);
 
   const nameHandler = (event) => {
     dispatch(mechActions.setName(event.target.value));
@@ -23,17 +20,28 @@ const MechData = () => {
     dispatch(mechActions.setMechTonnage(event.target.value));
   };
 
+  const tonnageOptions = useMemo(() => {
+    const options = [
+      20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100,
+    ];
+    return options.map((tonnage) => (
+      <MenuItem key={tonnage} value={tonnage}>
+        {tonnage}
+      </MenuItem>
+    ));
+  }, []);
+
   return (
     <div className="mech-data form-element">
       <TextField
         label="Name your Mech"
-        value={mech.name}
+        value={mechName}
         onChange={nameHandler}
         variant="outlined"
         className="name-textfield"
-      />{" "}
+      />
       <br />
-      {ui.advancedOptions && <AdvancedMechData />}
+      {advancedOptions && <AdvancedMechData />}
       <br />
       <StyledFormControl>
         <InputLabel id="select-mech-tonnage-label">
@@ -42,17 +50,11 @@ const MechData = () => {
         <StyledSelect
           labelId="select-mech-tonnage-label"
           id="select-mech-tonnage"
-          value={mech.tonnage}
+          value={mechTonnage}
           label="Select Mech Tonnage"
           onChange={mechTonnageHandler}
         >
-          {mechTonnage.map((tonnage) => {
-            return (
-              <MenuItem key={tonnage} value={tonnage}>
-                {tonnage}
-              </MenuItem>
-            );
-          })}
+          {tonnageOptions}
         </StyledSelect>
       </StyledFormControl>
     </div>

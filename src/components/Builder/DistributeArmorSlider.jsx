@@ -1,33 +1,29 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
+import React from "react";
 
 const DistributeArmorSlider = ({ zone }) => {
   const dispatch = useDispatch();
-  const mech = useSelector((state) => state.mech);
 
-  let maxArmor = mech.armor.internal[zone] * 2;
-  if (zone == "head") {
-    maxArmor = 9;
-  }
+  const zoneArmor = useSelector((state) => state.mech.armor.armorValue[zone]);
+  const internal = useSelector((state) => state.mech.armor.internal[zone]);
+  const unassignedPoints = useSelector(
+    (state) => state.mech.armor.unassignedPoints
+  );
 
-  const checkOverArmored = (armorpoints) => {
-    let ArmorPointsToAdd = armorpoints;
-
-    // this causes issues - allows for negative unassignedPoints
-    if (ArmorPointsToAdd >= mech.armor.unassignedPoints) {
-      ArmorPointsToAdd = armorpoints - mech.armor.unassignedPoints;
-    }
-    return ArmorPointsToAdd;
-  };
+  const maxArmor = zone === "head" ? 9 : internal * 2;
 
   const zoneSlideHandler = (event) => {
-    const sliderArmor = checkOverArmored(Number(event.target.value));
-    const armorZone = zone;
+    const desired = Number(event.target.value);
+
+    // Prevent assigning more than allowed
+    const totalAvailable = zoneArmor + unassignedPoints;
+    const clampedValue = Math.min(desired, totalAvailable);
 
     dispatch(
       mechActions.addArmorValueToZone({
-        zone: armorZone,
-        armorpoints: sliderArmor,
+        zone,
+        armorpoints: clampedValue,
       })
     );
   };
@@ -35,18 +31,18 @@ const DistributeArmorSlider = ({ zone }) => {
   return (
     <div className="dist-armor-slider">
       <span>
-        Choose Armor for {zone}: {mech.armor.armorValue[zone]} ({maxArmor})
+        Choose Armor for {zone}: {zoneArmor} / {maxArmor}
       </span>
       <input
         type="range"
         min="0"
         max={maxArmor}
         className="slider"
-        value={mech.armor.armorValue[zone]}
+        value={zoneArmor}
         onInput={zoneSlideHandler}
-      ></input>
+      />
     </div>
   );
 };
 
-export default DistributeArmorSlider;
+export default React.memo(DistributeArmorSlider);

@@ -1,16 +1,22 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
+import { uiActions } from "../../store/ui-slice";
 import DistributeArmorSlider from "./DistributeArmorSlider";
 import DistributeArmorRearSlider from "./DistributeArmorRearSlider";
-import { uiActions } from "../../store/ui-slice";
 
 const DistributeArmor = ({ maxArmor }) => {
   const dispatch = useDispatch();
-  const mech = useSelector((state) => state.mech);
+
+  const chassisType = useSelector((state) => state.mech.chassisType);
+  const unassignedPoints = useSelector(
+    (state) => state.mech.armor.unassignedPoints
+  );
+  const armorWeight = useSelector((state) => state.mech.armor.armorWeight);
+
+  const isQuad = chassisType === "Quad";
 
   const handleDistribute = () => {
-    //dispatch(mechActions.distibuteArmor());
-    dispatch(mechActions.testArmorDistribution(mech));
+    dispatch(mechActions.testArmorDistribution());
   };
 
   const handleMaxArmor = () => {
@@ -20,7 +26,7 @@ const DistributeArmor = ({ maxArmor }) => {
   };
 
   const handleStripArmor = () => {
-    dispatch(mechActions.stripArmor(mech));
+    dispatch(mechActions.stripArmor());
   };
 
   const hideArmorDistributionHandler = () => {
@@ -38,34 +44,34 @@ const DistributeArmor = ({ maxArmor }) => {
       <button type="button" onClick={handleStripArmor}>
         Strip Armor
       </button>
-      {mech.armor.unassignedPoints == 0 && mech.armor.armorWeight > 0 && (
+
+      {unassignedPoints === 0 && armorWeight > 0 && (
         <button type="button" onClick={hideArmorDistributionHandler}>
           Hide Armor Distribution
         </button>
       )}
+
       <p>
         Unassigned Armorpoints:{" "}
-        <span
-          // style={{ color: "#ffc404" }}
-          style={{
-            color: mech.armor.unassignedPoints > 0 ? "ffc404" : "#40d250",
-          }}
-        >
-          {mech.armor.unassignedPoints}
-        </span>{" "}
+        <span style={{ color: unassignedPoints > 0 ? "#ffc404" : "#40d250" }}>
+          {unassignedPoints}
+        </span>
       </p>
+
       <DistributeArmorSlider zone="head" />
       <DistributeArmorRearSlider zone="ctorso" rearzone="ctrear" />
       <DistributeArmorRearSlider zone="rltorso" rearzone="rltrear" />
-      {mech.chassisType === "Quad" ? (
-        <DistributeArmorSlider zone="frlleg" />
+
+      {isQuad ? (
+        <>
+          <DistributeArmorSlider zone="frlleg" />
+          <DistributeArmorSlider zone="rrlleg" />
+        </>
       ) : (
-        <DistributeArmorSlider zone="rlarm" />
-      )}
-      {mech.chassisType === "Quad" ? (
-        <DistributeArmorSlider zone="rrlleg" />
-      ) : (
-        <DistributeArmorSlider zone="rlleg" />
+        <>
+          <DistributeArmorSlider zone="rlarm" />
+          <DistributeArmorSlider zone="rlleg" />
+        </>
       )}
     </div>
   );
