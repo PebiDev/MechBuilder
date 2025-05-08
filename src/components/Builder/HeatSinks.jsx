@@ -1,6 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 import { useMemo } from "react";
+import { RadioGroup, Radio, InputLabel, MenuItem } from "@mui/material";
+import {
+  StyledFormControl,
+  StyledFormLabel,
+  StyledFormControlLabel,
+  StyledSelect,
+} from "../StyledComponents";
 
 const HeatSinks = () => {
   const dispatch = useDispatch();
@@ -9,10 +16,13 @@ const HeatSinks = () => {
   const heatsinkNumber = useSelector((state) => state.mech.heatsinks.number);
   const advancedOptions = useSelector((state) => state.ui.advancedOptions);
 
-  const heatSinkOptions = useMemo(
-    () => Array.from({ length: 24 }, (_, i) => i),
-    []
-  );
+  const heatSinkOptions = useMemo(() => {
+    return Array.from({ length: 24 }, (_, i) => (
+      <MenuItem key={i} value={i}>
+        {i}
+      </MenuItem>
+    ));
+  }, []);
 
   const handleHeatSinkChange = (event) => {
     dispatch(mechActions.addHeatsinks(Number(event.target.value)));
@@ -29,42 +39,56 @@ const HeatSinks = () => {
   return (
     <div id="mech-heatsinks" className="form-element">
       {advancedOptions && (
-        <div id="heatsink-type-radio">
-          <p>Choose Heatsink Type:</p>
-          <input
-            type="radio"
-            id="heatsink-type-standard"
-            name="heatsink-type"
-            value="standard"
-            checked={heatsinkType === "standard"}
-            onChange={handleHeatsinkTypeChange}
-          />
-          <label htmlFor="heatsink-type-standard">Standard</label>
-          <input
-            type="radio"
-            id="heatsink-type-double"
-            name="heatsink-type"
-            value="double"
-            checked={heatsinkType === "double"}
-            onChange={handleHeatsinkTypeChange}
-          />
-          <label htmlFor="heatsink-type-double">Double</label>
-        </div>
-      )}
+        <StyledFormControl component="fieldset">
+          <StyledFormLabel component="legend" id="heatsink-radio-group">
+            Choose Heatsink Type
+          </StyledFormLabel>
 
-      <label htmlFor="heatsink-select">Choose Additional Heatsinks</label>
-      <select
-        name="heatsink-select"
-        id="heatsink-select"
-        onChange={handleHeatSinkChange}
-        value={heatsinkNumber}
+          <RadioGroup
+            row
+            aria-labelledby="heatsink-radio-group"
+            name="heatsink-radio-group"
+            onChange={handleHeatsinkTypeChange}
+            value={heatsinkType}
+          >
+            <StyledFormControlLabel
+              value="standard"
+              control={<Radio />}
+              label="Standard"
+            />
+            <StyledFormControlLabel
+              value="double"
+              control={<Radio />}
+              label="Double"
+            />
+          </RadioGroup>
+        </StyledFormControl>
+      )}
+      <br></br>
+      <StyledFormControl>
+        <InputLabel id="select-additional-heatsinks-label">
+          Choose Additional Heatsinks
+        </InputLabel>
+        <StyledSelect
+          labelId="select-additional-heatsinks-label"
+          name="heatsink-select"
+          id="heatsink-select"
+          onChange={handleHeatSinkChange}
+          value={heatsinkNumber - 10}
+        >
+          {heatSinkOptions}
+        </StyledSelect>
+      </StyledFormControl>
+      {/* <label htmlFor="heatsink-select">Choose Additional Heatsinks</label> */}
+      {/* <select
+      
       >
         {heatSinkOptions.map((count) => (
           <option key={count} value={count}>
             {count}
           </option>
         ))}
-      </select>
+      </select> */}
 
       {additionalHeatsinks > 0 && (
         <p>

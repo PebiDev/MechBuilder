@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
+import { StyledFormControl, StyledSelect } from "../StyledComponents";
+import { MenuItem, InputLabel } from "@mui/material";
 
 const Gyro = () => {
   const dispatch = useDispatch();
@@ -34,21 +36,23 @@ const Gyro = () => {
   return (
     <div id="mech-gyro" className="form-element">
       {techBase === "Inner Sphere" && advancedOptions ? (
-        <p>
-          <label htmlFor="gyro-select">Choose Gyro:</label>{" "}
-          <select
-            id="gyro-select"
-            name="gyro-select"
-            value={gyroType}
-            onChange={handleGyroSelect}
-          >
-            <option value="Standard">Standard</option>
-            <option value="Heavy-Duty">Heavy-Duty</option>
-            <option value="Compact">Compact</option>
-            <option value="Extra-Light">Extra-Light</option>
-          </select>
+        <div>
+          <StyledFormControl>
+            <InputLabel id="select-gyro-label">Choose Gyro</InputLabel>
+            <StyledSelect
+              labelId="select-gyro-label"
+              id="select-gyro"
+              value={gyroType}
+              onChange={handleGyroSelect}
+            >
+              <MenuItem value="Standard">Standard</MenuItem>
+              <MenuItem value="Heavy-Duty">Heavy-Duty</MenuItem>
+              <MenuItem value="Compact">Compact</MenuItem>
+              <MenuItem value="Extra-Light">Extra-Light</MenuItem>
+            </StyledSelect>
+          </StyledFormControl>
           <span className="substract-tons">-{gyroWeight} tons</span>
-        </p>
+        </div>
       ) : (
         <p>
           Installing Gyro:

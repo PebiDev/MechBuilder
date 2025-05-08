@@ -196,7 +196,7 @@ const initialMechState = {
   reactor: { reactorType: "standard", reactorValue: 0, reactorweight: 0 },
   movement: { walking: "", running: "", jumping: "" },
 
-  gyro: { type: "standard", weightMultiplier: 0 },
+  gyro: { type: "Standard", weightMultiplier: 0 },
   heatsinks: { type: "standard", heatsinkCritSlots: 1, number: 10 },
   armor: {
     armorWeight: 0,
