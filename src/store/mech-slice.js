@@ -1376,17 +1376,26 @@ const mechSlice = createSlice({
           newMech.zones[zoneForRemoval]
         )) {
           if (entry !== "" && locsForRemoval.includes(loc)) {
-            for (const [equipCategory, categoryEntries] of Object.entries(
+            for (const [_, categoryEntries] of Object.entries(
               newMech.equipment
             )) {
               categoryEntries.forEach((item) => {
                 if (
-                  item.location === zoneForRemoval &&
-                  item.slots.includes(loc)
+                  (item.location === zoneForRemoval &&
+                    item.slots.includes(loc)) ||
+                  ("splitZoneSlots" in item &&
+                    item.splitZoneSlots.includes(loc))
                 ) {
                   item.slots.forEach((itemSlot) => {
                     newMech.zones[zoneForRemoval][itemSlot] = "";
                   });
+                  if ("splitZoneSlots" in item) {
+                    item.splitZoneSlots.forEach((splitZoneSlot) => {
+                      if ("splitZones" in item) {
+                        newMech.zones[item.splitZones[1]][splitZoneSlot] = "";
+                      }
+                    });
+                  }
                   item.location = "n/a";
                   item.slots = [];
                   if ("splitZones" in item) {

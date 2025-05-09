@@ -26,7 +26,7 @@ const AdvancedMechData = () => {
     <>
       <div id="tech-base-radio">
         <StyledFormControl component="fieldset">
-          <StyledFormLabel cmponent="legend" id="techbase-radio-group">
+          <StyledFormLabel component="legend" id="techbase-radio-group">
             Choose Technology Base
           </StyledFormLabel>
           <RadioGroup
@@ -60,7 +60,7 @@ const AdvancedMechData = () => {
 
       <div id="chassis-type-radio">
         <StyledFormControl>
-          <StyledFormLabel id="chassistype-radio-group">
+          <StyledFormLabel id="chassistype-radio-group" component="legend">
             Choose Chassis Type
           </StyledFormLabel>
           <RadioGroup

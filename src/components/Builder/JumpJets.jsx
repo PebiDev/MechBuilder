@@ -1,7 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 import { useState, useMemo } from "react";
-import { RadioGroup, Radio, MenuItem, InputLabel } from "@mui/material";
+import {
+  RadioGroup,
+  Radio,
+  MenuItem,
+  InputLabel,
+  OutlinedInput,
+} from "@mui/material";
 import {
   StyledFormControl,
   StyledFormLabel,
@@ -31,7 +37,7 @@ const JumpJets = () => {
     }
 
     return options.map((jumpJet) => (
-      <MenuItem key={jumpJet} value={jumpJet}>
+      <MenuItem id={`jj` + jumpJet} key={jumpJet} value={jumpJet}>
         {jumpJet}
       </MenuItem>
     ));
@@ -61,17 +67,20 @@ const JumpJets = () => {
           </StyledFormLabel>
           <RadioGroup
             row
+            id="radiogroup-jumpjet"
             aria-labelledby="jumpjet-radio-group"
             name="jumpjet-radio-group"
             value={jumpJetType}
             onChange={improvedJumpJetHandler}
           >
             <StyledFormControlLabel
+              id="standard-jumpjet"
               value="Standard"
               control={<Radio />}
               label="Standard"
             ></StyledFormControlLabel>
             <StyledFormControlLabel
+              id="improved-jumpjet"
               value="Improved"
               control={<Radio />}
               label="Improved"
@@ -81,7 +90,10 @@ const JumpJets = () => {
       )}
       <br />
       <StyledFormControl>
-        <InputLabel id="select-jumpjet-label">
+        <InputLabel
+          id="select-jumpjet-label"
+          htmlFor="select-jumpjet-outlined-input"
+        >
           Choose Jump Capability
         </InputLabel>
         <StyledSelect
@@ -90,6 +102,13 @@ const JumpJets = () => {
           id="select-jumpjet"
           value={jumping}
           onChange={handleJumpJetSelect}
+          input={
+            <OutlinedInput
+              id="select-jumpjet-outlined-input"
+              label="Choose Jump Capability"
+              aria-labelledby="select-jumpjet-label"
+            />
+          }
         >
           {jumpOptions}
         </StyledSelect>

@@ -35,6 +35,7 @@ const AdvancedRemoveHand = () => {
           <FormControlLabel
             control={
               <Checkbox
+                id="checkbox-right-hand"
                 checked={rarm.loc4 === "Hand Actuator"}
                 onChange={() => handleActuatorChange("rarm", "Hand Actuator")}
               />
@@ -44,6 +45,7 @@ const AdvancedRemoveHand = () => {
           <FormControlLabel
             control={
               <Checkbox
+                id="checkbox-right-lowerarm"
                 checked={rarm.loc3 === "Lower Arm Actuator"}
                 onChange={() =>
                   handleActuatorChange("rarm", "Lower Arm Actuator")
@@ -62,6 +64,7 @@ const AdvancedRemoveHand = () => {
           <FormControlLabel
             control={
               <Checkbox
+                id="checkbox-left-hand"
                 checked={larm.loc4 === "Hand Actuator"}
                 onChange={() => handleActuatorChange("larm", "Hand Actuator")}
               />
@@ -71,6 +74,7 @@ const AdvancedRemoveHand = () => {
           <FormControlLabel
             control={
               <Checkbox
+                id="checkbox-left-lower-arm"
                 checked={larm.loc3 === "Lower Arm Actuator"}
                 onChange={() =>
                   handleActuatorChange("larm", "Lower Arm Actuator")

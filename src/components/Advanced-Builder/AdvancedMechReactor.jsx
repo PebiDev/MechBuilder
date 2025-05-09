@@ -1,6 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
-import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  OutlinedInput,
+} from "@mui/material";
 
 const AdvancedMechReactor = () => {
   const dispatch = useDispatch();
@@ -30,21 +36,41 @@ const AdvancedMechReactor = () => {
   return (
     <div id="advanced-mech-reactor">
       <FormControl sx={{ m: 1, minWidth: 150 }}>
-        <InputLabel id="select-reactor-label">Choose Reactor</InputLabel>
+        <InputLabel
+          htmlFor="select-reactor-outlined-input"
+          id="select-reactor-label"
+        >
+          Choose Reactor
+        </InputLabel>
         <Select
           labelId="select-reactor-label"
           id="select-reactor"
           label="Choose Reactor"
           value={reactorType}
           onChange={handleReactorSelect}
+          input={
+            <OutlinedInput
+              id="select-reactor-outlined-input"
+              label="Choose Reactor"
+              aria-labelledby="select-reactoe-label"
+            />
+          }
         >
-          <MenuItem value="Standard">Standard</MenuItem>
-          <MenuItem value="XL">XL Engine</MenuItem>
+          <MenuItem id="standard-reactor" value="Standard">
+            Standard
+          </MenuItem>
+          <MenuItem id="xl-engine" value="XL">
+            XL Engine
+          </MenuItem>
           {technologyBase === "Inner Sphere" && (
-            <MenuItem value="Compact">Compact Engine</MenuItem>
+            <MenuItem id="compact-engine" value="Compact">
+              Compact Engine
+            </MenuItem>
           )}
           {technologyBase === "Inner Sphere" && (
-            <MenuItem value="Light">Light Engine</MenuItem>
+            <MenuItem id="light-engine" value="Light">
+              Light Engine
+            </MenuItem>
           )}
         </Select>
       </FormControl>

@@ -1,7 +1,12 @@
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 import AdvancedMechReactor from "../Advanced-Builder/AdvancedMechReactor";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+} from "@mui/material";
 import { useMemo } from "react";
 import { StyledSelect } from "../StyledComponents";
 
@@ -30,7 +35,7 @@ const MechReactor = () => {
   const menuItems = useMemo(
     () =>
       speedOptions.map((speed) => (
-        <MenuItem key={speed} value={speed}>
+        <MenuItem id={speed} key={speed} value={speed}>
           {speed}
         </MenuItem>
       )),
@@ -42,7 +47,11 @@ const MechReactor = () => {
   };
 
   return (
-    <div id="mech-reactor" className="form-element">
+    <div
+      id="mech-reactor"
+      htmlFor="select-speed-outlined-input"
+      className="form-element"
+    >
       <FormControl>
         <InputLabel id="select-speed-label">Choose Walking Speed</InputLabel>
         <StyledSelect
@@ -51,6 +60,13 @@ const MechReactor = () => {
           label="Choose Walking Speed"
           value={walkingSpeed}
           onChange={speedHandler}
+          input={
+            <OutlinedInput
+              id="select-speed-outlined-input"
+              label="Choose Walking Speed"
+              aria-labelledby="select-speed-label"
+            />
+          }
         >
           {menuItems}
         </StyledSelect>

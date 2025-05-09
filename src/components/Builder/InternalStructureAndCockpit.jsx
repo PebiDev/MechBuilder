@@ -1,6 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
-import { FormControl, InputLabel, MenuItem, Select, Box } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Box,
+  OutlinedInput,
+} from "@mui/material";
 import { StyledFormControl } from "../StyledComponents";
 
 const InternalStructureAndCockpit = () => {
@@ -43,7 +50,10 @@ const InternalStructureAndCockpit = () => {
           width="300px"
         >
           <StyledFormControl>
-            <InputLabel id="select-internal-label">
+            <InputLabel
+              id="select-internal-label"
+              htmlFor="select-internal-outlined-input"
+            >
               Select Internal Structure
             </InputLabel>
             <Select
@@ -53,9 +63,20 @@ const InternalStructureAndCockpit = () => {
               value={internalStructure}
               onChange={internalStructureHandler}
               style={{ minWidth: 120 }}
+              input={
+                <OutlinedInput
+                  id="select-internal-outlined-input"
+                  label="Select Internal Structure"
+                  aria-labelledby="select-internal-outlined-input"
+                />
+              }
             >
-              <MenuItem value="Standard">Standard</MenuItem>
-              <MenuItem value="Endo Steel">Endo Steel</MenuItem>
+              <MenuItem id="Standard" value="Standard">
+                Standard
+              </MenuItem>
+              <MenuItem id="Endo Steel" value="Endo Steel">
+                Endo Steel
+              </MenuItem>
             </Select>
           </StyledFormControl>
           <span className="substract-tons">-{internalTons} tons</span>
@@ -75,7 +96,12 @@ const InternalStructureAndCockpit = () => {
           width="300px"
         >
           <FormControl sx={{ m: 1, minWidth: 180 }}>
-            <InputLabel id="select-cockpit-label">Select Cockpit</InputLabel>
+            <InputLabel
+              id="select-cockpit-label"
+              htmlFor="select-cockpit-outlined-input"
+            >
+              Select Cockpit
+            </InputLabel>
             <Select
               labelId="select-cockpit-label"
               id="select-cockpit"
@@ -83,9 +109,20 @@ const InternalStructureAndCockpit = () => {
               value={cockpitType}
               onChange={cockpitHandler}
               style={{ minWidth: 120 }}
+              input={
+                <OutlinedInput
+                  id="select-cockpit-outlined-input"
+                  label="Select Mech Tonnage"
+                  aria-labelledby="select-cockpit-label"
+                />
+              }
             >
-              <MenuItem value="Standard Cockpit">Standard Cockpit</MenuItem>
-              <MenuItem value="Small Cockpit">Small Cockpit</MenuItem>
+              <MenuItem id="standard-cockpit" value="Standard Cockpit">
+                Standard Cockpit
+              </MenuItem>
+              <MenuItem id="small-cockpit" value="Small Cockpit">
+                Small Cockpit
+              </MenuItem>
             </Select>
           </FormControl>
           <span className="substract-tons">-{cockpitWeight} tons</span>
