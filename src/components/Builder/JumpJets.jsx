@@ -1,6 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 import { useState, useMemo } from "react";
+import { RadioGroup, Radio, MenuItem, InputLabel } from "@mui/material";
+import {
+  StyledFormControl,
+  StyledFormLabel,
+  StyledFormControlLabel,
+  StyledSelect,
+} from "../StyledComponents";
 
 const JumpJets = () => {
   const dispatch = useDispatch();
@@ -23,7 +30,11 @@ const JumpJets = () => {
       options.push(i);
     }
 
-    return options;
+    return options.map((jumpJet) => (
+      <MenuItem key={jumpJet} value={jumpJet}>
+        {jumpJet}
+      </MenuItem>
+    ));
   }, [jumpJetType, walkingSpeed, runningSpeed]);
 
   const handleJumpJetSelect = (event) => {
@@ -44,30 +55,47 @@ const JumpJets = () => {
   return (
     <div id="mech-jumpjets" className="form-element">
       {advancedOptions && (
-        <div id="jumpjet-type-radio">
-          <p>Choose Jumpjet Type:</p>
-          <input
-            type="radio"
-            id="jumpjet-standard"
-            name="jumpjet"
-            value="Standard"
-            checked={jumpJetType === "Standard"}
+        <StyledFormControl component="fieldset">
+          <StyledFormLabel component="legend" id="jumpjet-radio-group">
+            Choose Jumpjet Type
+          </StyledFormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="jumpjet-radio-group"
+            name="jumpjet-radio-group"
+            value={jumpJetType}
             onChange={improvedJumpJetHandler}
-          />
-          <label htmlFor="jumpjet-standard">Standard</label>
-          <input
-            type="radio"
-            id="jumpjet-improved"
-            name="jumpjet"
-            value="Improved"
-            checked={jumpJetType === "Improved"}
-            onChange={improvedJumpJetHandler}
-          />
-          <label htmlFor="jumpjet-improved">Improved</label>
-        </div>
+          >
+            <StyledFormControlLabel
+              value="Standard"
+              control={<Radio />}
+              label="Standard"
+            ></StyledFormControlLabel>
+            <StyledFormControlLabel
+              value="Improved"
+              control={<Radio />}
+              label="Improved"
+            ></StyledFormControlLabel>
+          </RadioGroup>
+        </StyledFormControl>
       )}
+      <br />
+      <StyledFormControl>
+        <InputLabel id="select-jumpjet-label">
+          Choose Jump Capability
+        </InputLabel>
+        <StyledSelect
+          labelId="select-jumpjet-label"
+          name="select-jumpjet"
+          id="select-jumpjet"
+          value={jumping}
+          onChange={handleJumpJetSelect}
+        >
+          {jumpOptions}
+        </StyledSelect>
+      </StyledFormControl>
 
-      <label htmlFor="jumpjet-select">Choose Jump Capability</label>
+      {/* <label htmlFor="jumpjet-select">Choose Jump Capability</label>
       <select
         id="jumpjet-select"
         name="jumpjet-select"
@@ -79,7 +107,7 @@ const JumpJets = () => {
             {jumpSpeed}
           </option>
         ))}
-      </select>
+      </select> */}
 
       {jumping > 0 && (
         <p>

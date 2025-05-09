@@ -983,7 +983,7 @@ const mechSlice = createSlice({
       for (const [equipmentType, equipments] of Object.entries(
         newMech.equipment
       )) {
-        equipments.map((equip, index) => {
+        equipments.forEach((equip, index) => {
           if (equipId === equip.id) {
             addEquipmentToZone(newMech.equipment[equipmentType][index]);
             newMech.equipment[equipmentType][index].location = equipZone;
@@ -994,10 +994,10 @@ const mechSlice = createSlice({
       // uninstall pushed out items
       let unInstallItem = false;
       for (const [_, equipments] of Object.entries(newMech.equipment)) {
-        equipments.map((item) => {
+        equipments.forEach((item) => {
           if (item.location === equipZone) {
-            item.slots.map((loc) => {
-              equipSlots.map((equipSlot) => {
+            item.slots.forEach((loc) => {
+              equipSlots.forEach((equipSlot) => {
                 if (loc === equipSlot && item.id !== equipId) {
                   unInstallItem = true;
                 }
@@ -1007,7 +1007,7 @@ const mechSlice = createSlice({
           if ("splitZones" in item && item.splitZones[1] === equipZone) {
             if ("splitZoneSlots" in item) {
               item.splitZoneSlots.map((loc) => {
-                equipSlots.map((equipSlot) => {
+                equipSlots.forEach((equipSlot) => {
                   if (loc === equipSlot && item.id !== equipId)
                     unInstallItem = true;
                 });
@@ -1371,7 +1371,7 @@ const mechSlice = createSlice({
       const zonesForRemoval = action.payload.zones;
       const locsForRemoval = action.payload.slots;
 
-      zonesForRemoval.map((zoneForRemoval) => {
+      zonesForRemoval.forEach((zoneForRemoval) => {
         for (const [loc, entry] of Object.entries(
           newMech.zones[zoneForRemoval]
         )) {
@@ -1379,12 +1379,12 @@ const mechSlice = createSlice({
             for (const [equipCategory, categoryEntries] of Object.entries(
               newMech.equipment
             )) {
-              categoryEntries.map((item) => {
+              categoryEntries.forEach((item) => {
                 if (
                   item.location === zoneForRemoval &&
                   item.slots.includes(loc)
                 ) {
-                  item.slots.map((itemSlot) => {
+                  item.slots.forEach((itemSlot) => {
                     newMech.zones[zoneForRemoval][itemSlot] = "";
                   });
                   item.location = "n/a";

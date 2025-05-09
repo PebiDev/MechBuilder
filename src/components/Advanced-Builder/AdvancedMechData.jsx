@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
-import { RadioGroup, Radio } from "@mui/material";
+import { RadioGroup, Radio, Tooltip } from "@mui/material";
 import {
   StyledFormControl,
   StyledFormLabel,
@@ -39,12 +39,20 @@ const AdvancedMechData = () => {
             <StyledFormControlLabel
               value="Inner Sphere"
               control={<Radio />}
-              label="Inner Sphere"
+              label={
+                <Tooltip title="Battlemechs used by the Successor Houses and the Periphery">
+                  <span>Inner Sphere</span>
+                </Tooltip>
+              }
             />
             <StyledFormControlLabel
               value="Clan"
               control={<Radio />}
-              label="Clan"
+              label={
+                <Tooltip title="The Clans have developed superior technology and have access to vastly improved">
+                  <span>Clan</span>
+                </Tooltip>
+              }
             />
           </RadioGroup>
         </StyledFormControl>
@@ -65,12 +73,20 @@ const AdvancedMechData = () => {
             <StyledFormControlLabel
               value="Bipedal"
               control={<Radio />}
-              label="Bipedal"
+              label={
+                <Tooltip title="Almost all Battlemechs are bipedal">
+                  <span>Bipedal</span>
+                </Tooltip>
+              }
             />
             <StyledFormControlLabel
               value="Quad"
               control={<Radio />}
-              label="Quad"
+              label={
+                <Tooltip title="Four-legged Battlemechs are rare, have fewer space for equipment but have some unique advantages">
+                  <span>Quad</span>
+                </Tooltip>
+              }
             />
           </RadioGroup>
         </StyledFormControl>
