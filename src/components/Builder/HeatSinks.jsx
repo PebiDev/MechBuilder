@@ -1,7 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 import { useMemo } from "react";
-import { RadioGroup, Radio, InputLabel, MenuItem } from "@mui/material";
+import {
+  RadioGroup,
+  Radio,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+} from "@mui/material";
 import {
   StyledFormControl,
   StyledFormLabel,
@@ -66,15 +72,26 @@ const HeatSinks = () => {
       )}
       <br></br>
       <StyledFormControl>
-        <InputLabel id="select-additional-heatsinks-label">
+        <InputLabel
+          htmlFor="select-additional-heatsinks-outlined-input"
+          id="select-additional-heatsinks-label"
+        >
           Choose Additional Heatsinks
         </InputLabel>
         <StyledSelect
           labelId="select-additional-heatsinks-label"
           name="heatsink-select"
           id="heatsink-select"
+          label="Choose Additional Heatsinks"
           onChange={handleHeatSinkChange}
           value={heatsinkNumber - 10}
+          input={
+            <OutlinedInput
+              id="select-additional-heatsinks-outlined-input"
+              label="Choose Additional Heatsinks"
+              aria-labelledby="select-mech-tonnage-label"
+            />
+          }
         >
           {heatSinkOptions}
         </StyledSelect>

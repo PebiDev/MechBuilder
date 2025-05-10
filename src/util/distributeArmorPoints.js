@@ -1,141 +1,95 @@
-function allocateArmorPoints(totalPoints, maxValues) {
-  // Initialize result object
-  const allocatedPoints = {
+function distributeArmor(armorFactor, maxValues) {
+  const result = {
     head: 0,
     ctorso: 0,
     ctrear: 0,
     rltorso: 0,
-    rlrear: 0,
+    rltrear: 0,
     rlarm: 0,
     rlleg: 0,
   };
 
-  // Helper function to ensure the values are even for specified zones
-  function adjustForEvenZones(zone, points) {
-    if (["rltorso", "rlrear", "rlarm", "rlleg"].includes(zone)) {
-      return points % 2 === 0 ? points : points - 1; // Ensure even values
-    }
-    return points;
-  }
+  let remaining = armorFactor;
 
-  // Helper function to distribute points to ctorso and rltorso, respecting the 75-25 rule
-  function distributeTorsoPoints(remainingPoints, maxValues) {
-    let allocatedCtorso = 0;
-    let allocatedRltorso = 0;
-    const torsoMax = maxValues.ctorso;
-    const rltorsoMax = maxValues.rltorso;
+  // Assigning head to max
+  const headArmor = Math.min(9, maxValues.head, remaining);
+  result.head = headArmor;
+  remaining -= headArmor;
 
-    // First, allocate the main torso points (ctorso and rltorso)
-    allocatedCtorso = Math.min(remainingPoints * 0.75, torsoMax); // Roughly 75% of the points to ctorso
-    allocatedRltorso = Math.min(remainingPoints * 0.25, rltorsoMax); // Roughly 25% of the points to rltorso
-
-    // Adjust allocations if there are any remaining points that should be added to the remaining zone
-    const totalAllocated = allocatedCtorso + allocatedRltorso;
-    remainingPoints -= totalAllocated;
-
-    // Allocate points to the corresponding rear zones
-    const allocatedCtrear = Math.min(allocatedCtorso * 0.25, maxValues.ctrear); // 25% of the ctorso value to ctrear
-    const allocatedRlrear = Math.min(allocatedRltorso * 0.25, maxValues.rlrear); // 25% of the rltorso value to rlrear
-
-    return {
-      remainingPoints,
-      allocatedCtorso,
-      allocatedCtrear,
-      allocatedRltorso,
-      allocatedRlrear,
-    };
-  }
-
-  // Main allocation loop
-  let remainingPoints = totalPoints;
-
-  // Step 1: Distribute points to the torso and rear zones first
-  const torsoAllocation = distributeTorsoPoints(remainingPoints, maxValues);
-  allocatedPoints.ctorso = torsoAllocation.allocatedCtorso;
-  allocatedPoints.ctrear = torsoAllocation.allocatedCtrear;
-  allocatedPoints.rltorso = torsoAllocation.allocatedRltorso;
-  allocatedPoints.rlrear = torsoAllocation.allocatedRlrear;
-  remainingPoints = torsoAllocation.remainingPoints;
-
-  // Step 2: Allocate points to the other zones based on the remaining points
-  const distributionRatio = {
-    head: 2,
-    ctorso: 3,
-    ctrear: 1,
-    rltorso: 2,
-    rlrear: 1,
-    rlarm: 1,
-    rlleg: 2,
+  //  weight percentages for hit locations
+  const weights = {
+    ctorso: 0.25,
+    ctrear: 0.03,
+    rltorso: 0.1,
+    rltrear: 0.02,
+    rlarm: 0.08,
+    rlleg: 0.125,
   };
 
-  // We continue allocating points based on the distribution ratios
-  while (remainingPoints >= 18) {
-    // Allocate 18 points based on the ratio
-    Object.keys(distributionRatio).forEach((zone) => {
-      const pointsToAllocate = distributionRatio[zone];
-      if (
-        zone !== "ctorso" &&
-        zone !== "rltorso" &&
-        allocatedPoints[zone] + pointsToAllocate <= maxValues[zone]
-      ) {
-        allocatedPoints[zone] += pointsToAllocate;
-        remainingPoints -= pointsToAllocate;
-      }
-    });
+  const totalWeight =
+    weights.ctorso +
+    weights.ctrear +
+    weights.rltorso * 2 +
+    weights.rltrear * 2 +
+    weights.rlarm * 2 +
+    weights.rlleg * 2;
+
+  const desired = {};
+  for (const [zone, weight] of Object.entries(weights)) {
+    const zoneCount = ["rltorso", "rltrear", "rlarm", "rlleg"].includes(zone)
+      ? 2
+      : 1;
+    const weightedPoints = (weight / totalWeight) * remaining;
+    const perSide = Math.round(weightedPoints / zoneCount);
+    desired[zone] = perSide;
   }
 
-  // Step 3: Handle any remaining points less than 18 but greater than 0
-  while (remainingPoints > 0) {
-    for (let zone in distributionRatio) {
-      if (remainingPoints <= 0) break;
-      const max = maxValues[zone];
-      let pointsToAllocate = distributionRatio[zone];
+  // Apply values
+  for (const [zone, amount] of Object.entries(desired)) {
+    const zoneCount = ["rltorso", "rltrear", "rlarm", "rlleg"].includes(zone)
+      ? 2
+      : 1;
+    const assignable = Math.min(amount, maxValues[zone]);
+    result[zone] = assignable;
+    remaining -= assignable * zoneCount;
+  }
 
-      // Ensure that the points allocated don't exceed the max for that zone
-      if (allocatedPoints[zone] + pointsToAllocate <= max) {
-        allocatedPoints[zone] += pointsToAllocate;
-        remainingPoints -= pointsToAllocate;
-      } else {
-        // Adjust if allocating points exceeds max
-        const availablePoints = max - allocatedPoints[zone];
-        allocatedPoints[zone] = max;
-        remainingPoints -= availablePoints;
+  // Spend any leftover armor
+  const zones = Object.keys(result);
+  while (remaining > 0) {
+    let distributed = false;
+    for (const zone of zones) {
+      const zoneCount = ["rltorso", "rltrear", "rlarm", "rlleg"].includes(zone)
+        ? 2
+        : 1;
+      if (result[zone] < maxValues[zone] && remaining >= zoneCount) {
+        result[zone]++;
+        remaining -= zoneCount;
+        distributed = true;
+      }
+    }
+    if (!distributed) break;
+  }
+
+  // Final correction for single point loss due to rounding
+  if (remaining === 1) {
+    if (result.ctorso < maxValues.ctorso) {
+      result.ctorso += 1;
+      remaining -= 1;
+    } else if (result.ctorso > 0) {
+      const reassignTargets = ["rltorso", "rlleg", "rlarm"];
+      for (const zone of reassignTargets) {
+        if (result[zone] < maxValues[zone]) {
+          result.ctorso -= 1;
+          result[zone] += 1;
+          remaining -= 1;
+          break;
+        }
       }
     }
   }
 
-  // Handle any leftover odd points (odd number should be added to ctorso)
-  if (remainingPoints % 2 !== 0) {
-    const pointsToAddToCtorso = Math.min(
-      remainingPoints,
-      maxValues.ctorso - allocatedPoints.ctorso
-    );
-    allocatedPoints.ctorso += pointsToAddToCtorso;
-    remainingPoints -= pointsToAddToCtorso;
-  }
-
-  // Adjust zones for even values
-  for (let zone in allocatedPoints) {
-    allocatedPoints[zone] = adjustForEvenZones(zone, allocatedPoints[zone]);
-  }
-
-  // Return the final allocation
-  return allocatedPoints;
+  return result;
 }
 
-// Example usage
-// const armorPoints = 88; // Example points
-// const maxZoneValues = {
-//   head: 9,        // Head zone max value
-//   ctorso: 22,     // Ctorso max value
-//   ctrear: 22,     // Ctrear max value
-//   rltorso: 16,    // Rltorso max value
-//   rlrear: 16,     // Rlrear max value
-//   rlarm: 12,      // Rlarm max value
-//   rlleg: 16       // Rlleg max value
-// };
-
-const allocatedArmor = allocateArmorPoints(armorPoints, maxZoneValues);
-console.log(allocatedArmor);
-
-export default allocateArmorPoints;
+export default distributeArmor;

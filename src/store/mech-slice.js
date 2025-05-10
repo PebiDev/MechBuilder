@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import internalStructure from "../data/internalStructure";
 import reactorValues from "../data/reactorValues";
 import { v4 as uuidv4 } from "uuid";
+import distributeArmorPoints from "../util/distributeArmorPoints";
 
 const zonesBiped = {
   head: {
@@ -842,16 +843,23 @@ const mechSlice = createSlice({
       }
       return newMech;
     },
-    testArmorDistribution(state) {
+    autoArmorDistribution(state) {
       let newMech = deepCopy(state);
 
       let armorPoints = newMech.armor.armorFactor;
       const intern = newMech.armor.internal;
 
+      const ctFront = Math.ceil((intern.ctorso * 2 * 3) / 4);
+      const ctRear = intern.ctorso * 2 - ctFront;
+      const rltFront = Math.ceil((intern.rltorso * 2 * 3) / 4);
+      const rltRear = intern.rltorso * 2 - rltFront;
+
       const maxArmor = {
         head: 9,
-        ctorso: intern.ctorso * 2,
-        rltorso: intern.rltorso * 2,
+        ctorso: ctFront,
+        ctrear: ctRear,
+        rltorso: rltFront,
+        rltrear: rltRear,
         rlarm: intern.rlarm * 2,
         rlleg: intern.rlleg * 2,
       };
@@ -859,10 +867,10 @@ const mechSlice = createSlice({
       console.log(`max armor: ${JSON.stringify(maxArmor)}`);
       console.log(`armorpoints: ${armorPoints}`);
 
-      // const distArmor = distributePoints(parseInt(armorPoints), maxAmorZones);
+      const distArmor = distributeArmorPoints(parseInt(armorPoints), maxArmor);
 
       console.log(`distributed armor: ${JSON.stringify(distArmor)}`);
-      newMech.armor.armorValue = distArmor;
+      //newMech.armor.armorValue = distArmor;
       return newMech;
     },
     stripArmor(state) {

@@ -47,13 +47,14 @@ const MechReactor = () => {
   };
 
   return (
-    <div
-      id="mech-reactor"
-      htmlFor="select-speed-outlined-input"
-      className="form-element"
-    >
+    <div id="mech-reactor" className="form-element">
       <FormControl>
-        <InputLabel id="select-speed-label">Choose Walking Speed</InputLabel>
+        <InputLabel
+          htmlFor="select-speed-outlined-input"
+          id="select-speed-label"
+        >
+          Choose Walking Speed
+        </InputLabel>
         <StyledSelect
           labelId="select-speed-label"
           id="select-speed"

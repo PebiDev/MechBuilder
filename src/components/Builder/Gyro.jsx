@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 import { StyledFormControl, StyledSelect } from "../StyledComponents";
-import { MenuItem, InputLabel } from "@mui/material";
+import { MenuItem, InputLabel, OutlinedInput } from "@mui/material";
 
 const Gyro = () => {
   const dispatch = useDispatch();
@@ -38,17 +38,37 @@ const Gyro = () => {
       {techBase === "Inner Sphere" && advancedOptions ? (
         <div>
           <StyledFormControl>
-            <InputLabel id="select-gyro-label">Choose Gyro</InputLabel>
+            <InputLabel
+              htmlFor="select-gyro-outlined-input"
+              id="select-gyro-label"
+            >
+              Choose Gyro
+            </InputLabel>
             <StyledSelect
               labelId="select-gyro-label"
               id="select-gyro"
               value={gyroType}
               onChange={handleGyroSelect}
+              input={
+                <OutlinedInput
+                  id="select-gyro-outlined-input"
+                  label="Choose Gyro"
+                  aria-labelledby="select-gyro-label"
+                />
+              }
             >
-              <MenuItem value="Standard">Standard</MenuItem>
-              <MenuItem value="Heavy-Duty">Heavy-Duty</MenuItem>
-              <MenuItem value="Compact">Compact</MenuItem>
-              <MenuItem value="Extra-Light">Extra-Light</MenuItem>
+              <MenuItem id="standard-gyro" value="Standard">
+                Standard
+              </MenuItem>
+              <MenuItem id="heavy-duty-gyro" value="Heavy-Duty">
+                Heavy-Duty
+              </MenuItem>
+              <MenuItem id="compact-gyro" value="Compact">
+                Compact
+              </MenuItem>
+              <MenuItem id="extra-light-gyro" value="Extra-Light">
+                Extra-Light
+              </MenuItem>
             </StyledSelect>
           </StyledFormControl>
           <span className="substract-tons">-{gyroWeight} tons</span>

@@ -6,6 +6,7 @@ import DistributeArmorRearSlider from "./DistributeArmorRearSlider";
 
 const DistributeArmor = ({ maxArmor }) => {
   const dispatch = useDispatch();
+  const armorSliders = useSelector((state) => state.ui.armorSliders);
 
   const chassisType = useSelector((state) => state.mech.chassisType);
   const unassignedPoints = useSelector(
@@ -15,8 +16,12 @@ const DistributeArmor = ({ maxArmor }) => {
 
   const isQuad = chassisType === "Quad";
 
+  const toggleArmorSliders = () => {
+    dispatch(uiActions.toggleArmorSliders());
+  };
+
   const handleDistribute = () => {
-    dispatch(mechActions.testArmorDistribution());
+    dispatch(mechActions.autoArmorDistribution());
   };
 
   const handleMaxArmor = () => {
@@ -35,6 +40,9 @@ const DistributeArmor = ({ maxArmor }) => {
 
   return (
     <div id="distribute-armor">
+      <button onClick={toggleArmorSliders}>
+        Enter ArmorValue {armorSliders ? "manually" : "via Sliders"}
+      </button>
       <button type="button" onClick={handleDistribute}>
         Distribute Armor
       </button>

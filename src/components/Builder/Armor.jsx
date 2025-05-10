@@ -12,6 +12,7 @@ const Armor = () => {
   const techBase = useSelector((state) => state.mech.technologyBase);
   const armorVisible = useSelector((state) => state.ui.armorVisible);
   const advancedOptions = useSelector((state) => state.ui.advancedOptions);
+  const armorSliders = useSelector((state) => state.ui.armorSliders);
 
   const maxArmor = armor.internal.maxarmor;
 

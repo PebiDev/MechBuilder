@@ -4,6 +4,7 @@ const initialUiState = {
   mechVisible: false,
   armorVisible: true,
   advancedOptions: true,
+  armorSliders: true,
 };
 
 const uiSlice = createSlice({
@@ -18,6 +19,9 @@ const uiSlice = createSlice({
     },
     toggleAdvancedOptions(state) {
       state.advancedOptions = !state.advancedOptions;
+    },
+    toggleArmorSliders(state) {
+      state.armorSliders = !state.armorSliders;
     },
   },
 });
