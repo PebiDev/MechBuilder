@@ -102,31 +102,11 @@ const JumpJets = () => {
           id="select-jumpjet"
           value={jumping}
           onChange={handleJumpJetSelect}
-          input={
-            <OutlinedInput
-              id="select-jumpjet-outlined-input"
-              label="Choose Jump Capability"
-              aria-labelledby="select-jumpjet-label"
-            />
-          }
+          inputProps={{ id: "select-jumpjet-outlined-input" }}
         >
           {jumpOptions}
         </StyledSelect>
       </StyledFormControl>
-
-      {/* <label htmlFor="jumpjet-select">Choose Jump Capability</label>
-      <select
-        id="jumpjet-select"
-        name="jumpjet-select"
-        value={jumping}
-        onChange={handleJumpJetSelect}
-      >
-        {jumpOptions.map((jumpSpeed) => (
-          <option key={jumpSpeed} value={jumpSpeed}>
-            {jumpSpeed}
-          </option>
-        ))}
-      </select> */}
 
       {jumping > 0 && (
         <p>

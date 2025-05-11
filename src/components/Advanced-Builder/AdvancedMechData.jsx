@@ -7,6 +7,7 @@ import {
   StyledFormControlLabel,
 } from "../StyledComponents";
 import React from "react";
+import { tooltips } from "../constants/tooltips.tsx";
 
 const AdvancedMechData = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const AdvancedMechData = () => {
   };
 
   return (
-    <>
+    <section aria-label="Mech Configuration">
       <div id="tech-base-radio">
         <StyledFormControl component="fieldset">
           <StyledFormLabel component="legend" id="techbase-radio-group">
@@ -40,7 +41,7 @@ const AdvancedMechData = () => {
               value="Inner Sphere"
               control={<Radio />}
               label={
-                <Tooltip title="Battlemechs used by the Successor Houses and the Periphery">
+                <Tooltip title={tooltips.techBase.innerSphere}>
                   <span>Inner Sphere</span>
                 </Tooltip>
               }
@@ -49,7 +50,7 @@ const AdvancedMechData = () => {
               value="Clan"
               control={<Radio />}
               label={
-                <Tooltip title="The Clans have developed superior technology and have access to vastly improved">
+                <Tooltip title={tooltips.techBase.clan}>
                   <span>Clan</span>
                 </Tooltip>
               }
@@ -59,7 +60,7 @@ const AdvancedMechData = () => {
       </div>
 
       <div id="chassis-type-radio">
-        <StyledFormControl>
+        <StyledFormControl component="fieldset">
           <StyledFormLabel id="chassistype-radio-group" component="legend">
             Choose Chassis Type
           </StyledFormLabel>
@@ -74,7 +75,7 @@ const AdvancedMechData = () => {
               value="Bipedal"
               control={<Radio />}
               label={
-                <Tooltip title="Almost all Battlemechs are bipedal">
+                <Tooltip title={tooltips.chassisType.bipedal}>
                   <span>Bipedal</span>
                 </Tooltip>
               }
@@ -83,7 +84,7 @@ const AdvancedMechData = () => {
               value="Quad"
               control={<Radio />}
               label={
-                <Tooltip title="Four-legged Battlemechs are rare, have fewer space for equipment but have some unique advantages">
+                <Tooltip title={tooltips.chassisType.quad}>
                   <span>Quad</span>
                 </Tooltip>
               }
@@ -91,7 +92,7 @@ const AdvancedMechData = () => {
           </RadioGroup>
         </StyledFormControl>
       </div>
-    </>
+    </section>
   );
 };
 

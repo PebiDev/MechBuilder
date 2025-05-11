@@ -48,24 +48,18 @@ const MechData = () => {
       <StyledFormControl>
         <InputLabel
           id="select-mech-tonnage-label"
-          htmlFor="select-mech-tonnage-outlined-input"
+          htmlFor="select-mech-tonnage-input"
         >
           Select Mech Tonnage
         </InputLabel>
         <StyledSelect
-          labelId="select-mech-tonnage-label"
+          // labelId="select-mech-tonnage-label"
           id="select-mech-tonnage"
           name="select-mech-tonnage"
           value={mechTonnage}
           label="Select Mech Tonnage"
           onChange={mechTonnageHandler}
-          input={
-            <OutlinedInput
-              id="select-mech-tonnage-outlined-input"
-              label="Select Mech Tonnage"
-              aria-labelledby="select-mech-tonnage-label"
-            />
-          }
+          inputProps={{ id: "select-mech-tonnage-input" }}
         >
           {tonnageOptions}
         </StyledSelect>

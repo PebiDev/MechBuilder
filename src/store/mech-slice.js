@@ -864,13 +864,17 @@ const mechSlice = createSlice({
         rlleg: intern.rlleg * 2,
       };
 
-      console.log(`max armor: ${JSON.stringify(maxArmor)}`);
-      console.log(`armorpoints: ${armorPoints}`);
+      // console.log(`max armor: ${JSON.stringify(maxArmor)}`);
+      // console.log(`armorpoints: ${armorPoints}`);
 
       const distArmor = distributeArmorPoints(parseInt(armorPoints), maxArmor);
+      newMech.armor.unassignedPoints = 0;
+      // console.log(`distributed armor: ${JSON.stringify(distArmor)}`);
+      newMech.armor.armorValue = distArmor;
+      // console.log(
+      //   `current armorValue: ${JSON.stringify(newMech.armor.armorValue)}`
+      // );
 
-      console.log(`distributed armor: ${JSON.stringify(distArmor)}`);
-      //newMech.armor.armorValue = distArmor;
       return newMech;
     },
     stripArmor(state) {

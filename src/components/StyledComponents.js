@@ -24,8 +24,18 @@ export const StyledSelect = styled(Select)(({ theme }) => ({
   },
 }));
 
-export const StyledFormControlLabel = styled(FormControlLabel)(() => ({
-  color: "#ffa726",
+// export const StyledFormControlLabel = styled(FormControlLabel)(() => ({
+//   color: "#ffa726",
+// }));
+
+export const StyledFormControlLabel = styled(FormControlLabel, {
+  shouldForwardProp: (prop) => prop !== "checked",
+})(({ checked }) => ({
+  color: checked ? "#ffb74d" : "#ffa726",
+  ".MuiFormControlLabel-label": {
+    fontWeight: checked ? 600 : 400,
+    transition: "color 0.3s ease, font-weight 0.3s ease",
+  },
 }));
 export const StyledFormLabel = styled(FormLabel)(() => ({
   color: "#ffa726",

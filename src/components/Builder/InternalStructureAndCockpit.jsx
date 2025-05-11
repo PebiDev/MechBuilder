@@ -6,9 +6,10 @@ import {
   MenuItem,
   Select,
   Box,
-  OutlinedInput,
+  Tooltip,
 } from "@mui/material";
 import { StyledFormControl } from "../StyledComponents";
+import { tooltips } from "../constants/tooltips.tsx";
 
 const InternalStructureAndCockpit = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,8 @@ const InternalStructureAndCockpit = () => {
   const cockpitWeight = useSelector((state) => state.mech.cockpit.weight);
   const techBase = useSelector((state) => state.mech.technologyBase);
   const advancedOptions = useSelector((state) => state.ui.advancedOptions);
+
+  const endoSteelSlots = techBase === "Clan" ? 7 : 14;
 
   const internalStructureHandler = (event) => {
     dispatch(mechActions.setInternalStructure(event.target.value));
@@ -52,7 +55,7 @@ const InternalStructureAndCockpit = () => {
           <StyledFormControl>
             <InputLabel
               id="select-internal-label"
-              htmlFor="select-internal-outlined-input"
+              htmlFor="select-internal-input"
             >
               Select Internal Structure
             </InputLabel>
@@ -63,19 +66,25 @@ const InternalStructureAndCockpit = () => {
               value={internalStructure}
               onChange={internalStructureHandler}
               style={{ minWidth: 120 }}
-              input={
-                <OutlinedInput
-                  id="select-internal-outlined-input"
-                  label="Select Internal Structure"
-                  aria-labelledby="select-internal-outlined-input"
-                />
-              }
+              inputProps={{ id: "select-internal-input" }}
             >
               <MenuItem id="Standard" value="Standard">
-                Standard
+                <Tooltip
+                  title={tooltips.internalStructure.standard}
+                  placement="right"
+                  arrow
+                >
+                  Standard
+                </Tooltip>
               </MenuItem>
+
               <MenuItem id="Endo Steel" value="Endo Steel">
-                Endo Steel
+                <Tooltip
+                  title={tooltips.internalStructure.endoSteel(endoSteelSlots)}
+                  arrow
+                >
+                  Endo Steel
+                </Tooltip>
               </MenuItem>
             </Select>
           </StyledFormControl>
@@ -98,7 +107,7 @@ const InternalStructureAndCockpit = () => {
           <FormControl sx={{ m: 1, minWidth: 180 }}>
             <InputLabel
               id="select-cockpit-label"
-              htmlFor="select-cockpit-outlined-input"
+              htmlFor="select-cockpit-input"
             >
               Select Cockpit
             </InputLabel>
@@ -109,13 +118,7 @@ const InternalStructureAndCockpit = () => {
               value={cockpitType}
               onChange={cockpitHandler}
               style={{ minWidth: 120 }}
-              input={
-                <OutlinedInput
-                  id="select-cockpit-outlined-input"
-                  label="Select Mech Tonnage"
-                  aria-labelledby="select-cockpit-label"
-                />
-              }
+              inputProps={{ id: "select-cockpit-input" }}
             >
               <MenuItem id="standard-cockpit" value="Standard Cockpit">
                 Standard Cockpit
