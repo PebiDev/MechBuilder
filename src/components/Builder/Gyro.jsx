@@ -1,7 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 import { StyledFormControl, StyledSelect } from "../StyledComponents";
-import { MenuItem, InputLabel, OutlinedInput } from "@mui/material";
+import { MenuItem, InputLabel, OutlinedInput, Tooltip } from "@mui/material";
+import { tooltips } from "../constants/tooltips.tsx";
 
 const Gyro = () => {
   const dispatch = useDispatch();
@@ -58,16 +59,36 @@ const Gyro = () => {
               }
             >
               <MenuItem id="standard-gyro" value="Standard">
-                Standard
+                <Tooltip title={tooltips.gyro.standard} placement="right" arrow>
+                  Standard
+                </Tooltip>
               </MenuItem>
               <MenuItem id="heavy-duty-gyro" value="Heavy-Duty">
-                Heavy-Duty
+                <Tooltip
+                  title={tooltips.gyro.heavyDuty}
+                  placement="right"
+                  arrow
+                >
+                  Heavy-Duty
+                </Tooltip>
               </MenuItem>
               <MenuItem id="compact-gyro" value="Compact">
-                Compact
+                <Tooltip
+                  title={tooltips.gyro.compactGyro}
+                  placement="right"
+                  arrow
+                >
+                  Compact
+                </Tooltip>
               </MenuItem>
               <MenuItem id="extra-light-gyro" value="Extra-Light">
-                Extra-Light
+                <Tooltip
+                  title={tooltips.gyro.extraLight}
+                  placement="right"
+                  arrow
+                >
+                  Extra-Light
+                </Tooltip>
               </MenuItem>
             </StyledSelect>
           </StyledFormControl>

@@ -6,7 +6,7 @@ import {
   Radio,
   MenuItem,
   InputLabel,
-  OutlinedInput,
+  Tooltip,
 } from "@mui/material";
 import {
   StyledFormControl,
@@ -14,6 +14,7 @@ import {
   StyledFormControlLabel,
   StyledSelect,
 } from "../StyledComponents";
+import { tooltips } from "../constants/tooltips.tsx";
 
 const JumpJets = () => {
   const dispatch = useDispatch();
@@ -77,13 +78,29 @@ const JumpJets = () => {
               id="standard-jumpjet"
               value="Standard"
               control={<Radio />}
-              label="Standard"
+              label={
+                <Tooltip
+                  title={tooltips.jumpjets.standardJumpJets}
+                  placement="top"
+                  arrow
+                >
+                  <span>Standard</span>
+                </Tooltip>
+              }
             ></StyledFormControlLabel>
             <StyledFormControlLabel
               id="improved-jumpjet"
               value="Improved"
               control={<Radio />}
-              label="Improved"
+              label={
+                <Tooltip
+                  title={tooltips.jumpjets.improvedJumpJets}
+                  placement="right"
+                  arrow
+                >
+                  <span>Improved</span>
+                </Tooltip>
+              }
             ></StyledFormControlLabel>
           </RadioGroup>
         </StyledFormControl>

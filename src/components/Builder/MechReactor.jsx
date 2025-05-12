@@ -4,6 +4,7 @@ import AdvancedMechReactor from "../Advanced-Builder/AdvancedMechReactor";
 import { FormControl, InputLabel, MenuItem, Tooltip } from "@mui/material";
 import { useMemo } from "react";
 import { StyledSelect } from "../StyledComponents";
+import { tooltips } from "../constants/tooltips.tsx";
 
 const MechReactor = () => {
   const dispatch = useDispatch();
@@ -44,19 +45,20 @@ const MechReactor = () => {
   return (
     <div id="mech-reactor" className="form-element">
       <FormControl>
-        <InputLabel htmlFor="select-speed-input" id="select-speed-label">
-          Choose Walking Speed
-        </InputLabel>
-        <StyledSelect
-          labelId="select-speed-label"
-          id="select-speed"
-          label="Choose Walking Speed"
-          value={walkingSpeed}
-          onChange={speedHandler}
-          inputProps={{ id: "select-speed-input" }}
-        >
-          {menuItems}
-        </StyledSelect>
+        <Tooltip title={tooltips.movement} placement="right">
+          <InputLabel htmlFor="select-speed-input" id="select-speed-label">
+            Choose Walking Speed
+          </InputLabel>
+          <StyledSelect
+            labelId="select-speed-label"
+            id="select-speed"
+            value={walkingSpeed}
+            onChange={speedHandler}
+            inputProps={{ id: "select-speed-input" }}
+          >
+            {menuItems}
+          </StyledSelect>
+        </Tooltip>
       </FormControl>
 
       {walkingSpeed > 0 && (

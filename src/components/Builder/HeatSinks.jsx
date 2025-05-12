@@ -6,7 +6,7 @@ import {
   Radio,
   InputLabel,
   MenuItem,
-  OutlinedInput,
+  Tooltip,
 } from "@mui/material";
 import {
   StyledFormControl,
@@ -14,13 +14,17 @@ import {
   StyledFormControlLabel,
   StyledSelect,
 } from "../StyledComponents";
+import { tooltips } from "../constants/tooltips.tsx";
 
 const HeatSinks = () => {
   const dispatch = useDispatch();
 
   const heatsinkType = useSelector((state) => state.mech.heatsinks.type);
   const heatsinkNumber = useSelector((state) => state.mech.heatsinks.number);
+  const technologyBase = useSelector((state) => state.mech.technologyBase);
   const advancedOptions = useSelector((state) => state.ui.advancedOptions);
+
+  const heatsinkSlots = technologyBase === "Clan" ? 2 : 3;
 
   const heatSinkOptions = useMemo(() => {
     return Array.from({ length: 24 }, (_, i) => (
@@ -60,12 +64,20 @@ const HeatSinks = () => {
             <StyledFormControlLabel
               value="standard"
               control={<Radio />}
-              label="Standard"
+              label={
+                <Tooltip title={tooltips.heatsinks.standard}>
+                  <span>Standard</span>
+                </Tooltip>
+              }
             />
             <StyledFormControlLabel
               value="double"
               control={<Radio />}
-              label="Double"
+              label={
+                <Tooltip title={tooltips.heatsinks.double(heatsinkSlots)}>
+                  <span>Double</span>
+                </Tooltip>
+              }
             />
           </RadioGroup>
         </StyledFormControl>
@@ -73,7 +85,7 @@ const HeatSinks = () => {
       <br></br>
       <StyledFormControl>
         <InputLabel
-          htmlFor="select-additional-heatsinks-outlined-input"
+          htmlFor="select-additional-heatsinks-input"
           id="select-additional-heatsinks-label"
         >
           Choose Additional Heatsinks
@@ -82,30 +94,13 @@ const HeatSinks = () => {
           labelId="select-additional-heatsinks-label"
           name="heatsink-select"
           id="heatsink-select"
-          label="Choose Additional Heatsinks"
+          inputProps={{ id: "select-additional-heatsinks-input" }}
           onChange={handleHeatSinkChange}
           value={heatsinkNumber - 10}
-          input={
-            <OutlinedInput
-              id="select-additional-heatsinks-outlined-input"
-              label="Choose Additional Heatsinks"
-              aria-labelledby="select-mech-tonnage-label"
-            />
-          }
         >
           {heatSinkOptions}
         </StyledSelect>
       </StyledFormControl>
-      {/* <label htmlFor="heatsink-select">Choose Additional Heatsinks</label> */}
-      {/* <select
-      
-      >
-        {heatSinkOptions.map((count) => (
-          <option key={count} value={count}>
-            {count}
-          </option>
-        ))}
-      </select> */}
 
       {additionalHeatsinks > 0 && (
         <p>

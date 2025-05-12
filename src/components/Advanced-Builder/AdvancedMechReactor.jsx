@@ -6,13 +6,17 @@ import {
   Select,
   MenuItem,
   OutlinedInput,
+  Tooltip,
 } from "@mui/material";
+import { tooltips } from "../constants/tooltips.tsx";
 
 const AdvancedMechReactor = () => {
   const dispatch = useDispatch();
 
   const reactorType = useSelector((state) => state.mech.reactor.reactorType);
   const technologyBase = useSelector((state) => state.mech.technologyBase);
+
+  const xlSlots = technologyBase === "Clan" ? 2 : 3;
 
   const handleReactorSelect = (event) => {
     const selectedType = event.target.value;
@@ -36,40 +40,50 @@ const AdvancedMechReactor = () => {
   return (
     <div id="advanced-mech-reactor">
       <FormControl sx={{ m: 1, minWidth: 150 }}>
-        <InputLabel
-          htmlFor="select-reactor-outlined-input"
-          id="select-reactor-label"
-        >
+        <InputLabel htmlFor="select-reactor-input" id="select-reactor-label">
           Choose Reactor
         </InputLabel>
         <Select
           labelId="select-reactor-label"
           id="select-reactor"
-          label="Choose Reactor"
           value={reactorType}
           onChange={handleReactorSelect}
-          input={
-            <OutlinedInput
-              id="select-reactor-outlined-input"
-              label="Choose Reactor"
-              aria-labelledby="select-reactoe-label"
-            />
-          }
+          inputProps={{ id: "select-reactor-input" }}
         >
           <MenuItem id="standard-reactor" value="Standard">
-            Standard
+            <Tooltip title={tooltips.reactor.standard} arrow placement="right">
+              Standard
+            </Tooltip>
           </MenuItem>
           <MenuItem id="xl-engine" value="XL">
-            XL Engine
+            <Tooltip
+              title={tooltips.reactor.xlEngine(xlSlots)}
+              arrow
+              placement="right"
+            >
+              XL Engine
+            </Tooltip>
           </MenuItem>
           {technologyBase === "Inner Sphere" && (
             <MenuItem id="compact-engine" value="Compact">
-              Compact Engine
+              <Tooltip
+                title={tooltips.reactor.compactReactor}
+                arrow
+                placement="right"
+              >
+                Compact Engine
+              </Tooltip>
             </MenuItem>
           )}
           {technologyBase === "Inner Sphere" && (
             <MenuItem id="light-engine" value="Light">
-              Light Engine
+              <Tooltip
+                title={tooltips.reactor.lightEngine}
+                arrow
+                placement="right"
+              >
+                Light Engine
+              </Tooltip>
             </MenuItem>
           )}
         </Select>
