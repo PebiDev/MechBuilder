@@ -1378,6 +1378,7 @@ const mechSlice = createSlice({
 
       return newMech;
     },
+
     unInstallEquipFromZone(state, action) {
       let newMech = deepCopy(state);
       const zonesForRemoval = action.payload.zones;
@@ -1393,29 +1394,33 @@ const mechSlice = createSlice({
             )) {
               categoryEntries.forEach((item) => {
                 if (
-                  (item.location === zoneForRemoval &&
-                    item.slots.includes(loc)) ||
-                  ("splitZoneSlots" in item &&
-                    item.splitZoneSlots.includes(loc))
+                  item.location === zoneForRemoval &&
+                  item.slots.includes(loc)
                 ) {
                   item.slots.forEach((itemSlot) => {
                     newMech.zones[zoneForRemoval][itemSlot] = "";
                   });
-                  if ("splitZoneSlots" in item) {
+                }
+                if (
+                  "splitZones" in item &&
+                  item.splitZones[1] === zoneForRemoval
+                ) {
+                  if ("splitZoneSlots" in item)
                     item.splitZoneSlots.forEach((splitZoneSlot) => {
-                      if ("splitZones" in item) {
-                        newMech.zones[item.splitZones[1]][splitZoneSlot] = "";
-                      }
+                      newMech.zones[item.splitZones[1]][splitZoneSlot] = "";
                     });
-                  }
-                  item.location = "n/a";
-                  item.slots = [];
-                  if ("splitZones" in item) {
-                    delete item.splitZones;
-                  }
-                  if ("splitZoneSlots" in item) {
-                    delete item.splitZoneSlots;
-                  }
+
+                  item.slots.forEach((itemSlot) => {
+                    newMech.zones[item.location][itemSlot] = "";
+                  });
+                }
+                item.location = "n/a";
+                item.slots = [];
+                if ("splitZones" in item) {
+                  delete item.splitZones;
+                }
+                if ("splitZoneSlots" in item) {
+                  delete item.splitZoneSlots;
                 }
               });
             }
