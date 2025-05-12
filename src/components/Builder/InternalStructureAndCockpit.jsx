@@ -121,10 +121,18 @@ const InternalStructureAndCockpit = () => {
               inputProps={{ id: "select-cockpit-input" }}
             >
               <MenuItem id="standard-cockpit" value="Standard Cockpit">
-                Standard Cockpit
+                <Tooltip
+                  title={tooltips.cockpit.standard}
+                  placement="right"
+                  arrow
+                >
+                  Standard Cockpit
+                </Tooltip>
               </MenuItem>
               <MenuItem id="small-cockpit" value="Small Cockpit">
-                Small Cockpit
+                <Tooltip title={tooltips.cockpit.small} arrow>
+                  Small Cockpit
+                </Tooltip>
               </MenuItem>
             </Select>
           </FormControl>

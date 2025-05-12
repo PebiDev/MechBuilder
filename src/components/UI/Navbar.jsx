@@ -8,9 +8,7 @@ const Navbar = () => {
   const mech = useSelector((state) => state.mech);
   const ui = useSelector((state) => state.ui);
   const dispatch = useDispatch();
-  const toggleMechVisible = () => {
-    dispatch(uiActions.toggleDemoVisible());
-  };
+
   const handleResetMech = () => {
     dispatch(mechActions.resetMechToInitialState(mech));
   };
@@ -21,13 +19,6 @@ const Navbar = () => {
 
   return (
     <nav id="navbar" className="navbar">
-      <Button
-        variant="outlined"
-        className="navbar-button"
-        onClick={toggleMechVisible}
-      >
-        Display PH-1
-      </Button>
       <Button
         variant="outlined"
         className="navbar-button"

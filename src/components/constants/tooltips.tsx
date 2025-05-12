@@ -55,6 +55,31 @@ export const tooltips = {
       </span>
     ),
   },
+  cockpit: {
+    standard: (
+      <span>
+        Every Mech requires a <Highlight>Cockpit </Highlight>for the
+        Mechwarrior.
+      </span>
+    ),
+    small: (
+      <span>
+        The <Highlight>Small Cockpit </Highlight>saves one ton of weight and
+        opens up an additional <Highlight>critical slot </Highlight>in the head,
+        but increases all Piloting roll difficulties by one due to the limited
+        space in the crammed cockpit.
+      </span>
+    ),
+  },
+  heatsinks: {
+    standard: (
+      <span>
+        <Highlight>Standard Heatsinks</Highlight> remove one heat and cost{" "}
+        <Highlight>one ton </Highlight> and take up{" "}
+        <Highlight>one critical slot</Highlight>.
+      </span>
+    ),
+  },
 
   armor: {
     standard: (
@@ -70,6 +95,29 @@ export const tooltips = {
         <Highlight>{slots}</Highlight> critical Slots.
       </span>
     ),
-    hardened: "Hardened armor is twice as strong per point but weighs double.",
+    light: (
+      <span>
+        Light Ferro-Fibrous Armor multiplies the armor value by
+        <Highlight> 1.06</Highlight> but takes up only
+        <Highlight> 7</Highlight> critical Slots.
+      </span>
+    ),
+    heavy: (
+      <span>
+        Heavy Ferro-Fibrous Armor multiplies the armor value by
+        <Highlight> 1.24</Highlight> but takes up only
+        <Highlight> 21</Highlight> critical Slots.
+      </span>
+    ),
+    stealth: (
+      <span>
+        Stealth Armor offers no more protection than the standard armor, but
+        incurs penalties
+        <Highlight> penalties for attackers</Highlight> and generates 10 points
+        of heat. It also requires an
+        <Highlight> ECM Gear</Highlight> and takes up
+        <Highlight> 2 slots in every hitlocation</Highlight>.
+      </span>
+    ),
   },
 } satisfies Record<string, Record<string, TooltipEntry>>;
