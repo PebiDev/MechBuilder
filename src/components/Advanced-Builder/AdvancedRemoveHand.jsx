@@ -6,9 +6,11 @@ import {
   FormControl,
   Checkbox,
   Grid,
+  Tooltip,
 } from "@mui/material";
 import { useCallback } from "react";
 import { mechActions } from "../../store/mech-slice";
+import { tooltips } from "../constants/tooltips.tsx";
 
 const AdvancedRemoveHand = () => {
   const dispatch = useDispatch();
@@ -36,23 +38,32 @@ const AdvancedRemoveHand = () => {
             </FormLabel>
             <FormControlLabel
               control={
-                <Checkbox
-                  id="checkbox-right-hand"
-                  checked={rarm.loc4 === "Hand Actuator"}
-                  onChange={() => handleActuatorChange("rarm", "Hand Actuator")}
-                />
+                <Tooltip
+                  title={tooltips.removingHands.handActuator}
+                  placement="top"
+                >
+                  <Checkbox
+                    id="checkbox-right-hand"
+                    checked={rarm.loc4 === "Hand Actuator"}
+                    onChange={() =>
+                      handleActuatorChange("rarm", "Hand Actuator")
+                    }
+                  />
+                </Tooltip>
               }
               label="Right Hand Actuator"
             />
             <FormControlLabel
               control={
-                <Checkbox
-                  id="checkbox-right-lowerarm"
-                  checked={rarm.loc3 === "Lower Arm Actuator"}
-                  onChange={() =>
-                    handleActuatorChange("rarm", "Lower Arm Actuator")
-                  }
-                />
+                <Tooltip title={tooltips.removingHands.lowerArmActuator}>
+                  <Checkbox
+                    id="checkbox-right-lowerarm"
+                    checked={rarm.loc3 === "Lower Arm Actuator"}
+                    onChange={() =>
+                      handleActuatorChange("rarm", "Lower Arm Actuator")
+                    }
+                  />
+                </Tooltip>
               }
               label="Right Lower Arm Actuator"
             />
@@ -67,23 +78,32 @@ const AdvancedRemoveHand = () => {
             </FormLabel>
             <FormControlLabel
               control={
-                <Checkbox
-                  id="checkbox-left-hand"
-                  checked={larm.loc4 === "Hand Actuator"}
-                  onChange={() => handleActuatorChange("larm", "Hand Actuator")}
-                />
+                <Tooltip
+                  title={tooltips.removingHands.handActuator}
+                  placement="top"
+                >
+                  <Checkbox
+                    id="checkbox-left-hand"
+                    checked={larm.loc4 === "Hand Actuator"}
+                    onChange={() =>
+                      handleActuatorChange("larm", "Hand Actuator")
+                    }
+                  />
+                </Tooltip>
               }
               label="Left Hand Actuator"
             />
             <FormControlLabel
               control={
-                <Checkbox
-                  id="checkbox-left-lower-arm"
-                  checked={larm.loc3 === "Lower Arm Actuator"}
-                  onChange={() =>
-                    handleActuatorChange("larm", "Lower Arm Actuator")
-                  }
-                />
+                <Tooltip title={tooltips.removingHands.lowerArmActuator}>
+                  <Checkbox
+                    id="checkbox-left-lower-arm"
+                    checked={larm.loc3 === "Lower Arm Actuator"}
+                    onChange={() =>
+                      handleActuatorChange("larm", "Lower Arm Actuator")
+                    }
+                  />
+                </Tooltip>
               }
               label="Left Lower Arm Actuator"
             />

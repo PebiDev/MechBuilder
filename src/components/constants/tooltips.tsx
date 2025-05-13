@@ -201,11 +201,47 @@ export const tooltips = {
     stealth: (
       <span>
         Stealth Armor offers no more protection than the standard armor, but
-        incurs penalties
+        incurs
         <Highlight> penalties for attackers</Highlight> and generates 10 points
         of heat. It also requires an
         <Highlight> ECM Gear</Highlight> and takes up
         <Highlight> 2 slots in every hitlocation</Highlight>.
+      </span>
+    ),
+  },
+  armorButtons: {
+    distributeArmor: (
+      <span>
+        Assigns all Armorpoints <Highlight>automatically</Highlight>.
+      </span>
+    ),
+    maxArmor: (
+      <span>
+        Automatically sets Armor to the <Highlight>maximum</Highlight> value.
+      </span>
+    ),
+    stripArmor: (
+      <span>
+        Unassigns <Highlight>all</Highlight> Armorpoints.
+      </span>
+    ),
+  },
+
+  removingHands: {
+    handActuator: (
+      <span>
+        Removing the <Highlight>Hand Actuator </Highlight>frees up{" "}
+        <Highlight>1 critical slot</Highlight> but incurs a{" "}
+        <Highlight>+1 penalty to punch attacks.</Highlight> Also the Mech cannot
+        grab or carry objects.
+      </span>
+    ),
+    lowerArmActuator: (
+      <span>
+        Removing the <Highlight>Lower Arm Actuator </Highlight>also removes the
+        corresponding <Highlight>Hand</Highlight>. Also it incurs a{" "}
+        <Highlight>+2 penalty to all physical attacks</Highlight> with that arm
+        and damage from punches is <Highlight>halved</Highlight>.
       </span>
     ),
   },
