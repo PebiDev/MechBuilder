@@ -1,0 +1,24 @@
+{
+  "zones": {
+    "ctorso": "Center Torso",
+    "ctrear": "Center Torso (Rear)",
+    "ltorso": "Left Torso",
+    "ltrear": "Left Torso (Rear)",
+    "rtorso": "Right Torso",
+    "rtrear": "Right Torso (Rear)",
+    "rltorso": "Right/Left Torso",
+    "rltrear": "Right/Left Torso (Rear)",
+    "larm": "Left Arm",
+    "rarm": "Right Arm",
+    "rlarm": "Right/Left Arm",
+    "lleg": "Left Leg",
+    "rleg": "Right Leg",
+
+    "frleg": "Forward Right Leg",
+    "flleg": "Forward Left Leg",
+    "rrleg": "Rear Right Leg",
+    "rlleg": "Rear Left Leg",
+
+    "head": "Head"
+  }
+}
