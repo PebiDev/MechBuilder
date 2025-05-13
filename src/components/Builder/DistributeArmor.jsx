@@ -5,6 +5,7 @@ import { uiActions } from "../../store/ui-slice";
 import DistributeArmorSlider from "./DistributeArmorSlider";
 import DistributeArmorRearSlider from "./DistributeArmorRearSlider";
 import { tooltips } from "../constants/tooltips.tsx";
+import ArmorSlider from "./ArmorSlider.tsx";
 
 const DistributeArmor = ({ maxArmor }) => {
   const dispatch = useDispatch();
@@ -99,19 +100,20 @@ const DistributeArmor = ({ maxArmor }) => {
       </Typography>
 
       {/* Sliders */}
-      <DistributeArmorSlider zone="head" />
-      <DistributeArmorRearSlider zone="ctorso" rearzone="ctrear" />
-      <DistributeArmorRearSlider zone="rltorso" rearzone="rltrear" />
+
+      <ArmorSlider zone="head" />
+      <ArmorSlider zone="ctorso" rearzone="ctrear" />
+      <ArmorSlider zone="rltorso" rearzone="rltrear" />
 
       {isQuad ? (
         <>
-          <DistributeArmorSlider zone="frlleg" />
-          <DistributeArmorSlider zone="rrlleg" />
+          <ArmorSlider zone="frlleg" />
+          <ArmorSlider zone="rrlleg" />
         </>
       ) : (
         <>
-          <DistributeArmorSlider zone="rlarm" />
-          <DistributeArmorSlider zone="rlleg" />
+          <ArmorSlider zone="rlarm" />
+          <ArmorSlider zone="rlleg" />
         </>
       )}
     </Box>
