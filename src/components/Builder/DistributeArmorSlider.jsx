@@ -2,9 +2,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 import React from "react";
 import { Box, Typography, Slider } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const DistributeArmorSlider = ({ zone }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const zoneArmor = useSelector((state) => state.mech.armor.armorValue[zone]);
   const internal = useSelector((state) => state.mech.armor.internal[zone]);
@@ -28,9 +30,9 @@ const DistributeArmorSlider = ({ zone }) => {
   };
 
   return (
-    <Box className="dist-armor-slider" my={2}>
-      <Typography variant="body2" gutterBottom>
-        {`Choose Armor for ${zone.toUpperCase()}: ${zoneArmor} / ${maxArmor}`}
+    <Box>
+      <Typography variant="body2">
+        {`Choose Armor for ${t(`zones.${zone}`)}: ${zoneArmor} / ${maxArmor}`}
       </Typography>
       <Slider
         value={zoneArmor}

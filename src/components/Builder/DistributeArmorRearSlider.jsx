@@ -1,11 +1,15 @@
 import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Box, Slider, Typography } from "@mui/material";
+import { Box, Slider, Typography, Stack } from "@mui/material";
 import { mechActions } from "../../store/mech-slice";
+import { useTranslation } from "react-i18next";
 
 const DistributeArmorRearSlider = ({ zone, rearzone }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   const armor = useSelector((state) => state.mech.armor);
+  const zoneArmor = useSelector((state) => state.mech.armor.armorValue[zone]);
 
   const maxArmor = useMemo(
     () => armor.internal[zone] * 2,
@@ -48,36 +52,32 @@ const DistributeArmorRearSlider = ({ zone, rearzone }) => {
   };
 
   return (
-    <Box sx={{ mb: 4 }}>
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="body2" gutterBottom>
-          Front Armor – {zone.toUpperCase()}: {armor.armorValue[zone]} /{" "}
-          {maxArmor}
-        </Typography>
-        <Slider
-          value={armor.armorValue[zone]}
-          min={0}
-          max={maxArmor}
-          onChange={frontSlideHandler}
-          sx={{ width: 300 }}
-          aria-label={`Front armor slider for ${zone}`}
-        />
-      </Box>
+    <Box>
+      <Typography variant="body2">
+        {`Choose Armor for ${t(`zones.${zone}`)}: ${zoneArmor} / ${maxArmor}`}
+      </Typography>
+      <Slider
+        value={armor.armorValue[zone]}
+        min={0}
+        max={maxArmor}
+        onChange={frontSlideHandler}
+        sx={{ width: 300 }}
+        aria-label={`Front armor slider for ${zone}`}
+      />
 
-      <Box>
-        <Typography variant="body2" gutterBottom>
-          Rear Armor – {rearzone.toUpperCase()}: {armor.armorValue[rearzone]} /{" "}
-          {maxArmor}
-        </Typography>
-        <Slider
-          value={armor.armorValue[rearzone]}
-          min={0}
-          max={maxArmor}
-          onChange={rearSlideHandler}
-          sx={{ width: 300 }}
-          aria-label={`Rear armor slider for ${rearzone}`}
-        />
-      </Box>
+      <Typography variant="body2">
+        {`Choose Armor for ${t(
+          `zones.${rearzone}`
+        )}: ${zoneArmor} / ${maxArmor}`}
+      </Typography>
+      <Slider
+        value={armor.armorValue[rearzone]}
+        min={0}
+        max={maxArmor}
+        onChange={rearSlideHandler}
+        sx={{ width: 300 }}
+        aria-label={`Rear armor slider for ${rearzone}`}
+      />
     </Box>
   );
 };

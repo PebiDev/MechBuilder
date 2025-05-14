@@ -39,7 +39,7 @@ const DistributeArmor = ({ maxArmor }) => {
   };
 
   return (
-    <Box id="distribute-armor" display="flex" flexDirection="column" gap={2}>
+    <Box display="flex" flexDirection="column" gap={1}>
       {/* Buttons row */}
       <Box display="flex" flexWrap="wrap" gap={1} alignItems="center">
         <Button variant="outlined" size="small" onClick={toggleArmorSliders}>
@@ -86,8 +86,6 @@ const DistributeArmor = ({ maxArmor }) => {
           </Button>
         )}
       </Box>
-
-      {/* Armor points summary */}
       <Typography variant="body1">
         Unassigned Armorpoints:{" "}
         <Box
@@ -97,12 +95,9 @@ const DistributeArmor = ({ maxArmor }) => {
           {unassignedPoints}
         </Box>
       </Typography>
-
-      {/* Sliders */}
       <DistributeArmorSlider zone="head" />
       <DistributeArmorRearSlider zone="ctorso" rearzone="ctrear" />
       <DistributeArmorRearSlider zone="rltorso" rearzone="rltrear" />
-
       {isQuad ? (
         <>
           <DistributeArmorSlider zone="frlleg" />
