@@ -5,7 +5,7 @@ type TooltipEntry =
   | ReactNode
   | ((...args: any[]) => string | ReactNode);
 
-const Highlight = styled("span")({
+export const Highlight = styled("span")({
   color: "#ffa726",
   fontWeight: "bold",
 });
