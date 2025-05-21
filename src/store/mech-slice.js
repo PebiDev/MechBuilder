@@ -3,6 +3,10 @@ import internalStructure from "../data/internalStructure";
 import reactorValues from "../data/reactorValues";
 import { v4 as uuidv4 } from "uuid";
 import distributeArmorPoints from "../util/distributeArmorPoints";
+import {
+  structureTable,
+  structureClan,
+} from "../data/alphaStrike/asStructureValues";
 
 const zonesBiped = {
   head: {
@@ -213,6 +217,7 @@ const initialMechState = {
   remainingTons: null,
   criticalSlots: 47,
   zones: zonesBiped,
+  alphaStrikeData: {},
 };
 
 const deepCopy = (o) => JSON.parse(JSON.stringify(o));
@@ -1544,6 +1549,29 @@ const mechSlice = createSlice({
         newMech.criticalSlots -= tc.critical;
       } else {
         return state;
+      }
+
+      return newMech;
+    },
+    setAlphaStrikeData(state) {
+      let newMech = deepCopy(state);
+
+      let asData = newMech.alphaStrikeData;
+
+      asData.movement = newMech.movement.walking * 2;
+      if (newMech.movement.jumping > 0) asData.movement += "j";
+      asData.size = 1;
+      if (newMech.tonnage > 39) asData.size += 1;
+      if (newMech.tonnage > 59) asData.size += 1;
+      if (newMech.tonnage > 79) asData.size += 1;
+
+      asData.armor = Math.round(newMech.armor.armorFactor / 30);
+      const structureIndex = newMech.tonnage / 5 - 3;
+      asData.structure =
+        structureTable[newMech.reactor.reactorType][structureIndex];
+      if (newMech.technologyBase === "Clan") {
+        asData.structure =
+          structureClan[newMech.reactor.reactorType][structureIndex];
       }
 
       return newMech;

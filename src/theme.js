@@ -1,13 +1,16 @@
 import { amber } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 
+const primaryColor = "#ffa726";
+const secondaryColor = "#ffc400";
+
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#ffa726",
+      main: primaryColor,
     },
     secondary: {
-      main: "#ffc400,",
+      main: "#ffc400",
     },
   },
 
@@ -21,15 +24,15 @@ const theme = createTheme({
         root: {
           // Default border color
           "& .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#ffa726",
+            borderColor: primaryColor,
           },
           // Hover state
           "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#ffa726",
+            borderColor: primaryColor,
           },
           // Focused state
           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#ffa726",
+            borderColor: primaryColor,
           },
         },
         input: {
@@ -41,7 +44,7 @@ const theme = createTheme({
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          color: "#ffa726",
+          color: primaryColor,
           "&.Mui-focused": {
             color: "#ffa726",
           },

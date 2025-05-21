@@ -2,6 +2,7 @@ import DisplayArmor from "./DisplayArmor";
 import DisplayEquipment from "./DisplayEquipment";
 import DisplayMovement from "./DisplayMovement";
 import DisplayCritical from "./DisplayCritical";
+import DisplayAlphaStrike from "./DisplayAlphaStrike";
 import "./DisplayMech.modules.css";
 
 export default function DisplayMech({ mech }) {
@@ -35,6 +36,7 @@ export default function DisplayMech({ mech }) {
         <DisplayArmor armor={mech.armor} />
         <DisplayEquipment equipment={mech.equipment} />
         <DisplayCritical zones={mech.zones} />
+        {/* <DisplayAlphaStrike mech={mech.alphaStrike} /> */}
       </div>
     </div>
   );

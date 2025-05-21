@@ -11,10 +11,15 @@ const FinalActions = () => {
   const internalStructure = useSelector(
     (state) => state.mech.internalStructure
   );
+  const alphStrikeData = useSelector((state) => state.mech.alphStrikeData);
 
   const armorSlotsInstalled = Object.values(zones).some((zone) =>
     Object.values(zone).some((entry) => entry.includes("Ferro-Fibrous"))
   );
+
+  const handleAlphaStrikeStats = () => {
+    dispatch(mechActions.setAlphaStrikeData());
+  };
 
   const installEndoSteelHandler = useCallback(() => {
     dispatch(mechActions.installEndoSteel());
@@ -35,6 +40,7 @@ const FinalActions = () => {
 
   return (
     <div id="final-actions">
+      <button onClick={handleAlphaStrikeStats}>Alpha Strike Stats</button>
       {internalStructure === "Endo Steel" && (
         <button onClick={installEndoSteelHandler}>Install EndoSteel</button>
       )}

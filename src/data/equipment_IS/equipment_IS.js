@@ -10,6 +10,7 @@ export default [
     ammo: 45,
     tons: 6,
     critical: 1,
+    alphaStrikeDamage: [0.132, 0.2, 0.2, 0.2],
   },
   {
     category: "Autocannons",
@@ -22,6 +23,7 @@ export default [
     ammo: 20,
     tons: 8,
     critical: 4,
+    alphaStrikeDamage: [0.132, 0.2, 0.2, 0.2],
   },
   {
     category: "Autocannons",
