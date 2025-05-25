@@ -27,7 +27,7 @@ const FinalActions = () => {
 
   const handleInstallArmorSlots = useCallback(() => {
     dispatch(
-      mechActions.installReRollSlotsByOli({
+      mechActions.installReRollSlots({
         name: armorType,
         slots: armorSlots,
       })

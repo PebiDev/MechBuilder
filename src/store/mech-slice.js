@@ -1459,30 +1459,8 @@ const mechSlice = createSlice({
 
       return newMech;
     },
-    InstallReRollSlots(state, action) {
-      let newMech = deepCopy(state);
-      const reRollName = "ReRoll: " + action.payload.name;
-      const reRollSlots = action.payload.slots;
-      let loopCounter = 0;
 
-      while (loopCounter < reRollSlots) {
-        outerLoop: for (const [zone, locs] of Object.entries(newMech.zones)) {
-          for (let i = 0; i < Object.keys(locs).length; i++) {
-            let counter = i + 1;
-            let location = "loc" + counter;
-
-            if (newMech.zones[zone][location] === "") {
-              newMech.zones[zone][location] = reRollName;
-              loopCounter++;
-              break outerLoop;
-            }
-          }
-        }
-      }
-
-      return newMech;
-    },
-    installReRollSlotsByOli(state, action) {
+    installReRollSlots(state, action) {
       let newMech = deepCopy(state);
       const reRollName = "ReRoll: " + action.payload.name;
       let reRollSlots = action.payload.slots;
