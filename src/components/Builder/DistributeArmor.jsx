@@ -40,7 +40,6 @@ const DistributeArmor = ({ maxArmor }) => {
 
   return (
     <Box display="flex" flexDirection="column" gap={1}>
-      {/* Buttons row */}
       <Box display="flex" flexWrap="wrap" gap={1} alignItems="center">
         <Button variant="outlined" size="small" onClick={toggleArmorSliders}>
           Enter Armor Value {armorSliders ? "manually" : "via Sliders"}

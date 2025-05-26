@@ -4,11 +4,6 @@ const DisplayCritical = ({ zones }) => {
   const zoneArray = Object.entries(zones);
 
   return (
-    // <div id="display-critical" className="display-critical">
-    //   {zoneArray.map((zone, index) => {
-    //     return <DisplayZone name={zone[0]} zone={zone} />;
-    //   })}
-    // </div>
     <div id="display-critical" className="display-critical">
       {zoneArray[5][0] === "flleg" ? (
         <DisplayZone name="Forward Left Leg" zone={zoneArray[5]} />

@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { mechActions } from "../../store/mech-slice";
 
+// WORK IN PROGRESS
+
 const DistributeArmorManually = () => {
   const unassignedPoints = useSelector(
     (state) => state.mech.armor.unassignedPoints

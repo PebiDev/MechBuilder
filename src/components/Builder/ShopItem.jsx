@@ -1,4 +1,3 @@
-import styles from "./ShopEquipment.module.css";
 import { mechActions } from "../../store/mech-slice";
 import { useDispatch } from "react-redux";
 import React from "react";
@@ -37,6 +36,32 @@ const ShopItem = ({ item }) => {
           Ammo per Ton: <Highlight>{item.ammo}</Highlight>
         </Typography>
       )}
+      {item.category !== "Special Equipment" && (
+        <>
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <Typography variant="body2">
+              Heat: <Highlight>{item.heat}</Highlight>
+            </Typography>
+            <Typography variant="body2">
+              Damage: <Highlight>{item.damage}</Highlight>
+            </Typography>
+          </Box>
+
+          <Typography variant="body2">
+            Range:
+            <br />
+            {item.minimal !== "-" && (
+              <>
+                {" "}
+                Min.: <Highlight>{item.minimal} </Highlight>
+              </>
+            )}{" "}
+            Short: <Highlight>{item.range[0]} </Highlight>Medium:{" "}
+            <Highlight>{item.range[1]} </Highlight>Long:{" "}
+            <Highlight>{item.range[2]} </Highlight>
+          </Typography>
+        </>
+      )}
     </Box>
   );
   const handleAddItem = () => {
@@ -50,11 +75,11 @@ const ShopItem = ({ item }) => {
 
   return (
     <Tooltip title={itemTooltip} placement="top">
-      <tr className={styles.tableRow}>
-        <td className={styles.tableEntry}>{item.name}</td>
-        <td className={styles.tableEntry}>{item.tons}</td>
-        <td className={styles.tableEntry}>{item.critical}</td>
-        <td className={styles.tableEntry}>
+      <tr>
+        <td>{item.name}</td>
+        <td>{item.tons}</td>
+        <td>{item.critical}</td>
+        <td>
           <button onClick={handleAddItem}>Add</button>
         </td>
       </tr>
