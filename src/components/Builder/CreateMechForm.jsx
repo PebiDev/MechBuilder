@@ -39,7 +39,7 @@ const CreateMechForm = () => {
             <ShopEquipment />
             <FinalActions />
             <RemainingTons />
-            {mech.remainingTons && <></>}
+            {/* {mech.remainingTons && <></>} */}
           </div>
         )}
       </form>

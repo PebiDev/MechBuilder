@@ -1552,6 +1552,53 @@ const mechSlice = createSlice({
           structureClan[newMech.reactor.reactorType][structureIndex];
       }
 
+      let totalAlphaStrikeDamage = [0, 0, 0, 0];
+      let totalHeatOutput = 0;
+      let totalHeatOutputLongRange = 0;
+
+      newMech.equipment.weapons.forEach((weapon) => {
+        let ammoMultiplier = 1;
+        totalHeatOutput += weapon.heat;
+
+        if (weapon.alphaStrikeDamage[2] > 0) {
+          totalHeatOutputLongRange += weapon.heat;
+        }
+
+        if (weapon.ammo !== "-") {
+          const ammoTons = newMech.equipment.ammo.filter(
+            (ammo) => ammo.ammoFor === weapon.name
+          ).length;
+          const ammoTotal = ammoTons * weapon.ammo;
+          const isUltra = weapon.name.includes("Ultra");
+          const isRotary = weapon.name.includes("Rotary");
+
+          const needsMoreAmmo =
+            ammoTotal < 10 ||
+            (isUltra && ammoTotal < 20) ||
+            (isRotary && ammoTotal < 60);
+
+          if (needsMoreAmmo) {
+            ammoMultiplier = 0.75;
+          }
+        }
+        weapon.alphaStrikeDamage.forEach((value, i) => {
+          totalAlphaStrikeDamage[i] += value * ammoMultiplier;
+        });
+      });
+      const roundedAlphaStrikeDamage = totalAlphaStrikeDamage.map((d) =>
+        Math.round(d)
+      );
+
+      totalHeatOutput += 2;
+      if (newMech.movement.jumping) {
+        totalHeatOutput += 1;
+        if (newMech.movement.jumping > 3) {
+          totalHeatOutput += newMech.movement.jumping - 3;
+        }
+      }
+
+      asData.damage = roundedAlphaStrikeDamage;
+
       return newMech;
     },
 
