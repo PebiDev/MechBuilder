@@ -10,6 +10,8 @@ export default [
     ammo: 45,
     tons: 5,
     critical: 3,
+    alphaStrikeDamage: [0.069, 0.105, 0.105, 0.105],
+    alphaStrikeNotes: ["Flak"],
   },
   {
     category: "Autocannons",
@@ -22,6 +24,8 @@ export default [
     ammo: 20,
     tons: 7,
     critical: 4,
+    alphaStrikeDamage: [0.236, 0.315, 0.315, 0],
+    alphaStrikeNotes: ["Flak"],
   },
   {
     category: "Autocannons",
@@ -34,6 +38,8 @@ export default [
     ammo: 10,
     tons: 10,
     critical: 5,
+    alphaStrikeDamage: [0.63, 0.63, 0.63, 0],
+    alphaStrikeNotes: ["Flak"],
   },
   {
     category: "Autocannons",
@@ -46,6 +52,8 @@ export default [
     ammo: 5,
     tons: 12,
     critical: 9,
+    alphaStrikeDamage: [1.26, 1.26, 0, 0],
+    alphaStrikeNotes: ["Flak"],
   },
 
   {
@@ -59,6 +67,7 @@ export default [
     ammo: 45,
     tons: 5,
     critical: 2,
+    alphaStrikeDamage: [0.249, 0.3, 0.3, 0.3],
   },
   {
     category: "Autocannons",
@@ -71,6 +80,7 @@ export default [
     ammo: 20,
     tons: 8,
     critical: 3,
+    alphaStrikeDamage: [0.75, 0.75, 0.75, 0],
   },
   {
     category: "Autocannons",
@@ -83,6 +93,7 @@ export default [
     ammo: 10,
     tons: 10,
     critical: 4,
+    alphaStrikeDamage: [1.5, 1.5, 1.5, 0],
   },
   {
     category: "Autocannons",
@@ -95,6 +106,7 @@ export default [
     ammo: 5,
     tons: 12,
     critical: 8,
+    alphaStrikeDamage: [3, 3, 0, 0],
   },
   {
     category: "Lasers",
@@ -107,6 +119,8 @@ export default [
     ammo: "-",
     tons: 0.25,
     critical: 1,
+    alphaStrikeDamage: [0.2, 0, 0, 0],
+    alphaStrikeNotes: ["Point Defense"],
   },
   {
     category: "Lasers",
@@ -119,6 +133,8 @@ export default [
     ammo: "-",
     tons: 0.5,
     critical: 1,
+    alphaStrikeDamage: [0.5, 0.5, 0, 0],
+    alphaStrikeNotes: ["Point Defense"],
   },
   {
     category: "Lasers",
@@ -131,6 +147,7 @@ export default [
     ammo: "-",
     tons: 1,
     critical: 1,
+    alphaStrikeDamage: [0.7, 0.7, 0, 0],
   },
   {
     category: "Lasers",
@@ -143,6 +160,7 @@ export default [
     ammo: "-",
     tons: 4,
     critical: 1,
+    alphaStrikeDamage: [1, 1, 1, 1],
   },
   {
     category: "Lasers",
@@ -155,6 +173,8 @@ export default [
     ammo: "-",
     tons: 0.5,
     critical: 1,
+    alphaStrikeDamage: [0.33, 0, 0, 0],
+    alphaStrikeNotes: ["Point Defense"],
   },
   {
     category: "Lasers",
@@ -167,6 +187,7 @@ export default [
     ammo: "-",
     tons: 1,
     critical: 1,
+    alphaStrikeDamage: [0.33, 0.33, 0, 0],
   },
   {
     category: "Lasers",
@@ -179,6 +200,7 @@ export default [
     ammo: "-",
     tons: 2,
     critical: 1,
+    alphaStrikeDamage: [0.77, 0.77, 0, 0],
   },
   {
     category: "Lasers",
@@ -191,6 +213,7 @@ export default [
     ammo: "-",
     tons: 6,
     critical: 2,
+    alphaStrikeDamage: [1.1, 1.1, 1.1, 0],
   },
   {
     category: "Lasers",
@@ -203,6 +226,7 @@ export default [
     ammo: "-",
     tons: 0.5,
     critical: 1,
+    alphaStrikeDamage: [0.57, 0, 0, 0],
   },
   {
     category: "Lasers",
@@ -215,6 +239,7 @@ export default [
     ammo: "-",
     tons: 1,
     critical: 2,
+    alphaStrikeDamage: [0.95, 0.95, 0, 0],
   },
   {
     category: "Lasers",
@@ -227,6 +252,7 @@ export default [
     ammo: "-",
     tons: 4,
     critical: 3,
+    alphaStrikeDamage: [1.52, 1.52, 0, 0],
   },
   {
     category: "Gauss Rifles",
@@ -239,6 +265,7 @@ export default [
     ammo: 40,
     tons: 0.5,
     critical: 1,
+    alphaStrikeDamage: [0.3, 0.3, 1.5, 0],
   },
   {
     category: "Gauss Rifles",
@@ -251,6 +278,7 @@ export default [
     ammo: 8,
     tons: 15,
     critical: 7,
+    alphaStrikeDamage: [1.25, 1.5, 1.5, 0],
   },
   {
     category: "Gauss Rifles",
@@ -263,6 +291,8 @@ export default [
     ammo: 6,
     tons: 10,
     critical: 6,
+    alphaStrikeDamage: [1.328, 1.2, 1.2, 0],
+    alphaStrikeNotes: ["Flak"],
   },
   {
     category: "Gauss Rifles",
@@ -275,6 +305,8 @@ export default [
     ammo: 4,
     tons: 13,
     critical: 8,
+    alphaStrikeDamage: [1.992, 1.8, 1.8, 0],
+    alphaStrikeNotes: ["Flak"],
   },
 
   {
@@ -288,6 +320,8 @@ export default [
     ammo: 3,
     tons: 14,
     critical: 10,
+    alphaStrikeDamage: [2.656, 2.4, 2.4, 0],
+    alphaStrikeNotes: ["Flak"],
   },
   {
     category: "Flamers",
@@ -300,6 +334,8 @@ export default [
     ammo: "-",
     tons: 0.5,
     critical: 1,
+    alphaStrikeDamage: [0.2, 0.2, 0, 0],
+    alphaStrikeNotes: ["Heat", "Point Defense"],
   },
   {
     category: "Missiles",
@@ -312,6 +348,7 @@ export default [
     ammo: 20,
     tons: 1.5,
     critical: 2,
+    alphaStrikeDamage: [0.6, 0.4, 0.2, 0.2],
   },
   {
     category: "Missiles",
@@ -324,6 +361,7 @@ export default [
     ammo: 10,
     tons: 3.5,
     critical: 3,
+    alphaStrikeDamage: [1.5, 1, 0.5, 0.5],
   },
   {
     category: "Missiles",
@@ -336,6 +374,7 @@ export default [
     ammo: 7,
     tons: 5,
     critical: 4,
+    alphaStrikeDamage: [2.1, 1.4, 0.7, 0.7],
   },
   {
     category: "Missiles",
@@ -348,6 +387,7 @@ export default [
     ammo: 5,
     tons: 7,
     critical: 5,
+    alphaStrikeDamage: [3, 2, 1, 1],
   },
   {
     category: "Missiles",
@@ -360,6 +400,8 @@ export default [
     ammo: 50,
     tons: 0.5,
     critical: 1,
+    alphaStrikeDamage: [0.2, 0.2, 0, 0],
+    alphaStrikeNotes: ["SRM"],
   },
   {
     category: "Missiles",
@@ -372,6 +414,8 @@ export default [
     ammo: 25,
     tons: 1,
     critical: 1,
+    alphaStrikeDamage: [0.6, 0.6, 0, 0],
+    alphaStrikeNotes: ["SRM"],
   },
   {
     category: "Missiles",
@@ -384,6 +428,8 @@ export default [
     ammo: 15,
     tons: 1.5,
     critical: 1,
+    alphaStrikeDamage: [0.8, 0.8, 0, 0],
+    alphaStrikeNotes: ["SRM"],
   },
   {
     category: "Missiles",
@@ -396,6 +442,8 @@ export default [
     ammo: 50,
     tons: 1.5,
     critical: 2,
+    alphaStrikeDamage: [0.4, 0.4, 0, 0],
+    alphaStrikeNotes: ["SRM"],
   },
   {
     category: "Missiles",
@@ -408,6 +456,8 @@ export default [
     ammo: 25,
     tons: 2,
     critical: 2,
+    alphaStrikeDamage: [0.8, 0.8, 0, 0],
+    alphaStrikeNotes: ["SRM"],
   },
   {
     category: "Missiles",
@@ -420,6 +470,8 @@ export default [
     ammo: 15,
     tons: 2.5,
     critical: 2,
+    alphaStrikeDamage: [1, 1, 0, 0],
+    alphaStrikeNotes: ["SRM"],
   },
   {
     category: "Missiles",
@@ -432,6 +484,7 @@ export default [
     ammo: 50,
     tons: 1,
     critical: 1,
+    alphaStrikeDamage: [0.4, 0.4, 0, 0],
   },
   {
     category: "Missiles",
@@ -444,6 +497,7 @@ export default [
     ammo: 25,
     tons: 2,
     critical: 1,
+    alphaStrikeDamage: [0.8, 0.8, 0, 0],
   },
   {
     category: "Missiles",
@@ -456,6 +510,7 @@ export default [
     ammo: 15,
     tons: 3,
     critical: 2,
+    alphaStrikeDamage: [1.2, 1.2, 0, 0],
   },
   {
     category: "Missiles",
@@ -468,6 +523,8 @@ export default [
     ammo: 24,
     tons: 1,
     critical: 1,
+    alphaStrikeDamage: [0.3, 0.3, 0.3, 0],
+    alphaStrikeNotes: ["LRM", "Indirect Fire"],
   },
   {
     category: "Missiles",
@@ -480,6 +537,8 @@ export default [
     ammo: 12,
     tons: 2.5,
     critical: 1,
+    alphaStrikeDamage: [0.6, 0.6, 0.6, 0],
+    alphaStrikeNotes: ["LRM", "Indirect Fire"],
   },
   {
     category: "Missiles",
@@ -492,6 +551,8 @@ export default [
     ammo: 8,
     tons: 3.5,
     critical: 2,
+    alphaStrikeDamage: [0.9, 0.9, 0.9, 0],
+    alphaStrikeNotes: ["LRM", "Indirect Fire"],
   },
   {
     category: "Missiles",
@@ -504,6 +565,8 @@ export default [
     ammo: 6,
     tons: 5,
     critical: 4,
+    alphaStrikeDamage: [1.2, 1.2, 1.2, 0],
+    alphaStrikeNotes: ["LRM", "Indirect Fire"],
   },
   {
     category: "Missiles",
@@ -516,6 +579,8 @@ export default [
     ammo: 24,
     tons: 2,
     critical: 2,
+    alphaStrikeDamage: [0.4, 0.4, 0.4, 0],
+    alphaStrikeNotes: ["LRM", "Indirect Fire"],
   },
   {
     category: "Missiles",
@@ -528,6 +593,8 @@ export default [
     ammo: 12,
     tons: 3.5,
     critical: 2,
+    alphaStrikeDamage: [0.8, 0.8, 0.8, 0],
+    alphaStrikeNotes: ["LRM", "Indirect Fire"],
   },
   {
     category: "Missiles",
@@ -540,6 +607,8 @@ export default [
     ammo: 8,
     tons: 4.5,
     critical: 3,
+    alphaStrikeDamage: [1.2, 1.2, 1.2, 0],
+    alphaStrikeNotes: ["LRM", "Indirect Fire"],
   },
   {
     category: "Missiles",
@@ -552,6 +621,8 @@ export default [
     ammo: 6,
     tons: 6,
     critical: 5,
+    alphaStrikeDamage: [1.6, 1.6, 1.6, 0],
+    alphaStrikeNotes: ["LRM", "Indirect Fire"],
   },
   {
     category: "Plasma Weapons",
@@ -564,6 +635,8 @@ export default [
     ammo: 10,
     tons: 3,
     critical: 1,
+    alphaStrikeDamage: [0, 0, 0, 0],
+    alphaStrikeNotes: ["Heat"],
   },
   {
     category: "PPCs",
@@ -576,6 +649,7 @@ export default [
     ammo: "-",
     tons: 6,
     critical: 2,
+    alphaStrikeDamage: [1.5, 1.5, 1.5, 0],
   },
   {
     category: "Special Equipment",
