@@ -38,6 +38,8 @@ const FinalActions = () => {
     dispatch(mechActions.removeAllArmorSlots());
   }, [dispatch]);
 
+  const handleSaveMech = () => {};
+
   return (
     <div id="final-actions">
       <button onClick={handleAlphaStrikeStats}>Alpha Strike Stats</button>
@@ -52,6 +54,9 @@ const FinalActions = () => {
       {armorSlots > 0 && (
         <button onClick={handleRemoveArmor}>Remove ArmorSlots</button>
       )}
+      <button onClick={handleSaveMech}>
+        Save <Mech></Mech>
+      </button>
     </div>
   );
 };
