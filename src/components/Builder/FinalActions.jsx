@@ -54,9 +54,7 @@ const FinalActions = () => {
       {armorSlots > 0 && (
         <button onClick={handleRemoveArmor}>Remove ArmorSlots</button>
       )}
-      <button onClick={handleSaveMech}>
-        Save <Mech></Mech>
-      </button>
+      <button onClick={handleSaveMech}>Save Mech</button>
     </div>
   );
 };

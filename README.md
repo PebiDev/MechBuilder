@@ -19,14 +19,26 @@ The biggest challenge was making the building process feel fluid. Only the initi
 If you're unfamiliar with BattleTech, here’s a quick primer:
 BattleMechs are giant combat machines up to 12 meters tall and weighing between 20 and 100 tons. More weight allows for heavier armor and more powerful weapons — but at the cost of speed.
 
-# Open Tasks
+# Mechbuilding Tutorial
 
-- Save: Implementation of "Save" to localStorage
-- Print : Implementation of a "Print" function
-- Alpha Strike : Implementation of Alpha Strike Stats. This is frustrating! As of 26.5.25 the Errata for the "Alpha Strike Heat Conversion" is offline on the official Site and I cannot find it anywhere on the web. The previous section of the rules regarding Heat Conversation is a mess (which is clearly why they made an errata in the first place). Until I can find the correct rules the heat conversion remains unfinished. This currently includes DisplayAlphaStrike component.
-- Weapons: OneShot Launchers are among the few official Battletech rules that I find superflous. Therefore they are currently not included in the Mechbuilder. I should add at them at some point.
-- Advanced Tactical Rules: There are a ton of weapons and equipment available in the "Tactical Handbook". At some point those should be included as well.
-- Existing Mechs: Explore options to tap into the MUL (Master Unil List, which is officially available and lists stats of all existing Battlemechs)
-- Tech Eras: Currently the Equipment available is from the IlClan Era. I would like to give every item an Era in which it is available and include the option for Users to choose an Era. Eras would be: Star League, Succession Wars, Clan Invasion, Fedcom Civil War, Jihad, Dark Age and IlClan.
-- Weapons: Display some Analysis for the Weaponsloadout of a Mech, a heat profile, an Alpha Strike option (not to be confused with the Alpha Strike System. Alpha Strike means firing all Weapons in one attack).
-- Solaris VII: The Solaris VII duel system is old and the current designers are not happy with it. We may see an overhaul in the future but for now, I dont think I will include a conversion to duel rules in the Mechbuilder.
+In case you do not know what to do with the Mechbuilder, let us create Battlemech step by step.
+
+1. In order to get a feel for what the Builder is able to do, activate the "Advanced Options".
+2. Next you can choose to name your Mech, however you like.
+3. As "Technology Base" we will take a Mech from the "Inner Sphere".
+4. As "Chassis Type" let us construct a "bipedal" Mech.
+5. We will go for Medium Mech, so we "select Mech Tonnage" of 50 Tons.
+6. For the "Internal Structure" and the "Cockpit" we choose the "Standard" Options.
+7. Next we choose a "Walking Speed" for our Mech. We want to have Medium Brawler so we will take a Movement Speed of 5 here.
+8. For the Reactor let us stick to the "Standard" reactor for now.
+9. Next up is the Gyro where we will also take the "Standard" Option.
+10. Now for the jump Capability. Jumping adds a lot of maneuverability to Mech so let us choose "Standard" with the maximum of "5" Jump jets.
+11. For "Heatsinks" let us choose "Double Heatsinks". These have a lot of impact on our Mechs combat performance. Let us add two additional Heatsinks. As 10 Heatsinks come automatically with our reactor, we now have 12 double Heatsinks.
+12. Let us to stick to "Standard Armor". Protection is extremely important for most Mechs. We want to design a brawler that has to withstand the thick of close combat so let as choose 160 points (10 tons) of armor. For simplicity lets us click the "Distribute Armor" button which will automatically allocate our armorpoints to the different hit locations.
+13. We can now opt to uninstall Actuators in our arms. I recommend leaving the Lower Arm and Hand Actuators where they are.
+14. As we have added "Jump Jets" and "Heatsinks" we can now install them by choose a "Location" for every component. I recommend addind the Jump Jets to both legs and the final Jump Jet to the center torso. Also the place the "Double Heatsinks" both in the right torso.
+15. As for weapons we want to add some close quarters firepower. Choose "Lasers" and let us "add" two "Medium Laser" to our Mech, by clicking the "Add" button next to it twice. The "Medium Lasers" now appear under "Installing Equipment".
+16. Let us still add more Weapons and choose a "Large Laser" next.
+17. Finally we want to add some more punch to our Brawler by adding an "SRM 6 + Artemis IV". This a missile launcher that will hurl 6 Short Range Missiles against our opponents. You will notice that the Mechbuilder automatically adds a ton of Ammo to our SRM 6 launcher.
+18. All that is left to do is to install our weapons. Put the "Large Laser" in the right Arm, the two "Medium Lasers" in the left Arm and the SRM 6 along with its Ammo in the Right Torso.
+19. We have used up all the Remaining Tons for our Battlemech. You are now free to play around with the options. You could free up some tons by switching to an XL Engine. This

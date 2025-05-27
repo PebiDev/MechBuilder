@@ -965,10 +965,10 @@ const mechSlice = createSlice({
         const slots = item.critical;
 
         //WIP: changing multine item display names
-        const itemDisplayName = (item) => {
-          let displayName = "";
-          if (item.slots.length < 2) return item.name;
-        };
+        // const itemDisplayName = (item) => {
+        //   let displayName = "";
+        //   if (item.slots.length < 2) return item.name;
+        // };
 
         const zoneValues = Object.values(newMech.zones[equipZone]);
         const index = zoneValues.findIndex((loc) => {
@@ -1389,6 +1389,51 @@ const mechSlice = createSlice({
       const zonesForRemoval = action.payload.zones;
       const locsForRemoval = action.payload.slots;
 
+      // PREVIOUS CODE (kept for comparison)
+      // zonesForRemoval.forEach((zoneForRemoval) => {
+      //   for (const [loc, entry] of Object.entries(
+      //     newMech.zones[zoneForRemoval]
+      //   )) {
+      //     if (entry !== "" && locsForRemoval.includes(loc)) {
+      //       for (const [_, categoryEntries] of Object.entries(
+      //         newMech.equipment
+      //       )) {
+      //         categoryEntries.forEach((item) => {
+      //           if (
+      //             item.location === zoneForRemoval &&
+      //             item.slots.includes(loc)
+      //           ) {
+      //             item.slots.forEach((itemSlot) => {
+      //               newMech.zones[zoneForRemoval][itemSlot] = "";
+      //             });
+      //           }
+      //           if (
+      //             "splitZones" in item &&
+      //             item.splitZones[1] === zoneForRemoval
+      //           ) {
+      //             if ("splitZoneSlots" in item)
+      //               item.splitZoneSlots.forEach((splitZoneSlot) => {
+      //                 newMech.zones[item.splitZones[1]][splitZoneSlot] = "";
+      //               });
+
+      //             item.slots.forEach((itemSlot) => {
+      //               newMech.zones[item.location][itemSlot] = "";
+      //             });
+      //           }
+      //           item.location = "n/a";
+      //           item.slots = [];
+      //           if ("splitZones" in item) {
+      //             delete item.splitZones;
+      //           }
+      //           if ("splitZoneSlots" in item) {
+      //             delete item.splitZoneSlots;
+      //           }
+      //         });
+      //       }
+      //     }
+      //   }
+      // });
+
       zonesForRemoval.forEach((zoneForRemoval) => {
         for (const [loc, entry] of Object.entries(
           newMech.zones[zoneForRemoval]
@@ -1398,6 +1443,8 @@ const mechSlice = createSlice({
               newMech.equipment
             )) {
               categoryEntries.forEach((item) => {
+                let shouldRemove = false;
+
                 if (
                   item.location === zoneForRemoval &&
                   item.slots.includes(loc)
@@ -1405,34 +1452,41 @@ const mechSlice = createSlice({
                   item.slots.forEach((itemSlot) => {
                     newMech.zones[zoneForRemoval][itemSlot] = "";
                   });
+                  shouldRemove = true;
                 }
+
                 if (
                   "splitZones" in item &&
                   item.splitZones[1] === zoneForRemoval
                 ) {
-                  if ("splitZoneSlots" in item)
+                  if ("splitZoneSlots" in item) {
                     item.splitZoneSlots.forEach((splitZoneSlot) => {
                       newMech.zones[item.splitZones[1]][splitZoneSlot] = "";
                     });
+                  }
 
                   item.slots.forEach((itemSlot) => {
                     newMech.zones[item.location][itemSlot] = "";
                   });
+
+                  shouldRemove = true;
                 }
-                item.location = "n/a";
-                item.slots = [];
-                if ("splitZones" in item) {
-                  delete item.splitZones;
-                }
-                if ("splitZoneSlots" in item) {
-                  delete item.splitZoneSlots;
+
+                if (shouldRemove) {
+                  item.location = "n/a";
+                  item.slots = [];
+                  if ("splitZones" in item) {
+                    delete item.splitZones;
+                  }
+                  if ("splitZoneSlots" in item) {
+                    delete item.splitZoneSlots;
+                  }
                 }
               });
             }
           }
         }
       });
-
       return newMech;
     },
     installEndoSteel(state) {
